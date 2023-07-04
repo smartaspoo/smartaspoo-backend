@@ -10,6 +10,10 @@ export default defineConfig({
 				// tailwindcss(),
 				autoprefixer(),
 			],
+			server: {
+				host: 'localhost:8000',
+		   },
+		
 			// php : "C:/xampp7/php/php8.exe"
 		}),
 		
