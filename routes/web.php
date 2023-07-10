@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware(['auth'])->group(function () {
-    require app_path('Modules/Employee/routes.php');
     require app_path('Modules/Dashboard/routes.php');
     require app_path('Modules/User/routes.php');
     require app_path('Modules/Menu/routes.php');
@@ -26,6 +25,9 @@ Route::middleware(['auth'])->group(function () {
 
     require app_path('Modules/Penjualan/routes.php');
     require app_path('Modules/DataBarang/routes.php');
+    require app_path('Modules/Diskon/routes.php');
+    require app_path('Modules/Pembelian/routes.php');
+    require app_path('Modules/Satuan/routes.php');
     
     // ROUTE_MARKER
     // Add routes in the line below (DONT REMOVE THIS SECTION !!!!!!, because this line is LINE_MARKER used by Module Generator)
