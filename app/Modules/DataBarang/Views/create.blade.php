@@ -10,7 +10,32 @@
         <div class="card-body">
             <form ref="data_barang_form">
                 <div class="row">
-
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Kode Barang</label>
+                            <input v-model="barang.kode_barang" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Nama Barang</label>
+                            <input v-model="barang.nama_barang" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Harga Jual</label>
+                            <input v-model="barang.harga_barang_jual" class="form-control" type="number">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Harga Beli</label>
+                            <input v-model="barang.harga_barang_beli" class="form-control" type="number">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Stok</label>
+                            <input v-model="barang.stock_global" class="form-control" type="number">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Satuan</label>
+                                <vue-multiselect v-model="satuan_id" :searchable="true" :options="satuan_list" />
+                        </div>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-end">
                     <button type="button" @click="back" class="btn btn-sm bg-warning mr-2 text-white">
@@ -28,32 +53,42 @@
     Vue.createApp({
         data() {
             return {
-                data_barang: {
-
+                barang: {
+          
                 },
-                selectOptions: [
-                    {
-                        value: 1,
-                        label: "Yes" 
-                    },
-                    {
-                        value: 0,
-                        label: "No"
-                    }
-                ],
-                radioOptions: [
-                    {
-                        id: 1,
-                        label: "Yes"
-                    },
-                    {
-                        id: 0,
-                        label: "No"
-                    }
-                ],
+                satuan_list : [],
+                satuan_id : null,
+                path: null,
+                name : null,
+
+           
             }
         },
+        created(){
+            this.fetchSatuanList()
+        },
+        watch : {
+            satuan_id(value) {
+                    let satuan_data = this.satuan_list.find(satuan_item => satuan_item.value == value)
+                    this.path = `${satuan_data.label.toLowerCase().split(" ").join("-")}`
+                    if (this.name != null && this.name != "") {
+                        this.path += `/${this.name.toLowerCase().split(" ").join("-")}`
+                    }
+                },
+        },
         methods: {
+            async fetchSatuanList(){
+                const response = await httpClient.get("{!! url('satuan/all') !!}")
+                    this.satuan_list = [
+                        ...this.satuan_list,
+                        ...response.data.result.map(el => {
+                            return {
+                                value: el.id,
+                                label: el.satuan_nama
+                            }
+                        })
+                    ]
+            },
             back() {
                 history.back()
             },

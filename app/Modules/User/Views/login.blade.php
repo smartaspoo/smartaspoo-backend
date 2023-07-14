@@ -17,7 +17,7 @@
                                         <input v-model="username" type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email">
                                     </div>
                                     <div class="mb-3">
-                                        <input v-model="password" type="email" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
+                                        <input v-model="password" type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
                                     </div>
                                     <div class="form-check form-switch">
                                         <input v-model="remember_me" class="form-check-input" type="checkbox" id="rememberMe">
@@ -46,8 +46,8 @@
     createApp({
         data() {
             return {
-                username: null,
-                password: null,
+                username: "<?= (env("APP_ENV") == "local"?"developer@gmail.com" :"")?>",
+                password: "<?= (env("APP_ENV") == "local"?"kecilsemuatanpaspasi" :"")?>",
                 remember_me: false
             }
         },

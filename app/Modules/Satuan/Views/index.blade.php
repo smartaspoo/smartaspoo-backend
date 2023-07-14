@@ -9,10 +9,18 @@
         data() {
             return {
                 headers: [
-                    {
-                        text: 'Id',
-                        value: 'id',
-                    },    
+                        {
+                            text: 'Id',
+                            value: 'id',
+                        },    
+                        {
+                            text: 'Satuan Nama',
+                            value: 'satuan_nama',
+                        },    
+                        {
+                            text: 'Satuan Simbol',
+                            value: 'satuan_simbol',
+                        },    
 					],
             }
         },

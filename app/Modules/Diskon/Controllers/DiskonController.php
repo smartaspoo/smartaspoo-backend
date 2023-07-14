@@ -51,6 +51,7 @@ class DiskonController extends Controller
     {
         $payload = $request->all();
         unset($payload['created_at']);
+        unset($payload['id']);
         unset($payload['updated_at']);
         $diskon = DiskonRepository::update($id, $payload);
         return JsonResponseHandler::setResult($diskon)->send();

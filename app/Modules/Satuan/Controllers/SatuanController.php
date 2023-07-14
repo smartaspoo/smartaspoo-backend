@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Satuan\Repositories\SatuanRepository;
 use App\Modules\Satuan\Requests\SatuanCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
+use App\Modules\Satuan\Models\Satuan;
 use Illuminate\Http\Request;
 
 class SatuanController extends Controller
@@ -40,6 +41,11 @@ class SatuanController extends Controller
     {
         $satuan = SatuanRepository::get($id);
         return JsonResponseHandler::setResult($satuan)->send();
+    }
+    public function all(Request $request)
+    {
+        $modules = Satuan::get();
+        return JsonResponseHandler::setResult($modules)->send();
     }
 
     public function edit($id)

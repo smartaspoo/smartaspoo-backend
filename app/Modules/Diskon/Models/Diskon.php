@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Diskon extends Model
 {
-    use SoftDeletes;
+   protected $primaryKey = "id";
     protected $table = 'diskon';
-    protected $primaryKey = "kode_diskon";
-    public $incrementing = false;
-    protected $fillable = ['jumlah',"nama"];
-    protected $guarded = [];
+    protected $fillable = ['jumlah_diskon','kode_diskon'];
+
 }

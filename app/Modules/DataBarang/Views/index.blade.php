@@ -10,9 +10,25 @@
             return {
                 headers: [
                     {
-                        text: 'Id',
-                        value: 'id',
+                        text: 'Kode Barang',
+                        value: 'kode_barang',
                     },    
+                    {
+                        text: 'Nama Barang',
+                        value: 'nama_barang',
+                    },    
+                    {
+                        text: 'Harga Jual',
+                        value: 'harga_barang_jual',
+                    },    
+                    {
+                        text: 'Harga Beli',
+                        value: 'harga_barang_beli',
+                    },  
+                    {
+                        text: 'Stok',
+                        value: 'stock_global',
+                    },  
 					],
             }
         },

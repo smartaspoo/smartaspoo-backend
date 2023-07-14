@@ -10,7 +10,14 @@
         <div class="card-body">
             <form ref="satuan_form">
                 <div class="row">
-
+                    <div class="form-group">
+                        <label class="form-control-label">Nama Satuan</label>
+                        <input v-model="satuan.satuan_nama" class="form-control" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label">Simbol Satuan</label>
+                        <input v-model="satuan.satuan_simbol" class="form-control" type="text">
+                    </div>
                 </div>
                 <div class="d-flex justify-content-end">
                     <button type="button" @click="back" class="btn btn-sm bg-warning mr-2 text-white">
@@ -29,7 +36,7 @@
         data() {
             return {
                 satuan: {
-
+                    
                 },
                 selectOptions: [
                     {

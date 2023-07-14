@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/satuan')->group(function() {
 
+    Route::get('/all', [SatuanController::class, 'all']);
     // SUB MENU MARKER (DONT DELETE THIS LINE)
-
     Route::get('/', [SatuanController::class, 'index'])->middleware('authorize:read-satuan');
     Route::get('/datatable', [SatuanController::class, 'datatable'])->middleware('authorize:read-satuan');
     Route::get('/create', [SatuanController::class, 'create'])->middleware('authorize:create-satuan');

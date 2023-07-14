@@ -12,8 +12,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="form-control-label">Jumlah Diskon</label>
-                            <input v-model="diskon.jumlah_diskon" class="form-control" type="number">
+                            <label class="form-control-label">Kode Diskon</label>
+                            <input v-model="diskon.kode_diskon" class="form-control" type="text">
                         </div>
                         <div class="form-group">
                             <label class="form-control-label">Jumlah Diskon</label>
@@ -38,7 +38,8 @@
         data() {
             return {
                 diskon: {
-                    jumlah_diskon : ""
+                    jumlah_diskon : "",
+                    kode_diskon  : ""
                 },
                 selectOptions: [
                     {

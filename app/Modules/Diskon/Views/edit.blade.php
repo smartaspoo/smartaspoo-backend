@@ -10,7 +10,16 @@
         <div class="card-body">
             <form ref="diskon_form">
                 <div class="row">
-
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Kode Diskon</label>
+                            <input v-model="diskon.kode_diskon" class="form-control" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label">Jumlah Diskon</label>
+                            <input v-model="diskon.jumlah_diskon" class="form-control" type="number">
+                        </div>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-end">
                     <button type="button" @click="back" class="btn btn-sm bg-warning mr-2 text-white">

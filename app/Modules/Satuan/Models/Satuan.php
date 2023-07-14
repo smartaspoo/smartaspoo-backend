@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Satuan extends Model
 {
-    use SoftDeletes;
     protected $table = 'satuan';
     protected $guarded = [];
+    protected $fillable = ['satuan_nama','satuan_simbol'];
 }
