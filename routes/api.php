@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ApiController;
 use App\Modules\DataBarang\Controllers\DataBarangController;
+use App\Modules\Diskon\Controllers\DiskonController;
+use App\Modules\Satuan\Controllers\SatuanController;
+use App\Modules\KategoriBarang\Controllers\KategoriBarangController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register',[ApiController::class,'register']);
 
 Route::get('/data-barang',[DataBarangController::class,'datatable']);
+Route::get('/diskon',[DiskonController::class,'datatable']);
+Route::get('/satuan',[SatuanController::class,'datatable']);
+Route::get('/KategoriBarang',[KategoriBarangController::class,'datatable']);
+
