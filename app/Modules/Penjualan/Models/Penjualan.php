@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Penjualan extends Model
 {
-    use SoftDeletes;
     protected $table = 'penjualan';
     protected $guarded = [];
 }

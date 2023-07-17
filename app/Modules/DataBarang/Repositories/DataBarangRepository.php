@@ -8,12 +8,12 @@ class DataBarangRepository
 {
     public static function datatable($per_page = 15)
     {
-        $data = DataBarang::paginate($per_page);
+        $data = DataBarang::with(['user','satuan'])->paginate($per_page);
         return $data;
     }
     public static function get($data_barang_id)
     {
-        $data_barang = DataBarang::where('id', $data_barang_id)->first();
+        $data_barang = DataBarang::where('kode_barang', $data_barang_id)->first();
         return $data_barang;
     }
     public static function create($data_barang)
@@ -24,14 +24,14 @@ class DataBarangRepository
 
     public static function update($data_barang_id, $data_barang)
     {
-        DataBarang::where('id', $data_barang_id)->update($data_barang);
-        $data_barang = DataBarang::where('id', $data_barang_id)->first();
+        DataBarang::where('kode_barang', $data_barang_id)->update($data_barang);
+        $data_barang = DataBarang::where('kode_barang', $data_barang_id)->first();
         return $data_barang;
     }
 
     public static function delete($data_barang_id)
     {
-        $delete = DataBarang::where('id', $data_barang_id)->delete();
+        $delete = DataBarang::where('kode_barang', $data_barang_id)->delete();
         return $delete;
     }
 }

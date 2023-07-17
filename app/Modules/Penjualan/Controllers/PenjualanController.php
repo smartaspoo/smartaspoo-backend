@@ -4,6 +4,7 @@ namespace App\Modules\Penjualan\Controllers;
 
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
+use App\Modules\Penjualan\Models\Penjualan;
 use App\Modules\Penjualan\Repositories\PenjualanRepository;
 use App\Modules\Penjualan\Requests\PenjualanCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
@@ -11,6 +12,12 @@ use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
 {
+
+    public function checkNomorFaktur(Request $request){
+        $hasil = Penjualan::where('nomor_faktur',$request->nomor_faktur)->exists();
+        return JsonResponseHandler::setResult(['is_error' => $hasil])->send();
+
+    }
     public function index(Request $request)
     {
         $permissions = PermissionRepository::getPermissionStatusOnMenuPath($request->path());

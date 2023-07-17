@@ -14,6 +14,7 @@ Route::prefix('/penjualan')->group(function() {
     Route::get('/datatable', [PenjualanController::class, 'datatable'])->middleware('authorize:read-penjualan');
     Route::get('/create', [PenjualanController::class, 'create'])->middleware('authorize:create-penjualan');
     Route::post('/', [PenjualanController::class, 'store'])->middleware('authorize:create-penjualan');
+    Route::post('/check-nomor-faktur', [PenjualanController::class, 'checkNomorFaktur'])->middleware('authorize:create-penjualan');
     Route::get('/{penjualan_id}', [PenjualanController::class, 'show'])->middleware('authorize:read-penjualan');
     Route::get('/{penjualan_id}/edit', [PenjualanController::class, 'edit'])->middleware('authorize:update-penjualan');
     Route::put('/{penjualan_id}', [PenjualanController::class, 'update'])->middleware('authorize:update-penjualan');

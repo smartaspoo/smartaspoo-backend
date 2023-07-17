@@ -29,6 +29,14 @@
                         text: 'Stok',
                         value: 'stock_global',
                     },  
+                    {
+                        text: 'Satuan',
+                        value: 'satuan.satuan_nama',
+                    },  
+                    {
+                        text: 'Pemilik',
+                        value: 'user.name',
+                    },  
 					],
             }
         },
