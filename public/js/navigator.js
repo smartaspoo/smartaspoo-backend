@@ -26,7 +26,9 @@ function initializeNavigator() {
     addEventListener("popstate", handleNavigation);
 
     // intercept all link click to handle with js
-    document.body.addEventListener("click", handleClick);
+    window.onload = function(){
+        document.body.addEventListener("click", handleClick);
+    }
 }
 
 function handleClick(e) {

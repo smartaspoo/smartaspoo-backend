@@ -16,14 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware(['auth'])->group(function () {
-    require app_path('Modules/Employee/routes.php');
     require app_path('Modules/Dashboard/routes.php');
     require app_path('Modules/User/routes.php');
     require app_path('Modules/Menu/routes.php');
     require app_path('Modules/Role/routes.php');
     require app_path('Modules/Permission/routes.php');
     require app_path('Modules/Module/routes.php');
-    require app_path('Modules/Presensi/routes.php');
+
+    require app_path('Modules/Penjualan/routes.php');
+    require app_path('Modules/DataBarang/routes.php');
+    require app_path('Modules/Diskon/routes.php');
+    require app_path('Modules/Pembelian/routes.php');
+    require app_path('Modules/Satuan/routes.php');
     require app_path('Modules/KategoriBarang/routes.php');
     
     // ROUTE_MARKER

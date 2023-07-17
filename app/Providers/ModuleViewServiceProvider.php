@@ -22,7 +22,12 @@ class ModuleViewServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../Modules/Role/Views', 'Role');
         $this->loadViewsFrom(__DIR__.'/../Modules/Permission/Views', 'Permission');
         $this->loadViewsFrom(__DIR__.'/../Modules/Module/Views', 'Module');
-        $this->loadViewsFrom(__DIR__.'/../Modules/Presensi/Views', 'Presensi');
+
+        $this->loadViewsFrom(__DIR__.'/../Modules/Penjualan/Views', 'Penjualan');
+        $this->loadViewsFrom(__DIR__.'/../Modules/DataBarang/Views', 'DataBarang');
+        $this->loadViewsFrom(__DIR__.'/../Modules/Diskon/Views', 'Diskon');
+        $this->loadViewsFrom(__DIR__.'/../Modules/Pembelian/Views', 'Pembelian');
+        $this->loadViewsFrom(__DIR__.'/../Modules/Satuan/Views', 'Satuan');
         $this->loadViewsFrom(__DIR__.'/../Modules/KategoriBarang/Views', 'KategoriBarang');
         
         // VIEW_MARKER
