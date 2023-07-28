@@ -2,15 +2,19 @@
 
 ## Requirement
 
-- Docker
 - PHP8.1
 - MYSQL
-
+- Nodejs
+- 
 ## Cara Install
 
-`docker compose up`
-Nanti otomatis diinstall oleh docker
+`composer install`
+`npm install`
 
-file sql ada di notion cek saja
+## Run Aplikasi
 
-S
+`npm run dev`
+`php artisan serve`
+
+NPM cuma untuk build viewnya doang, soalnya pakai vue. Server tetep pakai php artisan
+
