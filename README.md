@@ -5,7 +5,7 @@
 - PHP8.1
 - MYSQL
 - Nodejs
-- 
+
 ## Cara Install
 
 `composer install`
