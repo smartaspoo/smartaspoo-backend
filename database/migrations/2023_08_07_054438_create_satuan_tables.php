@@ -14,10 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('satuan', function (Blueprint $table) {
-            $table->id();
-            $table->string('satuan_nama');
-            $table->string('satuan_simbol');
-            $table->timestamps();
+            $table->bigIncrements('id')->unsigned();
+            $table->string('satuan_nama', 255)->collation('utf8_unicode_ci');
+            $table->string('satuan_simbol', 255)->collation('utf8_unicode_ci');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+
+
         });
     }
 

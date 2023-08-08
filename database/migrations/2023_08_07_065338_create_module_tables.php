@@ -14,11 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('module', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->bigIncrements('id')->unsigned();
+            $table->string('name', 255)->collation('utf8_unicode_ci');
+            $table->string('description', 255)->collation('utf8_unicode_ci');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
+
         });
     }
 

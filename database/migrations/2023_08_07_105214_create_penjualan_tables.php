@@ -14,15 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('penjualan', function (Blueprint $table) {
-            $table->string('nomor_faktur')->primary();
+            $table->string('nomor_faktur', 255)->collation('utf8_unicode_ci')->primary();
             $table->integer('biaya_pengiriman');
             $table->integer('dpp');
             $table->integer('ppn');
             $table->bigInteger('total');
             $table->date('tanggal_penjualan');
-            $table->enum('sumber_transaksi', ['POS', 'MARKETPLACE']);
-            $table->enum('status', ['Belum Dibayar', 'Sudah Dibayar', 'Dikirim', 'Selesai']);
-            $table->timestamps();
+            $table->enum('sumber_transaksi', ['POS', 'MARKETPLACE'])->collation('utf8_unicode_ci');
+            $table->enum('status', ['Belum Dibayar', 'Sudah Dibayar', 'Dikirim', 'Selesai'])->collation('utf8_unicode_ci');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

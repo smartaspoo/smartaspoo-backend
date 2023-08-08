@@ -14,11 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('user_pref', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 255);
+            $table->bigIncrements('id')->unsigned();
+            $table->string('name', 255)->collation('utf8_unicode_ci');
             $table->integer('level');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
+
+
         });
     }
 

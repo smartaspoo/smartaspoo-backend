@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kategori_barang', function (Blueprint $table) {
-            $table->id();
-            $table->string('satuan_id');
-            $table->string('satuan_nama');
-            $table->string('satuan_simbol');
-            $table->timestamps();
+        Schema::create('presensi', function (Blueprint $table) {
+            $table->bigIncrements('id')->unsigned();
+            $table->string('nip', 100)->collation('utf8_unicode_ci');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
+
+   
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kategori_barang');
+        Schema::dropIfExists('presensi');
     }
 };

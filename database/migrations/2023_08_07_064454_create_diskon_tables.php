@@ -14,9 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('diskon', function (Blueprint $table) {
-
-            $table->bigInteger("kode_diskon")->primary();
-            $table->timestamps();
+            $table->bigIncrements('id');
+            $table->string('kode_diskon', 255)->collation('utf8_unicode_ci');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->string('jumlah_diskon', 255)->collation('utf8_unicode_ci');
         });
     }
 

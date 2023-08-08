@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('history_barang', function (Blueprint $table) {
-            $table->id();
-            $table->string('history_id');
-            $table->integer('jumlah');
-            $table->string('kode_barang');
-            $table->string('kode_transaksi');
-            $table->timestamps();
+        Schema::create('roles', function (Blueprint $table) {
+            $table->bigIncrements('id')->unsigned();
+            $table->string('name', 255)->collation('utf8_unicode_ci');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
+
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('history_barang');
+        Schema::dropIfExists('roles');
     }
 };
