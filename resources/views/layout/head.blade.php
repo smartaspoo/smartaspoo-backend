@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="{!! asset('img/favicon.png') !!}">
 
   <title>
-    DNT - Core
+    {{$_ENV['APP_NAME']}}
   </title>
 
   <!-- Fonts and icons -->
