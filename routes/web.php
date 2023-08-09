@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\KaryawanController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
@@ -35,8 +36,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+// Mengisikan Routing untuk portal
+require base_path("routes/portal.php");
+
 Route::get('/', function () {
-    return redirect('/user/login');
+    return redirect('/p');
 });
 
 // tes view blade dan layout admin
