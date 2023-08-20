@@ -57,7 +57,7 @@
         </h4>
     </div>
     <div>
-        <img src="img/portal/logo.png"/>
+        <img src="{!! url("")!!}/img/portal/logo.png"/>
     </div>
     </div>
     </div>

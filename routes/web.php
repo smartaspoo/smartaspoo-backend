@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     require app_path('Modules/Pembelian/routes.php');
     require app_path('Modules/Satuan/routes.php');
     require app_path('Modules/KategoriBarang/routes.php');
+    require app_path('Modules/InputSCM/routes.php');
     
     // ROUTE_MARKER
     // Add routes in the line below (DONT REMOVE THIS SECTION !!!!!!, because this line is LINE_MARKER used by Module Generator)

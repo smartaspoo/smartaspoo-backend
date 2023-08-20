@@ -134,7 +134,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img style="width: 100px" src="img/portal/logo.png" alt="Logo" width="60">
+                <img style="width: 100px" src="{!! url("") !!}img/portal/logo.png" alt="Logo" width="60">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -184,13 +184,13 @@
                     <button type="submit" name="cari" class="fa-solid fa-magnifying-glass search-icon"></button>
                 </form>
                 <a class="nav-link keranjang" href="#">
-                    <img src="img/portal/keranjang.png" alt="Keranjang" width="30">
+                    <img src="{!! url("") !!}img/portal/keranjang.png" alt="Keranjang" width="30">
                 </a>
                 <div class="user-profile">
                     <div class="dropdown">
                         <a  href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="user-info">
-                                <img src="img/portal/user-icon.png" alt="">
+                                <img src="{!! url("") !!}img/portal/user-icon.png" alt="">
                                 <div class="box-user">
                                     <div class="user-name">username </div>
                                     <div class="user-role">Customer</div>
@@ -199,7 +199,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <div class=" dropdown-user">
-                                <img src="img/portal/user-icon.png" alt="Avatar" width="40" class="mr-3">
+                                <img src="{!! url("") !!}img/portal/user-icon.png" alt="Avatar" width="40" class="mr-3">
                                 <div>
                                     <div class="user-name">username</div>
                                 </div>
