@@ -11,6 +11,12 @@ class PortalController extends Controller
     public function index(Request $request){
         return view('Portal::index');
     }
+    public function login(Request $request){
+        return view('Portal::login');
+    }
+    public function registrasi(Request $request){
+        return view('Portal::registrasi');
+    }
     public function statuspengiriman(Request $request){
         return view('Portal::statuspengiriman');
     }

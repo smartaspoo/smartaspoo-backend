@@ -7,6 +7,8 @@ use App\Modules\Portal\Controller\PortalController;
 
 Route::prefix('/p')->group(function () {
     Route::get("/",[PortalController::class,"index"]);
+    Route::get("/login",[PortalController::class,"login"]);
+    Route::get("/registrasi",[PortalController::class,"registrasi"]);
     Route::get("/status",[PortalController::class,"statuspengiriman"]);
     Route::get("/penjualan",[PortalController::class,"detailbarangpenjualan"]);
     Route::get("/daftartransaksi",[PortalController::class,"daftartransaksi"]);
