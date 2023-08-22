@@ -10,12 +10,12 @@ use App\Modules\InputSCM\Requests\InputSCMCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
 use Illuminate\Http\Request;
 
-class InputSCMController extends Controller
+class BarangController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request,$id)
     {
-        $permissions = PermissionRepository::getPermissionStatusOnMenuPath($request->path());
-        return view('InputSCM::index', ['permissions' => $permissions]);
+        $permissions = PermissionRepository::getPermissionStatusOnMenuPath("input-scm");
+        return view('InputSCM::barang.index', ['permissions' => $permissions, 'id_umkm'=> $id]);
     }
 
     public function datatable(Request $request)
