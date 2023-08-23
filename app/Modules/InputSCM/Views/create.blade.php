@@ -278,7 +278,6 @@
                 "input_scm.jenis_ijin_usaha": {
                     handler: function(value) {
                         this.switcher.jenis_ijin_usaha = this.input_scm.jenis_ijin_usaha === "LAINNYA";
-                        console.log(this.switcher.jenis_ijin_usaha)
 
                     }
                 },

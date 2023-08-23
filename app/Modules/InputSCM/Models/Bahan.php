@@ -9,5 +9,10 @@ class Bahan extends Model
 {
     use SoftDeletes;
     protected $table = 'scm_bahan_baku';
+    protected $primaryKey = "id_bahan_baku";
     protected $guarded = [];
+
+    public function supplier(){
+        
+    }
 }

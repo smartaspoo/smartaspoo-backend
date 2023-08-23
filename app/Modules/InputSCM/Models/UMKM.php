@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class UMKM extends Model
 {
     use SoftDeletes;
+    protected $primaryKey = "id_umkm";
     protected $table = 'scm_umkm';
     protected $guarded = [];
 }

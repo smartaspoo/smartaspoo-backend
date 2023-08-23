@@ -5,54 +5,44 @@ namespace App\Modules\InputSCM\Controllers;
 use App\Handler\FileHandler;
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
-use App\Modules\InputSCM\Models\BarangSCM;
+use App\Modules\InputSCM\Models\Bahan;
+use App\Modules\InputSCM\Models\Supplier;
 use App\Modules\InputSCM\Models\UMKM;
+use App\Modules\InputSCM\Repositories\BahanRepository;
 use App\Modules\InputSCM\Repositories\BarangSCMRepository;
+use App\Modules\InputSCM\Repositories\SupplierRepository;
 use App\Modules\InputSCM\Requests\InputSCMCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
 use Illuminate\Http\Request;
 
-class BarangController extends Controller
+class BahanController extends Controller
 {
     public function index(Request $request,$id)
     {
-        $umkm = UMKM::find($id);
+        $bahan = Bahan::find($id);
         $permissions = PermissionRepository::getPermissionStatusOnMenuPath("input-scm");
-        return view('InputSCM::barang.index', ['permissions' => $permissions, 'umkm'=> $umkm, 'urlnow' => $request->path()]);
+        return view('InputSCM::supplier.index', ['permissions' => $permissions, 'bahan'=> $bahan, 'urlnow' => $request->path()]);
     }
 
     public function datatable(Request $request,$id)
     {
         $per_page = $request->input('per_page') != null ? $request->input('per_page') : 15;
-        $data = BarangSCMRepository::datatable($per_page,$id);
+        $data = SupplierRepository::datatable($per_page,$id);
         return JsonResponseHandler::setResult($data)->send();
     }
 
     public function create(Request $request,$id)
     {
-        $umkm = UMKM::find($id);
+        $barang = Bahan::find($id);
   
-        return view('InputSCM::barang.create',["umkm" => $umkm, 'urlnow' => $request->path()]);
+        return view('InputSCM::bahan.create',["barang" => $barang, 'urlnow' => $request->path()]);
     }
 
     public function store(Request $request,$id)
     {
         $payload = $request->all();
-        if($request->perlakuan_barang_tidak_laku == "LAINNNYA"){
-            $payload['perlakuan_barang_tidak_laku'] = $request->perlakuan_barang_tidak_laku_lainnya;
-        }
-        if($request->jenis_kemasan == "LAINNNYA"){
-            $payload['jenis_kemasan'] = $request->jenis_kemasan_lainnya;
-        }
-        $payload['detail_tempat_barang_dijual'] = implode(",",$payload['detail_tempat_barang_dijual']);
-        $payload['tempat_barang_dijual'] = implode(",",$payload['tempat_barang_dijual']);
-        $payload['ukuran_kemasan'] = implode(",",$payload['ukuran_kemasan']);
-        $payload['id_umkm'] = $id;
-        unset($payload['perlakuan_barang_tidak_laku_lainnya']);
-        unset($payload['jenis_kemasan_lainnya']);
-
-
-        $input_scm = BarangSCMRepository::create($payload);
+        $payload['id_barang'] = $id;
+        $input_scm = BahanRepository::create($payload);
         return JsonResponseHandler::setResult($input_scm)->send();
     }
 

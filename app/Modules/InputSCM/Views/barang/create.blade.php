@@ -4,131 +4,141 @@
         <div id="add-input-scm" class="card">
             <div class="card-header pb-0">
                 <div class="d-flex align-items-center">
-                    <h4 class="card-title">Tambah UMKM</h4>
+                    <h4 class="card-title">Tambah Barang Milik {!! $umkm->nama !!}</h4>
                 </div>
             </div>
             <div class="card-body">
-                <form ref="input_scm_form">
+                <form ref="barang_scm_form">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Tahun Berdiri</label>
-                                <input v-model="input_scm.tahun_berdiri" class="form-control" type="number">
+                                <label class="form-control-label">Nama Barang</label>
+                                <input v-model="barang_scm.nama" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Provinsi</label>
-                                <vue-multiselect v-model="input_scm.provinsi" :searchable="true"
-                                    :options="provinsi_list" />
+                                <label class="form-control-label">Tipe Barang</label>
+                                <vue-multiselect v-model="barang_scm.tipe_barang" :searchable="true"
+                                    :options="tipe_barang_list" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Kota</label>
-                                <vue-multiselect v-model="input_scm.kota" :searchable="true" :options="kota_list" />
+                                <label class="form-control-label">Jenis Barang</label>
+                                <vue-multiselect v-model="barang_scm.jenis_barang" :searchable="true"
+                                    :options="jenis_barang_list" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Kecamatan</label>
-                                <vue-multiselect v-model="input_scm.kecamatan" :searchable="true"
-                                    :options="kecamatan_list" />
+                                <label class="form-control-label">Perizinan Industri Rumah Tangga</label>
+                                <vue-multiselect v-model="barang_scm.pirt" :searchable="true" :options="pirt_list" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Kelurahan</label>
-                                <vue-multiselect v-model="input_scm.kelurahan" :searchable="true"
-                                    :options="kelurahan_list" />
+                                <label class="form-control-label">Sertifikasi Halal</label>
+                                <vue-multiselect v-model="barang_scm.sertifikasi_halal" :searchable="true"
+                                    :options="sertifikasi_halal_list" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Alamat</label>
-                                <input v-model="input_scm.alamat" class="form-control" type="text">
+                                <label class="form-control-label">Kategori Daya Tahan Barang</label>
+                                <vue-multiselect v-model="barang_scm.kategori_daya_tahan_barang" :searchable="true"
+                                    :options="kategori_daya_tahan_barang_list" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Jumlah Karyawan</label>
-                                <vue-multiselect v-model="input_scm.jumlah_karyawan" :searchable="true"
-                                    :options="jumlah_karyawan_list" />
+                                <label v-if="switcher.barang_produksi" class="form-control-label">Periode Produksi
+                                    Barang</label>
+                                <label v-if="!switcher.barang_produksi" class="form-control-label">Periode Pembelian
+                                    Barang</label>
+                                <vue-multiselect v-model="barang_scm.periode_barang" :searchable="true"
+                                    :options="periode_barang_list" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Jenis Ijin Usaha</label>
-                                <vue-multiselect v-model="input_scm.jenis_ijin_usaha" :searchable="true"
-                                    :options="jenis_ijin_usaha_list" />
-                                <input v-model="input_scm.ket_jenis_ijin" class="form-control" type="text">
+                                <label class="form-control-label">Ukuran Kemasan Penjualan</label>
+                                <vue-multiselect v-model="barang_scm.ukuran_kemasan" :searchable="true"
+                                    :options="ukuran_kemasan_list" :multiple="true" mode="tags" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Omset Per Bulan</label>
-                                <vue-multiselect v-model="input_scm.omset_per_bulan" :searchable="true"
-                                    :options="omset_per_bulan_list" />
+                                <label v-if="switcher.barang_produksi" class="form-control-label">Rata Rata Volume
+                                    Produksi</label>
+                                <label v-if="!switcher.barang_produksi" class="form-control-label">Rata Rata Volume
+                                    Pembelian</label>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <input v-model="barang_scm.jumlah_volume_produksi" class="form-control"
+                                            type="text">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <vue-multiselect v-model="barang_scm.jenis_volume_produksi" :searchable="true"
+                                            :options="jenis_volume_produksi_list" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Permodalan</label>
-                                <vue-multiselect v-model="input_scm.permodalan" :searchable="true"
-                                    :options="permodalan_list" />
-                                <input v-model="input_scm.ket_permodalan" class="form-control" type="text">
+                                <label v-if="switcher.barang_produksi" class="form-control-label">Rata Rata Penjualan Per
+                                    Periode Produksi</label>
+                                <label v-if="!switcher.barang_produksi" class="form-control-label">Rata Rata Penjualan Per
+                                    Periode Pembelian</label>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <input v-model="barang_scm.jumlah_rata2_penjualan" class="form-control"
+                                            type="text">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <vue-multiselect v-model="barang_scm.jenis_rata2_penjualan" :searchable="true"
+                                            :options="jenis_rata2_penjualan_list" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Legalitas</label>
-                                <input v-model="input_scm.legalitas" class="form-control" type="text">
+                                <label class="form-control-label">Jenis Kemasan</label>
+                                <vue-multiselect v-model="barang_scm.jenis_kemasan" :searchable="true"
+                                    :options="jenis_kemasan_list" />
+                            </div>
+                            <div class="form-group">
+                                <input v-if="switcher.jenis_kemasan" v-model="barang_scm.jenis_kemasan_lainnya"
+                                    class="form-control" type="text">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Kategori Usaha</label>
-                                <vue-multiselect v-model="input_scm.ket_kategori_usaha" :searchable="true"
-                                    :options="ket_kategori_usaha_list" />
-                                <input v-model="input_scm.ket_ket_kategori_usaha" class="form-control" type="text">
+                                <label class="form-control-label">Perlakuan Barang Yang Tidak Laku</label>
+                                <vue-multiselect v-model="barang_scm.perlakuan_barang_tidak_laku" :searchable="true"
+                                    :options="perlakuan_barang_tidak_laku_list" />
+                            </div>
+                            <div class="form-group" v-if="switcher.perlakuan_barang_tidak_laku">
+                                <input v-model="barang_scm.perlakuan_barang_tidak_laku_lainnya" class="form-control"
+                                    type="text">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Transaksi Lokal</label>
-                                <input v-model="input_scm.transaksi_lokal" class="form-control" type="text">
+                                <label class="form-control-label">Barang Dijual Di</label>
+                                <vue-multiselect v-model="barang_scm.tempat_barang_dijual" :searchable="true"
+                                    :options="tempat_barang_dijual_list" :multiple="true" mode="tags" />
+
                             </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-control-label">Transaksi Titipan</label>
-                                <input v-model="input_scm.transaksi_titipan" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Area Penjualan</label>
-                                <input v-model="input_scm.area_penjualan" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Jumlah Gerai</label>
-                                <input v-model="input_scm.jumlah_gerai" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Keterangan Voice Text</label>
-                                <textarea class="form-control" rows="10" v-model="input_scm.voice_text" ></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Rekaman Wawancara</label>
-                                <input v-model="input_scm.voice_file" class="form-control" type="file">
+                                <vue-multiselect v-if="switcher.tempat_barang_dijual"
+                                    v-model="barang_scm.detail_tempat_barang_dijual" :multiple="true"
+                                    :options="detail_tempat_barang_dijual_list" mode="tags" />
+
                             </div>
                         </div>
 
@@ -143,7 +153,7 @@
                         </button>
                     </div>
                 </form>
-               
+
             </div>
         </div>
     </div>
@@ -151,138 +161,273 @@
         Vue.createApp({
             data() {
                 return {
-                    input_scm: {
-                        provinsi: null,
-                        kecamatan: null,
-                        kota: null,
-                        kelurahan: null,
+                    barang_scm: {
+                        detail_tempat_barang_dijual: [],
+                        tipe_barang: "PRODUKSI",
+                        sertifikasi_halal : "1",
+                        tempat_barang_dijual : null,
                     },
-                    provinsi_list: [],
-                    kota_list: [],
-                    kecamatan_list: [],
-                    kelurahan_list: [],
-                    jumlah_karyawan_list: [{
-                            value: "0>10",
-                            label: "Lebih dari 10"
+                    switcher: {
+                        tempat_barang_dijual: false,
+                        barang_produksi: false,
+                        perlakuan_barang_tidak_laku: false,
+                    },
+                    tipe_barang_list: [{
+                            value: "PRODUKSI",
+                            label: "Produksi"
                         },
                         {
-                            value: "11>50",
-                            label: "11 sampai 50"
-                        },
-                        {
-                            value: ">51",
-                            label: "Lebih dari 51"
+                            value: "LABELING",
+                            label: "Labeling"
                         },
 
                     ],
-                    jenis_ijin_usaha: [{
-                            value: "BELUM_BERIJIN",
-                            label: "Belum Berijin"
+                    jenis_barang_list: [{
+                            value: "BASAH",
+                            label: "Basah"
                         },
                         {
-                            value: "CV",
-                            label: "CV"
+                            value: "KERING",
+                            label: "Kering"
+                        },
+                    ],
+                    pirt_list: [{
+                            value: "1",
+                            label: "Sudah"
                         },
                         {
-                            value: "PERSEORANGAN",
-                            label: "Perseorangan"
+                            value: "0",
+                            label: "Belum"
+                        },
+                    ],
+                    sertifikasi_halal_list: [{
+                            value: "1",
+                            label: "Sudah"
+                        },
+                        {
+                            value: "0",
+                            label: "Belum"
+                        },
+                    ],
+                    kategori_daya_tahan_barang_list: [{
+                            value: "< 2 hari",
+                            label: "< 2 hari"
+                        },
+                        {
+                            value: "< 1 Minggu",
+                            label: "< 1 Minggu"
+                        },
+                        {
+                            value: "2 Minggu > 4 Minggu",
+                            label: "2 Minggu > 4 Minggu"
+                        },
+                        {
+                            value: "1 - 3 Bulan",
+                            label: "1 - 3 Bulan"
+                        },
+                        {
+                            value: "> 3 Bulan",
+                            label: "> 3 Bulan"
+                        },
+                    ],
+                    periode_barang_list: [{
+                            value: "Harian",
+                            label: "Harian"
+                        },
+                        {
+                            value: "Mingguan",
+                            label: "Mingguan"
+                        },
+                        {
+                            value: "Bulanan",
+                            label: "Bulanan"
+                        },
+                        {
+                            value: "Insidential",
+                            label: "Insidential"
+                        },
+                    ],
+                    jenis_volume_produksi_list: [{
+                            value: "Gram",
+                            label: "Gram"
+                        },
+                        {
+                            value: "KG",
+                            label: "Kilogram"
+                        },
+                        {
+                            value: "Kuintal",
+                            label: "Kuintal"
+                        },
+                        {
+                            value: "Ton",
+                            label: "Ton"
+                        },
+                    ],
+                    jenis_rata2_penjualan_list: [{
+                            value: "Gram",
+                            label: "Gram"
+                        },
+                        {
+                            value: "KG",
+                            label: "Kilogram"
+                        },
+                        {
+                            value: "Kuintal",
+                            label: "Kuintal"
+                        },
+                        {
+                            value: "Ton",
+                            label: "Ton"
+                        },
+                    ],
+                    perlakuan_barang_tidak_laku_list: [{
+                            value: "Diolah Kembali",
+                            label: "Diolah Kembali"
+                        },
+                        {
+                            value: "Dijual dengan Diskon",
+                            label: "Dijual dengan Diskon"
+                        },
+                        {
+                            value: "Dibuang",
+                            label: "Dibuang"
+                        },
+                        {
+                            value: "Dimusnahkan",
+                            label: "Dimusnahkan"
                         },
                         {
                             value: "LAINNYA",
                             label: "Lainnya"
                         },
-                        {
-                            value: "PT",
-                            label: "PT"
+                    ],
+                    jenis_kemasan_list: [{
+                            value: "Kardus",
+                            label: "Kardus"
                         },
                         {
-                            value: "UD",
-                            label: "UD"
+                            value: "Plastik",
+                            label: "Plastik"
+                        },
+                        {
+                            value: "Vakum",
+                            label: "Vakum"
+                        },
+                        {
+                            value: "Besek",
+                            label: "Besek"
+                        },
+                        {
+                            value: "LAINNYA",
+                            label: "Lainnya"
+                        },
+                    ],
+                    ukuran_kemasan_list: [{
+                            value: "Curah",
+                            label: "Curah"
+                        },
+                        {
+                            value: "Satuan",
+                            label: "Satuan"
+                        },
+                    ],
+                    tempat_barang_dijual_list: [{
+                            value: "Outlet Sendiri",
+                            label: "Outlet Sendiri"
+                        },
+                        {
+                            value: "Outlet Lain / Parallel",
+                            label: "Outlet Lain / Parallel"
+                        },
+                        {
+                            value: "Online",
+                            label: "Online / Marketplace"
+                        },
+                    ],
+                    detail_tempat_barang_dijual_list: [{
+                            value: "Shopee",
+                            label: "Shopee"
+                        },
+                        {
+                            value: "Tokopedia",
+                            label: "Tokopedia"
+                        },
+                        {
+                            value: "Lazada",
+                            label: "Lazada"
+                        },
+                        {
+                            value: "Blibli",
+                            label: "Blibli"
+                        },
+                        {
+                            value: "Bukalapak",
+                            label: "Bukalapak"
+                        },
+                        {
+                            value: "Media Sosial",
+                            label: "Media Sosial"
+                        },
+                        {
+                            value: "Online Shop Sendiri",
+                            label: "Online Shop Sendiri"
                         },
                     ],
                 }
             },
-            created() {
-                this.fetchProvinsiList()
-
-            },
             watch: {
-                "input_scm.provinsi": {
+                "barang_scm.tempat_barang_dijual": {
                     handler: function(value) {
-                        this.fetchKotaList(this.input_scm.provinsi)
+                        this.switcher.tempat_barang_dijual = this.barang_scm.tempat_barang_dijual.includes(
+                            "Online");
                     }
                 },
-                "input_scm.kota": {
+                "switcher.tempat_barang_dijual": {
                     handler: function(value) {
-                        this.fetchKecamatanList(this.input_scm.kota)
+                        if (this.switcher.tempat_barang_dijual == false)
+                            this.barang_scm.detail_tempat_barang_dijual = null
                     }
                 },
-                "input_scm.kecamatan": {
+                "barang_scm.jenis_kemasan": {
                     handler: function(value) {
-                        this.fetchKelurahanList(this.input_scm.kecamatan)
+                        this.switcher.jenis_kemasan = this.barang_scm.jenis_kemasan === "LAINNYA";
                     }
                 },
+
+                "barang_scm.perlakuan_barang_tidak_laku": {
+                    handler: function(value) {
+                        this.switcher.perlakuan_barang_tidak_laku = this.barang_scm
+                            .perlakuan_barang_tidak_laku === "LAINNYA";
+                    }
+                },
+                "barang_scm.tipe_barang": {
+                    handler: function(value) {
+                        this.switcher.barang_produksi = this.barang_scm.tipe_barang === "PRODUKSI";     
+                        if (this.switcher.barang_produksi) {
+                            this.perlakuan_barang_tidak_laku_list = this.perlakuan_barang_tidak_laku_list
+                                .filter(item => item.value !== "Dikembalikan")
+                        } else {
+                            this.perlakuan_barang_tidak_laku_list.push({
+                                value: "Dikembalikan",
+                                label: "Dikembalikan"
+                            })
+                        }
+                    }
+                }
             },
             methods: {
-                async fetchKotaList(id_provinsi) {
-                    const response = await httpClient.get("{!! url('input-scm/alamat/kota') !!}/" + id_provinsi)
-                    this.kota_list = [
-                        ...this.kota_list,
-                        ...response.data.result.map(el => {
-                            return {
-                                value: el.id,
-                                label: el.name
-                            }
-                        })
-                    ]
-                },
-                async fetchKecamatanList(data) {
-                    const response = await httpClient.get("{!! url('input-scm/alamat/kecamatan') !!}/" + data)
-                    this.kecamatan_list = [
-                        ...this.kecamatan_list,
-                        ...response.data.result.map(el => {
-                            return {
-                                value: el.id,
-                                label: el.name
-                            }
-                        })
-                    ]
-                },
-                async fetchKelurahanList(data) {
-                    const response = await httpClient.get("{!! url('input-scm/alamat/kelurahan') !!}/" + data)
-                    this.kelurahan_list = [
-                        ...this.kelurahan_list,
-                        ...response.data.result.map(el => {
-                            return {
-                                value: el.id,
-                                label: el.name
-                            }
-                        })
-                    ]
-                },
-                async fetchProvinsiList() {
-                    const response = await httpClient.get("{!! url('input-scm/alamat/provinsi') !!}")
-                    this.provinsi_list = [
-                        ...this.provinsi_list,
-                        ...response.data.result.map(el => {
-                            return {
-                                value: el.id,
-                                label: el.name
-                            }
-                        })
-                    ]
-                },
                 back() {
                     history.back()
                 },
                 resetForm() {
-                    this.input_scm = {}
-                    this.$refs.input_scm_form.reset()
+                    this.barang_scm = {}
+                    this.$refs.barang_scm_form.reset()
                 },
                 async store() {
                     try {
                         showLoading()
-                        const response = await httpClient.post("{!! url('input-scm') !!}", this.input_scm)
+                        const response = await httpClient.post("{!! url($urlnow) !!}", this.barang_scm)
                         hideLoading()
                         showToast({
                             message: "Data berhasil ditambahkan"
@@ -298,7 +443,8 @@
                 }
             },
             components: {
-                'vue-multiselect': VueformMultiselect
+                'vue-multiselect': VueformMultiselect,
+                'Multiselect': VueformMultiselect
             },
         }).mount("#add-input-scm")
     </script>

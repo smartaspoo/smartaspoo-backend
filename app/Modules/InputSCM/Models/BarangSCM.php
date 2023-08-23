@@ -9,5 +9,6 @@ class BarangSCM extends Model
 {
     use SoftDeletes;
     protected $table = 'scm_barang';
+    protected $primaryKey = "id_barang";
     protected $guarded = [];
 }
