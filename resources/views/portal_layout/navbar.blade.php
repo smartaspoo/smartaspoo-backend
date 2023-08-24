@@ -135,11 +135,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="#">
-<<<<<<< HEAD
-                <img style="width: 100px" src="{!! url("") !!}img/portal/logo.png" alt="Logo" width="60">
-=======
                 <img style="width: 100px" src="{{URL::asset('/img/portal/logo.png')}}" alt="Logo" width="60">
->>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -200,11 +196,7 @@
                     <div class="dropdown">
                         <a  href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="user-info">
-<<<<<<< HEAD
-                                <img src="{!! url("") !!}img/portal/user-icon.png" alt="">
-=======
                                 <img src="{{URL::asset('/img/portal/user-icon.png')}}" alt="">
->>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                                 <div class="box-user">
                                     <div class="user-name">username </div>
                                     <div class="user-role">Customer</div>
@@ -213,11 +205,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <div class=" dropdown-user">
-<<<<<<< HEAD
-                                <img src="{!! url("") !!}img/portal/user-icon.png" alt="Avatar" width="40" class="mr-3">
-=======
                                 <img src="{{URL::asset('/img/portal/user-icon.png')}}" alt="Avatar" width="40" class="mr-3">
->>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                                 <div>
                                     <div class="user-name">username</div>
                                 </div>
