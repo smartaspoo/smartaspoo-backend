@@ -93,6 +93,7 @@
   <div id="carouselIklan" class="carouselslide" data-bs-ride="carousel">
       <div class="carousel-inner">
           <div class="carousel-item active">
+<<<<<<< HEAD
               <img src="{!!url("") !!}img/portal/iklan.png" class="d-block w-100" alt="Banner 1">
           </div>
           <div class="carousel-item">
@@ -100,6 +101,15 @@
           </div>
           <div class="carousel-item">
               <img src="{!!url("") !!}img/portal/iklan.png" class="d-block w-100" alt="Banner 3">
+=======
+              <img src="{{URL::asset('/img/portal/iklan.png')}}" class="d-block w-100" alt="Banner 1">
+          </div>
+          <div class="carousel-item">
+              <img src="{{URL::asset('/img/portal/iklan.png')}}" class="d-block w-100" alt="Banner 2">
+          </div>
+          <div class="carousel-item">
+              <img src="{{URL::asset('/img/portal/iklan.png')}}" class="d-block w-100" alt="Banner 3">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
           </div>
       </div>
       <a class="carousel-control-prev" href="#carouselIklan" role="button" data-bs-slide="prev">
@@ -123,19 +133,31 @@
                   <!-- Dummy data for category cards -->
                   <div class="col-md-4">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/kategori.png" alt="Kategori 1">
+=======
+                          <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 1">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h5>Kategori 1</h5>
                       </div>
                   </div>
                   <div class="col-md-4">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/kategori.png" alt="Kategori 2">
+=======
+                          <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 2">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h5>Kategori 2</h5>
                       </div>
                   </div>
                   <div class="col-md-4">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/kategori.png" alt="Kategori 3">
+=======
+                          <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 3">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h5>Kategori 3</h5>
                       </div>
                   </div>
@@ -146,19 +168,31 @@
                   <!-- Dummy data for category cards -->
                   <div class="col-md-4">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/kategori.png" alt="Kategori 4">
+=======
+                          <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 4">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h5>Kategori 4</h5>
                       </div>
                   </div>
                   <div class="col-md-4">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/kategori.png" alt="Kategori 5">
+=======
+                          <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 5">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h5>Kategori 5</h5>
                       </div>
                   </div>
                   <div class="col-md-4">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/kategori.png" alt="Kategori 6">
+=======
+                          <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 6">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h5>Kategori 6</h5>
                       </div>
                   </div>
@@ -186,7 +220,11 @@
                   <!-- Dummy data for recommended product cards -->
                   <div class="col-md-3">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/produk.png" alt="Produk 1">
+=======
+                          <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h4>Produk 1</h4>
                           <p>Kategori: Makanan</p>
                           <p>Rating: 4.5 (200 ulasan)</p>
@@ -199,7 +237,11 @@
                   <!-- More dummy data for recommended product cards -->
                   <div class="col-md-3">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/produk.png" alt="Produk 1">
+=======
+                          <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h4>Produk 2</h4>
                           <p>Kategori: Makanan</p>
                           <p>Rating: 4.5 (200 ulasan)</p>
@@ -211,7 +253,11 @@
                   </div>
                   <div class="col-md-3">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/produk.png" alt="Produk 1">
+=======
+                          <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h4>Produk 3</h4>
                           <p>Kategori: Makanan</p>
                           <p>Rating: 4.5 (200 ulasan)</p>
@@ -223,7 +269,11 @@
                   </div>
                   <div class="col-md-3">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/produk.png" alt="Produk 1">
+=======
+                          <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h4>Produk 4</h4>
                           <p>Kategori: Makanan</p>
                           <p>Rating: 4.5 (200 ulasan)</p>
@@ -240,7 +290,11 @@
                   <!-- More dummy data for recommended product cards -->
                   <div class="col-md-3">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/produk.png" alt="Produk 1">
+=======
+                          <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h4>Produk 5</h4>
                           <p>Kategori: Makanan</p>
                           <p>Rating: 4.5 (200 ulasan)</p>
@@ -252,7 +306,11 @@
                   </div>
                   <div class="col-md-3">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/produk.png" alt="Produk 1">
+=======
+                          <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h4>Produk 6</h4>
                           <p>Kategori: Makanan</p>
                           <p>Rating: 4.5 (200 ulasan)</p>
@@ -264,7 +322,11 @@
                   </div>
                   <div class="col-md-3">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/produk.png" alt="Produk 1">
+=======
+                          <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h4>Produk 7</h4>
                           <p>Kategori: Makanan</p>
                           <p>Rating: 4.5 (200 ulasan)</p>
@@ -276,7 +338,11 @@
                   </div>
                   <div class="col-md-3">
                       <div class="product-card">
+<<<<<<< HEAD
                           <img src="{!!url("") !!}img/portal/produk.png" alt="Produk 1">
+=======
+                          <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                           <h4>Produk 8</h4>
                           <p>Kategori: Makanan</p>
                           <p>Rating: 4.5 (200 ulasan)</p>

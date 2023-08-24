@@ -47,7 +47,7 @@
         <div class="box">
     <div class="caption">
         <h4>
-            <a href="#" class="detail">Tentang AspooMarket</a>
+            <a href="https://www.aspoojateng.com/" class="detail">Tentang AspooMarket</a>
         </h4>
         <h4>
             <a href="#" class="detail">Kebijakan</a>
@@ -57,7 +57,7 @@
         </h4>
     </div>
     <div>
-        <img src="{!! url("")!!}/img/portal/logo.png"/>
+        <img src="{{URL::asset('/img/portal/logo.png')}}"/>
     </div>
     </div>
     </div>

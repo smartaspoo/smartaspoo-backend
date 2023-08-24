@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketplace Beranda</title>
+    <title>SmartASPOO</title>
+    <link rel="icon" href="{{URL::asset('/img/portal/android-chrome-512x512.png')}}" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
     <style>
@@ -134,7 +135,11 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <a class="navbar-brand" href="#">
+<<<<<<< HEAD
                 <img style="width: 100px" src="{!! url("") !!}img/portal/logo.png" alt="Logo" width="60">
+=======
+                <img style="width: 100px" src="{{URL::asset('/img/portal/logo.png')}}" alt="Logo" width="60">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -176,7 +181,7 @@
                 </div>
             </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tentang ASPOO</a>
+                        <a class="nav-link" href="https://www.aspoojateng.com/">Tentang ASPOO</a>
                     </li>
                 </ul>
                 <form class="search-form" role="search">
@@ -184,13 +189,22 @@
                     <button type="submit" name="cari" class="fa-solid fa-magnifying-glass search-icon"></button>
                 </form>
                 <a class="nav-link keranjang" href="#">
-                    <img src="{!! url("") !!}img/portal/keranjang.png" alt="Keranjang" width="30">
+                    <img src="{{URL::asset('/img/portal/keranjang.png')}}" alt="Keranjang" width="30">
                 </a>
+                <ul>
+                    <div style="font-size: 15px; color:#757272" class="nav-item">
+                        <a  class="nav-link" href="#">Jadi Mitra</a>
+                    </div>
+                </ul>
                 <div class="user-profile">
                     <div class="dropdown">
                         <a  href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="user-info">
+<<<<<<< HEAD
                                 <img src="{!! url("") !!}img/portal/user-icon.png" alt="">
+=======
+                                <img src="{{URL::asset('/img/portal/user-icon.png')}}" alt="">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                                 <div class="box-user">
                                     <div class="user-name">username </div>
                                     <div class="user-role">Customer</div>
@@ -199,7 +213,11 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <div class=" dropdown-user">
+<<<<<<< HEAD
                                 <img src="{!! url("") !!}img/portal/user-icon.png" alt="Avatar" width="40" class="mr-3">
+=======
+                                <img src="{{URL::asset('/img/portal/user-icon.png')}}" alt="Avatar" width="40" class="mr-3">
+>>>>>>> e619489b0a2181d1507d2ee226ce4d93da65df6e
                                 <div>
                                     <div class="user-name">username</div>
                                 </div>
