@@ -32,7 +32,7 @@ class InputSCMRepository
 
     public static function delete($input_scm_id)
     {
-        $delete = UMKM::where('id', $input_scm_id)->delete();
+        $delete = UMKM::where('id_umkm', $input_scm_id)->delete();
         return $delete;
     }
 }

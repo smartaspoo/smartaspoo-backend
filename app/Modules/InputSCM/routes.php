@@ -5,6 +5,7 @@ use App\Modules\InputSCM\Controllers\AlamatController;
 use App\Modules\InputSCM\Controllers\BahanController;
 use App\Modules\InputSCM\Controllers\BarangController;
 use App\Modules\InputSCM\Controllers\InputSCMController;
+use App\Modules\InputSCM\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 // USE MARKER (DONT DELETE THIS LINE)
@@ -42,14 +43,14 @@ Route::prefix('/input-scm')->group(function() {
     });
      Route::prefix("/supplier")->group(function(){
         Route::prefix("/{id_bahan}")->group(function(){
-        Route::get('/', [BahanController::class, 'index'])->middleware('authorize:read-input_scm');
-        Route::get('/datatable', [BahanController::class, 'datatable'])->middleware('authorize:read-input_scm');
-        Route::get('/create', [BahanController::class, 'create'])->middleware('authorize:create-input_scm');
-        Route::post('/create', [BahanController::class, 'store'])->middleware('authorize:create-input_scm');
-        Route::get('/{id_supplier}', [BahanController::class, 'show'])->middleware('authorize:read-input_scm');
-        Route::get('/{id_supplier}/edit', [BahanController::class, 'edit'])->middleware('authorize:update-input_scm');
-        Route::put('/{id_supplier}', [BahanController::class, 'update'])->middleware('authorize:update-input_scm');
-        Route::delete('/{id_supplier}', [BahanController::class, 'destroy'])->middleware('authorize:delete-input_scm');
+        Route::get('/', [SupplierController::class, 'index'])->middleware('authorize:read-input_scm');
+        Route::get('/datatable', [SupplierController::class, 'datatable'])->middleware('authorize:read-input_scm');
+        Route::get('/create', [SupplierController::class, 'create'])->middleware('authorize:create-input_scm');
+        Route::post('/create', [SupplierController::class, 'store'])->middleware('authorize:create-input_scm');
+        Route::get('/{id_supplier}', [SupplierController::class, 'show'])->middleware('authorize:read-input_scm');
+        Route::get('/{id_supplier}/edit', [SupplierController::class, 'edit'])->middleware('authorize:update-input_scm');
+        Route::put('/{id_supplier}', [SupplierController::class, 'update'])->middleware('authorize:update-input_scm');
+        Route::delete('/{id_supplier}', [SupplierController::class, 'destroy'])->middleware('authorize:delete-input_scm');
         });
      });
     

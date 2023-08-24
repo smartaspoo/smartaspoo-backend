@@ -12,7 +12,11 @@
         createApp({
             data() {
                 return {
-                    headers: [{
+                    headers: [
+                        {
+                            text: 'ID',
+                            value: 'id_supplier',
+                        },{
                         text: 'Nama Bahan',
                         value: 'nama',
                     }, ],

@@ -31,7 +31,7 @@ class BarangSCMRepository
 
     public static function delete($input_scm_id)
     {
-        $delete = BarangSCM::where('id', $input_scm_id)->delete();
+        $delete = BarangSCM::where('id_barang', $input_scm_id)->delete();
         return $delete;
     }
 }

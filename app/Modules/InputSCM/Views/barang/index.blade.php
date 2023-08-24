@@ -16,7 +16,10 @@
         createApp({
             data() {
                 return {
-                    headers: [{
+                    headers: [ {
+                            text: 'ID',
+                            value: 'id_barang',
+                        },{
                         text: 'Nama Barang',
                         value: 'nama',
                     }, ],

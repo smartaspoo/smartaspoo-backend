@@ -69,7 +69,7 @@ class BahanController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $delete = InputSCMRepository::delete($id);
+        $delete = BahanRepository::delete($id);
         return JsonResponseHandler::setResult($delete)->send();
     }
 }

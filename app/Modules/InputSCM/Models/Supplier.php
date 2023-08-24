@@ -11,4 +11,8 @@ class Supplier extends Model
     protected $primaryKey = "id_supplier";
     protected $table = 'scm_supplier';
     protected $guarded = [];
+    protected $appends = ['id'];
+    public function getIdAttribute(){
+        return $this->id_supplier;
+    }
 }

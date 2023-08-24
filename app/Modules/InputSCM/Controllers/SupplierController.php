@@ -15,7 +15,7 @@ use App\Modules\InputSCM\Requests\InputSCMCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
 use Illuminate\Http\Request;
 
-class BahanController extends Controller
+class SupplierController extends Controller
 {
     public function index(Request $request,$id)
     {
@@ -33,16 +33,16 @@ class BahanController extends Controller
 
     public function create(Request $request,$id)
     {
-        $barang = Bahan::find($id);
-  
-        return view('InputSCM::bahan.create',["barang" => $barang, 'urlnow' => $request->path()]);
+        $bahan = Bahan::find($id);
+     
+        return view('InputSCM::supplier.create',["bahan" => $bahan, 'urlnow' => $request->path()]);
     }
 
     public function store(Request $request,$id)
     {
         $payload = $request->all();
-        $payload['id_barang'] = $id;
-        $input_scm = BahanRepository::create($payload);
+        $payload['id_bahan_baku'] = $id;
+        $input_scm = SupplierRepository::create($payload);
         return JsonResponseHandler::setResult($input_scm)->send();
     }
 
@@ -66,9 +66,9 @@ class BahanController extends Controller
         return JsonResponseHandler::setResult($input_scm)->send();
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id,$ids)
     {
-        $delete = InputSCMRepository::delete($id);
+        $delete = SupplierRepository::delete($ids);
         return JsonResponseHandler::setResult($delete)->send();
     }
 }

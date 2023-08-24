@@ -78,7 +78,7 @@ class BarangController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $delete = InputSCMRepository::delete($id);
+        $delete = BarangSCMRepository::delete($id);
         return JsonResponseHandler::setResult($delete)->send();
     }
 }

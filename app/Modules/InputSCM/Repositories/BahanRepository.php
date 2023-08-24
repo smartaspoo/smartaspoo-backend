@@ -31,7 +31,7 @@ class BahanRepository
 
     public static function delete($input_scm_id)
     {
-        $delete = Bahan::where('id', $input_scm_id)->delete();
+        $delete = Bahan::where('id_bahan_baku', $input_scm_id)->delete();
         return $delete;
     }
 }

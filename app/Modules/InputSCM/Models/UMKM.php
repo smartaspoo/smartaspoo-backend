@@ -11,4 +11,8 @@ class UMKM extends Model
     protected $primaryKey = "id_umkm";
     protected $table = 'scm_umkm';
     protected $guarded = [];
+    protected $appends = ['id'];
+    public function getIdAttribute(){
+        return $this->id_umkm;
+    }
 }

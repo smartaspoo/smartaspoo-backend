@@ -114,13 +114,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">Transaksi Lokal</label>
-                                <input v-model="input_scm.transaksi_lokal" class="form-control" type="text">
+                                <vue-multiselect v-model="input_scm.transaksi_lokal" :searchable="true"
+                                :options="transaksi_list" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">Transaksi Titipan</label>
-                                <input v-model="input_scm.transaksi_titipan" class="form-control" type="text">
+                                <vue-multiselect v-model="input_scm.transaksi_titipan" :searchable="true"
+                                :options="transaksi_list" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -186,6 +188,14 @@
                     kota_list: [],
                     kecamatan_list: [],
                     kelurahan_list: [],
+                    transaksi_list : [{
+                            value: "1",
+                            label: "Ya"
+                        },
+                        {
+                            value: "0",
+                            label: "Tidak"
+                        },],
                     jumlah_karyawan_list: [{
                             value: "0>10",
                             label: "Lebih dari 10"

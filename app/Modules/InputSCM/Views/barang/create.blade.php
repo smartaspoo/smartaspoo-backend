@@ -421,7 +421,6 @@
                     history.back()
                 },
                 resetForm() {
-                    this.barang_scm = {}
                     this.$refs.barang_scm_form.reset()
                 },
                 async store() {

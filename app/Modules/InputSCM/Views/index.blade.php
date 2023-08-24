@@ -5,8 +5,7 @@
             :can-add="{{ $permissions['create-input_scm'] }}" :can-edit="{{ $permissions['update-input_scm'] }}"
             :can-delete="{{ $permissions['delete-input_scm'] }}">
             <template #left-action="{ content }">
-                <a :href="`{!! url('input-scm') !!}/${content.id_umkm}/barang/`"
-                    class="btn btn-xs btn-info mr-1" >
+                <a :href="`{!! url('input-scm') !!}/${content.id_umkm}/barang/`" class="btn btn-xs btn-info mr-1">
                     Lihat Detail
                 </a>
             </template>
@@ -17,10 +16,15 @@
         createApp({
             data() {
                 return {
-                    headers: [{
-                        text: 'Nama UMKM',
-                        value: 'nama',
-                    }, ],
+                    headers: [ {
+                            text: 'ID',
+                            value: 'id_umkm',
+                        },{
+                            text: 'Nama UMKM',
+                            value: 'nama',
+                        },
+                       
+                    ],
                 }
             },
             created() {},

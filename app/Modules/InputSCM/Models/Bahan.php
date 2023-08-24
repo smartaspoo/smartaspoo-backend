@@ -12,7 +12,8 @@ class Bahan extends Model
     protected $primaryKey = "id_bahan_baku";
     protected $guarded = [];
 
-    public function supplier(){
-        
+    protected $appends = ['id'];
+    public function getIdAttribute(){
+        return $this->id_bahan_baku;
     }
 }

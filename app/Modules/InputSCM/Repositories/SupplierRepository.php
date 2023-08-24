@@ -8,7 +8,7 @@ class SupplierRepository
 {
     public static function datatable($per_page = 15,$id_bahan)
     {
-        $data = Supplier::where('id_bahan',$id_bahan)->paginate($per_page);
+        $data = Supplier::where('id_bahan_baku',$id_bahan)->paginate($per_page);
         return $data;
     }
     public static function get($input_scm_id)
@@ -30,7 +30,7 @@ class SupplierRepository
 
     public static function delete($input_scm_id)
     {
-        $delete = Supplier::where('id', $input_scm_id)->delete();
+        $delete = Supplier::where('id_supplier', $input_scm_id)->delete();
         return $delete;
     }
 }
