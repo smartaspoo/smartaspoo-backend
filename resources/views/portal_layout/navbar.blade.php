@@ -143,10 +143,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Beranda</a>
+                        <a class="nav-link" href="/p">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Produk</a>
+                        <a class="nav-link" href="p/pencarianbarangumkm">Produk</a>
                     </li>
                     <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a>
@@ -177,7 +177,7 @@
                 </div>
             </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.aspoojateng.com/">Tentang ASPOO</a>
+                        <a class="nav-link" href="https://www.aspoojateng.com/" target="_blank">Tentang ASPOO</a>
                     </li>
                 </ul>
                 <form class="search-form" role="search">
@@ -185,11 +185,11 @@
                     <button type="submit" name="cari" class="fa-solid fa-magnifying-glass search-icon"></button>
                 </form>
                 <a class="nav-link keranjang" href="#">
-                    <img src="{{URL::asset('/img/portal/keranjang.png')}}" alt="Keranjang" width="30">
+                    <img href="p/keranjang" src="{{URL::asset('/img/portal/keranjang.png')}}" alt="Keranjang" width="30">
                 </a>
                 <ul>
                     <div style="font-size: 15px; color:#757272" class="nav-item">
-                        <a  class="nav-link" href="#">Jadi Mitra</a>
+                        <a  class="nav-link" href="p/login">Jadi Mitra</a>
                     </div>
                 </ul>
                 <div class="user-profile">
@@ -221,7 +221,7 @@
                             <a class="dropdown-item" href="#">Daftar Transaksi</a>
                             <a class="dropdown-item" href="#">Status Pembelian</a>
                             <div class="bottom-dropdown">
-                                <a class="dropdown-item" href="#">Pengaturan</a>
+                                <a class="dropdown-item" href="p/profile">Pengaturan</a>
                                 <a style="padding-left: 100px"  class="dropdown-item" href="#">Logout</a>
                             </div>
                         </div>

@@ -59,7 +59,7 @@
         }
 
         .shipment-details {
-            margin-left: 150px;
+            margin-left: 60px;
         }
 
         .shipment-info {

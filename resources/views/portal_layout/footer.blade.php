@@ -47,7 +47,7 @@
         <div class="box">
     <div class="caption">
         <h4>
-            <a href="https://www.aspoojateng.com/" class="detail">Tentang AspooMarket</a>
+            <a href="https://www.aspoojateng.com/" target="_blank" class="detail">Tentang AspooMarket</a>
         </h4>
         <h4>
             <a href="#" class="detail">Kebijakan</a>

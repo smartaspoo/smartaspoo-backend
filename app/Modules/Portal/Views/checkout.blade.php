@@ -191,7 +191,7 @@
     <main class="container" style="margin-top: 50px; font-size: 16px;">
         <div class="row">
             <div class="address">
-                <img src="{{URL::asset('/img/portal/address.png')}}" alt="alamat" class="img-fluid">
+                <img src="{{URL::asset('/img/portal/Address.png')}}" alt="alamat" class="img-fluid">
                 <p class="address-caption"><strong>Alamat Pengiriman</strong> <br />Wardah Maulina | (+62) 823345623442 
                 <br> Jalan Sadewa no 23 rt 04/01 Semarang Utara Suyudono, Kab Semarang, Jawa Tengah, ID 23456</p>
             </div>
@@ -226,7 +226,7 @@
             <p>Melindungi dari bahaya, ketidakyamanan, atau perawatan rawat inap yang timbul karena penggunaan atau konsumsi produk. <a style="color: #196CE9; text-decoration:none; " href="#">Pelajari</a></p>
         </div>
         <div class="row-voucher">
-            <img src="{{URL::asset('/img/portal/wallet.png')}}" alt=''>
+            <img src="{{URL::asset('/img/portal/Wallet.png')}}" alt=''>
             <p class="caption-voucher">Voucer Toko</p>
     <form action="" class="form-voucher">
             <input type="text" placeholder="Gunakan/masukkan data">
