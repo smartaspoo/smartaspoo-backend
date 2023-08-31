@@ -146,7 +146,7 @@
                         <a class="nav-link" href="/p">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="p/pencarianbarangumkm">Produk</a>
+                        <a class="nav-link" href="/p/pencarianbarangumkm">Produk</a>
                     </li>
                     <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a>
@@ -184,8 +184,8 @@
                     <input class="form-control search-input" type="search" placeholder="Search" aria-label="Search">
                     <button type="submit" name="cari" class="fa-solid fa-magnifying-glass search-icon"></button>
                 </form>
-                <a class="nav-link keranjang" href="#">
-                    <img href="p/keranjang" src="{{URL::asset('/img/portal/keranjang.png')}}" alt="Keranjang" width="30">
+                <a class="nav-link keranjang" href="/p/keranjang">
+                    <img  src="{{URL::asset('/img/portal/keranjang.png')}}" alt="Keranjang" width="30">
                 </a>
                 <ul>
                     <div style="font-size: 15px; color:#757272" class="nav-item">
@@ -221,7 +221,7 @@
                             <a class="dropdown-item" href="#">Daftar Transaksi</a>
                             <a class="dropdown-item" href="#">Status Pembelian</a>
                             <div class="bottom-dropdown">
-                                <a class="dropdown-item" href="p/profile">Pengaturan</a>
+                                <a class="dropdown-item" href="/p/profile">Pengaturan</a>
                                 <a style="padding-left: 100px"  class="dropdown-item" href="#">Logout</a>
                             </div>
                         </div>
