@@ -143,10 +143,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/p">Beranda</a>
+                        <a class="nav-link" href="{{ url('/p') }}">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/p/pencarianbarangumkm">Produk</a>
+                        <a class="nav-link" href="{{ url('/p/pencarianbarangumkm') }}">Produk</a>
                     </li>
                     <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a>
@@ -184,12 +184,12 @@
                     <input class="form-control search-input" type="search" placeholder="Search" aria-label="Search">
                     <button type="submit" name="cari" class="fa-solid fa-magnifying-glass search-icon"></button>
                 </form>
-                <a class="nav-link keranjang" href="/p/keranjang">
+                <a class="nav-link keranjang" href="{{ url('/p/keranjang') }}">
                     <img  src="{{URL::asset('/img/portal/keranjang.png')}}" alt="Keranjang" width="30">
                 </a>
                 <ul>
                     <div style="font-size: 15px; color:#757272" class="nav-item">
-                        <a  class="nav-link" href="p/login">Jadi Mitra</a>
+                        <a  class="nav-link" href="{{ url('/p/login') }}">Jadi Mitra</a> 
                     </div>
                 </ul>
                 <div class="user-profile">
@@ -218,10 +218,10 @@
                                 </div>
                             </div>
                             <div class="dropdown-divider mx-3"></div>
-                            <a class="dropdown-item" href="#">Daftar Transaksi</a>
-                            <a class="dropdown-item" href="#">Status Pembelian</a>
+                            <a class="dropdown-item" href="{{ url('/p/daftartransaksi') }}">Daftar Transaksi</a>
+                            <a class="dropdown-item" href="{{ url('/p/status') }}">Status Pembelian</a>
                             <div class="bottom-dropdown">
-                                <a class="dropdown-item" href="/p/profile">Pengaturan</a>
+                                <a class="dropdown-item" href="{{ url('/p/profile') }}">Pengaturan</a>
                                 <a style="padding-left: 100px"  class="dropdown-item" href="#">Logout</a>
                             </div>
                         </div>

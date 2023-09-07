@@ -38,6 +38,40 @@
         border: none;
         padding: 0;
     }
+    .margin-up {
+        margin-top: 30px;
+    }
+    .store-info {
+        display: flex;
+        align-items: center;
+    }
+    .store-logo {
+        max-width: 100px;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+    .store-details {
+        flex-grow: 1;
+    }
+    .store-title {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .store-activity {
+        color: #9b9b9b;
+    }
+    .store-follow {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .store-follow-count {
+        font-size: 14px;
+        color: #9b9b9b;
+    }
+    .store-follow-divider {
+        border-right: 2px solid #9b9b9b;
+        margin: 0 10px;
+    }
     .store-description {
         padding: 20px;
     }
@@ -46,6 +80,10 @@
         max-width: 100%;
         height: auto;
         margin-top: 20px; 
+    }
+    .modal-content {
+        background-color: transparent;
+        border: none;
     }
 
     #infotoko-page {
@@ -63,7 +101,6 @@
         color: #fff;
         background-color: #606C5D;
         padding: 5px 10px;
-        margin-left: 18px;
         margin-top: 10px;
         display: inline-block;
     }
@@ -82,13 +119,21 @@
         padding-left: 25px;
         font-size: 15px; 
     }
+    .section-divider {
+        border-top: 2px solid #000000;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-left: 5px;
+        margin-left: 11px;
+        width: 100%;
+    }
 </style>
 </head>
 <body>
 
 <nav class="navbar">
     <div class="container">
-        <a href="#" class="btn ">
+        <a href="{{ url('/p/penjualan') }}" class="btn ">
             <i class="fas fa-arrow-left arrow-icon"></i>
         </a>            
         <ul class="navbar-nav mr-auto">
@@ -101,34 +146,74 @@
 <main id="infotoko-page" class="main-content mt-0">
     <section>
         <div class="row g-0" style="max-width: 900px;"> 
-            <div class="col-md-3"> 
-                <img src="{{URL::asset('/img/portal/storelogo.png')}}" class="img-fluid rounded-start store-image" alt="Store Image">
-                <div class="mall-name">Aspoo Mall</div>
+            <div class="container margin-up">
+                <div class="store-info">
+                    <img class="store-logo" src="{{URL::asset('/img/portal/storelogo.png')}}" alt="Store Logo" class="img-fluid" data-bs-toggle="modal" data-bs-target="#logoModal">
+                    <div class="store-details">
+                        <div class="store-title">Nama Toko</div>
+                        <div class="store-activity">Toko telah aktif beberapa menit yang lalu</div>
+                        <div class="store-follow">
+                            1.2K Pengikut
+                            <span class="store-follow-divider"></span>
+                            200 Mengikuti
+                        </div>
+                    </div>
             </div>
-            <div class="col-md-9"> 
-                <h5 class="store-name">Dyriana</h5>
-                <p class="card-text"><small class="text-body-secondary">Aktif 3 menit yang lalu</small></p>
-                <p class="card-text">Pengikut 6,4 JT | Mengikuti 2</p>
-            </div>
-            <div class="col-md-12"> 
-                <ul class="list-group list-group-flush"> 
-                    <li class="list-group-item"><i class="bi bi-star"></i>&nbsp; Penilaian</li>
-                    <li class="list-group-item"><i class="bi bi-chat-left-text-fill"></i>&nbsp; Performa Chat</li>
-                    <li class="list-group-item" style="padding-left: 45px;">Produk</li>
-                    <li class="list-group-item " style="padding-left: 45px;">Bergabung</li>
-                    <li class="list-group-item"><i class="bi bi-file-text-fill"></i>&nbsp; Ketarangan</li>
-                    <li class="list-group-item" style="padding-left: 45px;">Tautan Toko</li>
-                    <li class="list-group-item"><i class="bi bi-check-square-fill"></i>&nbsp; Akun Terverifikasi</li>
-                </ul>
-                <br>
-                <div class="text-center">
-                    <button @click="register" type="button" class="btn btn-lg mt-4 mb-0" style="background-color: #606C5D; 
-                    color: white; font-weight: bold; border-radius: 15px; margin-top: 20px; width: 160%;">Lihat Semua Produk</button>
+            <!-- Modal -->
+            <div class="modal fade" id="logoModal" tabindex="-1" aria-labelledby="logoModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <img src="{{URL::asset('/img/portal/storelogo.png')}}" alt="Store Logo">
+                    </div>
                 </div>
+            </div>
+            <div class="mall-name">
+                Aspoo Mall
+            </div>
+        </div>
+        {{-- line dibawah adalah line revisi --}}
+        <div class="row">
+            <div class="d-flex align-items-center" style="margin-top: 30px">
+                <i class="fa-regular fa-star"></i>
+                <p class=" mt-3 text-muted" style="padding-left: 10px;">Penilaian</p>
+            </div>
+            <div class="section-divider"></div>
+            <div class="d-flex align-items-center">
+                <i class="bi bi-chat-left-text-fill"></i>
+                <p class=" mt-3 text-muted" style="padding-left: 10px">Performa chat</p>
+            </div>
+            <div class="section-divider"></div>
+            <div class="d-flex align-items-center">
+                <p class=" mt-3 text-muted" style="padding-left: 28px">Produk</p>
+            </div>
+            <div class="section-divider"></div>
+            <div class="d-flex align-items-center">
+                <p class=" mt-3 text-muted" style="padding-left: 28px">Bergabung</p>
+            </div>
+            <div class="section-divider"></div>
+            <div class="d-flex align-items-center">
+                <i class="bi bi-file-text-fill"></i>
+                <p class=" mt-3 text-muted" style="padding-left: 10px">Keterangan</p>
+            </div>
+            <div class="section-divider"></div>
+            <div class="d-flex align-items-center">
+                <p class=" mt-3 text-muted" style="padding-left: 28px">Tautan toko</p>
+            </div>
+            <div class="section-divider"></div>
+            <div class="d-flex align-items-center">
+                <i class="bi bi-check-square-fill"></i>
+                <p class=" mt-3 text-muted" style="padding-left: 10px">Akun Terverifikasi</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <button type="button" class="btn btn-lg mt-4 mb-0" style="background-color: #606C5D; 
+                color: white; font-weight: bold; border-radius: 15px; margin-top: 20px; width:100%">Lihat Semua Produk</button>
             </div>
         </div>
     </section>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 

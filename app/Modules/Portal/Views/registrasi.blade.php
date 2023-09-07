@@ -61,10 +61,10 @@
                                                 <input v-model="alamat" type="text" class="form-control form-control-lg" id="alamat" placeholder="Alamat" aria-label="Alamat" style="border-radius: 15px; font-size: 1px;">
                                             </div>
                                             <div class="mb-3">
-                                                <select v-model="mitra" id="mitra" class="form-select form-control-lg" style="border-radius: 15px; font-size: 16px; width: 100%;">
+                                                <select v-model="role" id="role" class="form-select form-control-lg" style="border-radius: 15px; font-size: 16px; width: 100%;">
                                                     <option value="mitra">Mitra</option>
                                                     <option value="umkm">Umkm</option>
-                                                    <option value="konsumen">Konsumen</option>
+                                                    <option value="konsumen" selected>Konsumen</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
@@ -94,18 +94,32 @@
     </section>
 </main>
 <script>
-    createApp({
+    vue.createApp({
+        data() {
+            return {
+            username: '',
+            password: '',
+            nama: '',
+            tanggal_lahir: '',
+            alamat: '',
+            user: '',
+            provinsi: '',
+            kota: '',
+            kabupaten: '',
+            kecamatan: '',
+        };
+    },
         methods: {
-            async login() {
+            async register() {
                 try {
                     showLoading();
                     const { username, password, remember_me } = this;
-                    const response = await httpClient.post('../registrasi', {
+                    const response = await httpClient.post('/p/registrasi', {
                         username,
                         password,
                         remember_me
                     });
-                    location.href = '/login';
+                    location.href = '/p/login';
                 } catch (err) {
                     hideLoading();
                     showToast({
@@ -115,6 +129,6 @@
                 }
             }
         }
-    }).mount('#login-page');
+    }).mount('#registrasi-page');
 </script>
 @endsection

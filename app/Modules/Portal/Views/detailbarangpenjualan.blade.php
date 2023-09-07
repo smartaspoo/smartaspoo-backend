@@ -137,7 +137,9 @@
 <body>
     <div class="container margin-up">
         <div class="store-info">
-            <img class="store-logo" src="{{URL::asset('/img/portal/storelogo.png')}}" alt="Store Logo" data-bs-toggle="modal" data-bs-target="#logoModal">
+            <a href="/p/infotoko">
+                <img class="store-logo" src="{{URL::asset('/img/portal/storelogo.png')}}" alt="Store Logo" data-bs-toggle="modal" data-bs-target="#logoModal">
+            </a>
             <div class="store-details">
                 <div class="store-title">Nama Toko</div>
                 <div class="store-activity">Toko telah aktif beberapa menit yang lalu</div>
@@ -154,14 +156,6 @@
                 <div class="action-button chat-button mr-2">Chat Penjual</div>
                 <div class="action-button share-button mr-2"><i class="fa-solid fa-share-nodes"></i></div>
                 <div class="action-button info-button"><i class="fas fa-store"></i></div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="logoModal" tabindex="-1" aria-labelledby="logoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <img src="{{URL::asset('/img/portal/storelogo.png')}}" alt="Store Logo" class="img-fluid">
             </div>
         </div>
     </div>

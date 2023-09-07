@@ -53,4 +53,10 @@ class PortalController extends Controller
     public function pencarianbarangumkm(Request $request){
         return view('Portal::pencarianbarangumkm');
     }
+    public function pusatbantuan(Request $request){
+        return view('Portal::pusatbantuan');
+    }
+    public function kebijakan(Request $request){
+        return view('Portal::kebijakan');
+    }
 }

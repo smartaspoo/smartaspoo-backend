@@ -177,7 +177,7 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="btn ">
+            <a href="{{ url('/p/keranjang') }}" class="btn ">
                 <i class="fas fa-arrow-left arrow-icon"></i>
             </a>            
             <ul class="navbar-nav mr-auto">
@@ -215,23 +215,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <label class="form-check-label" for="proteksiCheckbox">
-                <input class="form-check-input" type="checkbox" id="proteksiCheckbox" onchange="onChange(event)">
-                Proteksi Efek Samping Produk
-            </label>
-            <p class="ms-auto mt-3 text-muted">Rp. 45.000</p>
-        </div>
-        <div style="margin-top: 20px">
-            <p>Melindungi dari bahaya, ketidakyamanan, atau perawatan rawat inap yang timbul karena penggunaan atau konsumsi produk. <a style="color: #196CE9; text-decoration:none; " href="#">Pelajari</a></p>
-        </div>
-        <div class="row-voucher">
-            <img src="{{URL::asset('/img/portal/Wallet.png')}}" alt=''>
-            <p class="caption-voucher">Voucer Toko</p>
     <form action="" class="form-voucher">
-            <input type="text" placeholder="Gunakan/masukkan data">
-        </div>
-        <div class="section-divider"></div>
         <div class="row">
             <div class="d-flex justify-content-between align-items-center">
                 <p class="text-muted">Opsi Pengiriman</p>

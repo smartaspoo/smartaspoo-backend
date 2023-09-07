@@ -238,7 +238,7 @@
     <div class="frame">
         <div class="title">Keranjang Belanja</div>
         <div class="sub-title">
-            <a href="/p" class="back-to-home" style="text-decoration: none; font-size:15px">← Kembali ke Beranda</a>
+            <a href="{{ url('/p') }}" class="back-to-home" style="text-decoration: none; font-size:15px">← Kembali ke Beranda</a>
         </div>
         <div class="content">
                 <div class="cart-box">
@@ -294,11 +294,6 @@
             </table>
         </div>
         <div class="payment-box">
-             <h3>Apakah Kamu Punya Voucher?</h3>
-                <div class="voucher-section">
-                    <input type="text" placeholder="Masukkan kode voucher" class="voucher-input">
-                    <button class="redeem-button">Redeem</button>
-                </div>
         <div class="payment-info">
                         <div class="payment-section subtotal-section">
                             Subtotal: <span class="payment-amount" id="subtotal">Rp 0</span>
@@ -310,7 +305,7 @@
                             <b>Total: <span class="payment-amount" id="total">Rp 0</span></b>
                         </div>
                     </div>
-                    <button class="checkout-button">Checkout</button>
+                    <button onclick="location.href='/p/checkout'" class="checkout-button">Checkout</button>
         </div>
     </div>
 
