@@ -67,19 +67,19 @@
                                                     <option value="konsumen" selected>Konsumen</option>
                                                 </select>
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-3" v-if="role !== 'konsumen'">
                                                 <input v-model="provinsi" type="text" class="form-control form-control-lg" id="provinsi" placeholder="Provinsi" aria-label="Provinsi" style="border-radius: 15px; font-size: 1px;">
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-3" v-if="role !== 'konsumen'">
                                                 <input v-model="kota" type="text" class="form-control form-control-lg" id="kota" placeholder="Kota" aria-label="Kota" style="border-radius: 15px; font-size: 1px;">
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-3" v-if="role !== 'konsumen'">
                                                 <input v-model="kabupaten" type="text" class="form-control form-control-lg" id="kabupaten" placeholder="Kabupaten" aria-label="Kabupaten" style="border-radius: 15px; font-size: 1px;">
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-3" v-if="role !== 'konsumen'">
                                                 <input v-model="kecamatan" type="text" class="form-control form-control-lg" id="kecamatan" placeholder="Kecamatan" aria-label="Kecamatan" style="border-radius: 15px; font-size: 1px;">
                                             </div>
-                                            <div class="text-center">
+                                            <div class="text-center" v-if="role !== 'konsumen'">
                                                 <button @click="register" type="button" class="btn btn-lg w-100 mt-4 mb-0" style="background-color: #606C5D; color: white; font-weight: bold; border-radius: 15px;">Register</button>
                                             </div>
                                         </form>
@@ -94,7 +94,7 @@
     </section>
 </main>
 <script>
-    vue.createApp({
+    createApp({
         data() {
             return {
             username: '',
@@ -102,33 +102,44 @@
             nama: '',
             tanggal_lahir: '',
             alamat: '',
-            user: '',
+            role: 'konsumen',
             provinsi: '',
             kota: '',
             kabupaten: '',
             kecamatan: '',
-        };
-    },
+            };
+        },
         methods: {
             async register() {
                 try {
                     showLoading();
-                    const { username, password, remember_me } = this;
+                    const { username, password, nama, tanggal_lahir, alamat, role, provinsi, kota, kabupaten, kecamatan } = this;
                     const response = await httpClient.post('/p/registrasi', {
                         username,
                         password,
-                        remember_me
+                        nama,
+                        tanggal_lahir,
+                        alamat,
+                        role,
+                        provinsi,
+                        kota,
+                        kabupaten,
+                        kecamatan
+                    });
+                    showToast({
+                        message: 'User berhasil ditambahkan',
+                        type: 'success'
                     });
                     location.href = '/p/login';
-                } catch (err) {
-                    hideLoading();
-                    showToast({
-                        message: err.message,
-                        type: 'warning'
-                    });
+                    } catch (err) {
+                        hideLoading();
+                        showToast({
+                            message: err.message,
+                            type: 'warning'
+                        });
                 }
             }
-        }
+    },
     }).mount('#registrasi-page');
 </script>
 @endsection
