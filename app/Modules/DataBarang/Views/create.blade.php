@@ -8,24 +8,36 @@
                 </div>
             </div>
             <div class="card-body">
-                <form ref="data_barang_form">
+                <form ref="data_barang_form" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="form-control-label">Kode Barang</label>
-                                <input v-model="barang.kode_barang" class="form-control" type="text">
+                                <label class="form-control-label">Foto Produk</label>
+                                <input v-model="barang.foto" class="form-control" type="file" @change="handleFileChange">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">Nama Barang</label>
                                 <input v-model="barang.nama_barang" class="form-control" type="text">
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Harga Jual</label>
-                                <input v-model="barang.harga_barang_jual" class="form-control" type="number">
+                                <label class="form-control-label">Harga Supplier</label>
+                                <input v-model="barang.harga_supplier" class="form-control" type="number">
                             </div>
                             <div class="form-group">
-                                <label class="form-control-label">Harga Beli</label>
-                                <input v-model="barang.harga_barang_beli" class="form-control" type="number">
+                                <label class="form-control-label">Harga Umum</label>
+                                <input v-model="barang.harga_umum" class="form-control" type="number">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Diskon</label>
+                                <input v-model="barang.diskon" class="form-control" type="number">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Keterangan</label>
+                                <textarea class="form-control" v-model="barang.keterangan" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Info Penting</label>
+                                <textarea class="form-control" v-model="barang.info_penting" rows="3"></textarea>
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">Stok</label>
@@ -80,8 +92,13 @@
                     },
                     deep: true,
                 },
+            
+
             },
             methods: {
+                handleFileChange(event) {
+                    this.barang.foto = event.target.files[0];
+                },
                 async fetchSatuanList() {
                     const response = await httpClient.get("{!! url('satuan/all') !!}")
                     this.satuan_list = [
@@ -98,14 +115,19 @@
                     history.back()
                 },
                 resetForm() {
-                    this.data_barang = {}
+                    this.barang = {}
                     this.satuan_list = []
                     this.$refs.data_barang_form.reset()
                 },
                 async store() {
+                    const barangFormData = new FormData()
+                    Object.keys(this.barang).forEach(key => {
+                        barangFormData.append(key, this.barang[key])
+                    });
+
                     try {
                         showLoading()
-                        const response = await httpClient.post("{!! url('data-barang') !!}", this.barang)
+                        const response = await httpClient.post("{!! url('data-barang') !!}", barangFormData)
                         hideLoading()
                         showToast({
                             message: "Data berhasil ditambahkan"

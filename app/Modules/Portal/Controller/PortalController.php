@@ -4,10 +4,39 @@ namespace App\Modules\Portal\Controller;
 
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
+use App\Modules\DataBarang\Models\DataBarang;
+use App\Modules\KategoriProduk\Models\KategoriProduk;
+use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
+use App\Modules\Slider\Models\Slider;
 use Illuminate\Http\Request;
 
 class PortalController extends Controller
 {
+    public function detailBarang($id){
+        $data = DataBarang::where('id',$id)->with(['satuan','foto'])->get();
+        return JsonResponseHandler::setResult($data)->send();
+    }
+    public function searchBarang(Request $request){
+        $payload = $request->input('nama');
+        $data = DataBarang::where('nama_barang','LIKE',"%".$payload."%")->with(['satuan','foto'])->get();
+        return JsonResponseHandler::setResult($data)->send();
+
+    }
+    public function listByKategoriProduk($id){
+        $data = PivotKategoriProduk::where('kategori_produk_id',$id)->with(['barang'])->get();
+        return JsonResponseHandler::setResult($data)->send();
+    }
+    public function dashboard(){
+        $slider = Slider::all();
+        $barang = DataBarang::all();
+        $kategori = PivotKategoriProduk::with('barang')->get();
+        $data = [
+            'slider' => $slider,
+            'kategori_produk' => $kategori
+        ];
+        return JsonResponseHandler::setResult($data)->send();
+
+    }
     public function index(Request $request){
         return view('Portal::index');
     }

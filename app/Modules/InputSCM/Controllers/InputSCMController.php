@@ -33,7 +33,7 @@ class InputSCMController extends Controller
     public function store(InputSCMCreateRequest $request)
     {
         $payload = $request->all();
-        $playload['voice_file'] = FileHandler::store(file : $request->file("voice_file"),targetDir: "uploads/voice",allowedExtensions : ["mp3","m4a"]);
+        $payload['voice_file'] = FileHandler::store(file : $request->file("voice_file"),targetDir: "uploads/voice",allowedExtensions : ["mp3","m4a"]);
         $input_scm = InputSCMRepository::create($payload);
 
         return JsonResponseHandler::setResult($input_scm)->send();

@@ -2,6 +2,7 @@
 
 namespace App\Modules\DataBarang\Controllers;
 
+use App\Handler\FileHandler;
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -32,6 +33,10 @@ class DataBarangController extends Controller
         $data = DataBarangRepository::datatable($per_page);
         return JsonResponseHandler::setResult($data)->send();
     }
+    public function all(Request $request){
+        $data = DataBarang::get();
+        return JsonResponseHandler::setResult($data)->send();
+    }
 
     public function create()
     {
@@ -41,8 +46,13 @@ class DataBarangController extends Controller
     public function store(DataBarangCreateRequest $request)
     {
         $payload = $request->all();
+        unset($payload['foto']);
         $payload['created_by_user_id'] = Auth::user()->id;
+        $foto = FileHandler::store(file : $request->file('foto'), targetDir: "uploads/".Auth::user()->id."/barang");
         $data_barang = DataBarangRepository::create($payload);
+        $save_foto = DataBarangRepository::createFoto($foto,$data_barang->id);
+
+        dd($data_barang,$save_foto);    
         return JsonResponseHandler::setResult($data_barang)->send();
     }
 

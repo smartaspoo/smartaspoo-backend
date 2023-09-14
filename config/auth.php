@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\PortalUser\Models\PortalUser;
 use App\Modules\User\Model\UserModel;
 
 return [
@@ -42,6 +43,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'api' => [   
+            'driver' => 'jwt',
+            'provider' => 'users'
+        ]
     ],
 
     /*
@@ -66,6 +72,7 @@ return [
             'driver' => 'eloquent',
             'model' => UserModel::class,
         ],
+      
 
         // 'users' => [
         //     'driver' => 'database',
