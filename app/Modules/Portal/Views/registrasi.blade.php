@@ -79,7 +79,7 @@
                                             <div class="mb-3" v-if="role !== 'konsumen'">
                                                 <input v-model="kecamatan" type="text" class="form-control form-control-lg" id="kecamatan" placeholder="Kecamatan" aria-label="Kecamatan" style="border-radius: 15px; font-size: 1px;">
                                             </div>
-                                            <div class="text-center" v-if="role !== 'konsumen'">
+                                            <div class="text-center">
                                                 <button @click="register" type="button" class="btn btn-lg w-100 mt-4 mb-0" style="background-color: #606C5D; color: white; font-weight: bold; border-radius: 15px;">Register</button>
                                             </div>
                                         </form>
