@@ -335,6 +335,10 @@
                     <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Product 3">
                     <div class="product-name">Tahu Bakso</div>
                 </div>
+                <div class="card">
+                    <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Product 3">
+                    <div class="product-name">Tahu Bakso</div>
+                </div>
             </div>
         </div>
     </div>

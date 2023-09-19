@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\KaryawanController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
@@ -74,3 +74,7 @@ Route::get('/vue/karyawan/{filename}', function ($filename)
  
     return $response; //return file
 });
+
+Route::get('/p/order', [OrderController::class, 'order']);
+Route::post('/bayar', [OrderController::class, 'bayar']);
+Route::get('/p/invoice/{id}', [OrderController::class, 'invoice']);

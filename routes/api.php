@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\OrderController;
 use App\Modules\DataBarang\Controllers\DataBarangController;
 use App\Modules\Diskon\Controllers\DiskonController;
 use App\Modules\Satuan\Controllers\SatuanController;
@@ -30,3 +31,4 @@ Route::get('/diskon',[DiskonController::class,'datatable']);
 Route::get('/satuan',[SatuanController::class,'datatable']);
 Route::get('/KategoriBarang',[KategoriBarangController::class,'datatable']);
 
+Route::post('/midtrans-callback', [OrderController::class, 'callback']);
