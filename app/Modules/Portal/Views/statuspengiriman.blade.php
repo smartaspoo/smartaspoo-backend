@@ -154,7 +154,7 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="btn ">
+            <a href="/p/" class="btn ">
                 <i class="fas fa-arrow-left arrow-icon"></i>
             </a>            
             <ul class="navbar-nav mr-auto">

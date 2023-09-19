@@ -61,22 +61,22 @@
                                                 <input v-model="alamat" type="text" class="form-control form-control-lg" id="alamat" placeholder="Alamat" aria-label="Alamat" style="border-radius: 15px; font-size: 1px;">
                                             </div>
                                             <div class="mb-3">
-                                                <select v-model="mitra" id="mitra" class="form-select form-control-lg" style="border-radius: 15px; font-size: 16px; width: 100%;">
+                                                <select v-model="role" id="role" class="form-select form-control-lg" style="border-radius: 15px; font-size: 16px; width: 100%;">
                                                     <option value="mitra">Mitra</option>
                                                     <option value="umkm">Umkm</option>
-                                                    <option value="konsumen">Konsumen</option>
+                                                    <option value="konsumen" selected>Konsumen</option>
                                                 </select>
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-3" v-if="role !== 'konsumen'">
                                                 <input v-model="provinsi" type="text" class="form-control form-control-lg" id="provinsi" placeholder="Provinsi" aria-label="Provinsi" style="border-radius: 15px; font-size: 1px;">
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-3" v-if="role !== 'konsumen'">
                                                 <input v-model="kota" type="text" class="form-control form-control-lg" id="kota" placeholder="Kota" aria-label="Kota" style="border-radius: 15px; font-size: 1px;">
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-3" v-if="role !== 'konsumen'">
                                                 <input v-model="kabupaten" type="text" class="form-control form-control-lg" id="kabupaten" placeholder="Kabupaten" aria-label="Kabupaten" style="border-radius: 15px; font-size: 1px;">
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-3" v-if="role !== 'konsumen'">
                                                 <input v-model="kecamatan" type="text" class="form-control form-control-lg" id="kecamatan" placeholder="Kecamatan" aria-label="Kecamatan" style="border-radius: 15px; font-size: 1px;">
                                             </div>
                                             <div class="text-center">
@@ -95,26 +95,51 @@
 </main>
 <script>
     createApp({
+        data() {
+            return {
+            username: '',
+            password: '',
+            nama: '',
+            tanggal_lahir: '',
+            alamat: '',
+            role: 'konsumen',
+            provinsi: '',
+            kota: '',
+            kabupaten: '',
+            kecamatan: '',
+            };
+        },
         methods: {
-            async login() {
+            async register() {
                 try {
                     showLoading();
-                    const { username, password, remember_me } = this;
-                    const response = await httpClient.post('../registrasi', {
+                    const { username, password, nama, tanggal_lahir, alamat, role, provinsi, kota, kabupaten, kecamatan } = this;
+                    const response = await httpClient.post('/p/registrasi', {
                         username,
                         password,
-                        remember_me
+                        nama,
+                        tanggal_lahir,
+                        alamat,
+                        role,
+                        provinsi,
+                        kota,
+                        kabupaten,
+                        kecamatan
                     });
-                    location.href = '/login';
-                } catch (err) {
-                    hideLoading();
                     showToast({
-                        message: err.message,
-                        type: 'warning'
+                        message: 'User berhasil ditambahkan',
+                        type: 'success'
                     });
+                    location.href = '/p/login';
+                    } catch (err) {
+                        hideLoading();
+                        showToast({
+                            message: err.message,
+                            type: 'warning'
+                        });
                 }
             }
-        }
-    }).mount('#login-page');
+    },
+    }).mount('#registrasi-page');
 </script>
 @endsection
