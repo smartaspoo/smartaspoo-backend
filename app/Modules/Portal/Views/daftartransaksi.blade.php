@@ -47,6 +47,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 100%;
+            max-width: 350px; 
         }
 
         .search-icon {
@@ -136,7 +138,7 @@
 <body>
     <nav class="navbar">
         <div class="container-nav">
-            <a href="/p/" class="btn">
+            <a href="{{ url('/p') }}" class="btn">
                 <i class="fas fa-arrow-left arrow-icon"></i>
             </a>
             <ul class="navbar-nav mr-auto">

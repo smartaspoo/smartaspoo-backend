@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 <style>
-    /* Add the Poppins font */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     body {
         font-family: 'Poppins';
@@ -33,7 +32,7 @@
     }
     .arrow-icon {
         font-size: 28px;
-        color: #000; /* Ganti dengan warna yang diinginkan */
+        color: #000; 
         background: none;
         border: none;
         padding: 0;
@@ -88,7 +87,7 @@
 
     #infotoko-page {
         margin-top: 50px;
-        margin-left: 69px;
+        margin-left: 0px;
     }
     .store-name {
         font-size: 24px;
@@ -126,6 +125,16 @@
         padding-left: 5px;
         margin-left: 11px;
         width: 100%;
+    }
+    .row-blank{
+        margin-top: 30px;
+    }
+
+    @media (min-width: 768px) {
+        #infotoko-page {
+            margin-top: 50px;
+            margin-left: 69px;
+        }
     }
 </style>
 </head>
@@ -210,6 +219,9 @@
                 <button type="button" class="btn btn-lg mt-4 mb-0" style="background-color: #606C5D; 
                 color: white; font-weight: bold; border-radius: 15px; margin-top: 20px; width:100%">Lihat Semua Produk</button>
             </div>
+        </div>
+        <div class="row-blank">
+
         </div>
     </section>
 </main>

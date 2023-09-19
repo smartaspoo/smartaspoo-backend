@@ -31,11 +31,11 @@
             margin-bottom: 20px;
         }
         .product-name {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 600;
         }
         .product-price {
-            font-size: 18px;
+            font-size: 15px;
             color: #FF5733;
         }
         .discount-label {
@@ -78,6 +78,7 @@
             cursor: pointer;
             margin-right: 10px;
             font-weight: 600;
+            font-zize: 15px;
             color: #606C5D;
         }
         .description-section:hover {
@@ -232,6 +233,7 @@
 
         .review-image img {
             max-width: 100%;
+            max-height: 200px; 
             margin-top: 10px;
         }
         .customer-review {

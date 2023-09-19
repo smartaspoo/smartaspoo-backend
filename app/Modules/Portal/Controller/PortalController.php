@@ -5,6 +5,7 @@ namespace App\Modules\Portal\Controller;
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class PortalController extends Controller
 {
@@ -59,4 +60,34 @@ class PortalController extends Controller
     public function kebijakan(Request $request){
         return view('Portal::kebijakan');
     }
+    
+    public function cekongkir(Request $request){
+        $response = Http::withHeaders ([
+            'key' => 'f4f21baace88e503f1f1602d7c07a23a'
+        ])->get('https://api.rajaongkir.com/starter/city');
+        
+        $cities = $response['rajaongkir']['results'];
+
+        return view('Portal::cekongkir', ['cities' => $cities, 'ongkir' => '']);
+    }
+    public function cekHasil(Request $request){
+        $response = Http::withHeaders ([
+            'key' => 'f4f21baace88e503f1f1602d7c07a23a'
+        ])->get('https://api.rajaongkir.com/starter/city');
+        
+        $responseCost = Http::withHeaders ([
+            'key' => 'f4f21baace88e503f1f1602d7c07a23a'
+        ])->post('https://api.rajaongkir.com/starter/cost', [
+            'origin' => $request->origin,
+            'destination' => $request->destination,
+            'weight' => $request->weight,
+            'courier' => $request->courier,
+        ]);
+
+        $cities = $response['rajaongkir']['results'];
+        $ongkir = $responseCost['rajaongkir'];
+        
+        return view('Portal::cekongkir', ['cities' => $cities, 'ongkir' => $ongkir]);
+    }
+
 }

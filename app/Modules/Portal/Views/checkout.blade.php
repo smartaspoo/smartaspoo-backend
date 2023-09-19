@@ -156,13 +156,15 @@
         width: 70%;
         margin-top: 20px;
     }
-    .btn-primary {
+    .btn-custom {
         width: 30%;
-        background-color: white; 
-        color: black; 
+        background-color: #FFF4F4;
+        color: black;
         font-weight: bold;
-        border: none;
+        border: 1px solid black;
+        padding: 10px;
     }
+
     .total-pesanan {
         display: flex; 
         justify-Content: space-between;
@@ -228,7 +230,7 @@
                     <option value="" disabled selected>Pilih metode pengiriman</option>
                     <option value="reguler">Reguler</option>
                     <option value="hemat">Hemat</option>
-                    <!-- Tambahkan opsi pengiriman lain jika diperlukan -->
+            
                 </select>
                 <div style="keterangan-ongkir" id="keterangan-ongkir">
                     <p id="keteranganMetode" class="text-muted"></p>
@@ -253,7 +255,6 @@
                     <option value="ovo">OVO</option>
                     <option value="dana">DANA</option>
                     <option value="Transfer Bank">Transfer Bank</option>
-                    <!-- Tambahkan opsi pembayaran lain jika diperlukan -->
                 </select>
             </div>
         </div>
@@ -293,7 +294,7 @@
         <div class="row">
             <div class="end-shop">
                 <p class="shop2">Total Pembayaran : Rp.20.000</p>
-                <button type="submit" value="Buat Pesanan" class="btn btn-primary">Buat Pesanan</button>
+                <button type="submit" value="Buat Pesanan" class=" btn-custom">Buat Pesanan</button>
             </div>
         </div>
     </form>
