@@ -15,14 +15,16 @@
         .navbar {
             background-color: #FBD9C0;
             font-weight: 600;
+            padding: 10px 20px;
         }
         .navbar-brand {
             font-size: 24px;
+            margin-right: 20px; 
         }
         .navbar-nav .nav-link {
             color: #333333;
             transition: color 0.3s;
-            margin-right: 20px;
+            margin-right: 20px; 
         }
         .navbar-nav .nav-link:hover {
             color: #ff6600;
@@ -37,9 +39,9 @@
             margin-bottom: 20px;
         }
         .divider {
-            border-right: 2px solid #000000; 
-            height: 220px; 
-            margin: 0 20px; 
+            border-right: 2px solid #000000;
+            height: 220px;
+            margin: 0 20px;
         }
         .dropdown-header{
             font-weight: bolder;
@@ -50,11 +52,27 @@
         }
         .search-form {
             position: relative;
-            padding-left: 119px;
+            padding-left: 20px; 
+            margin-right: 20px;
         }
         .keranjang {
-            padding-left: 15px;
+            margin-left: auto; 
+            margin-right: 25px; 
         }
+
+        .jadi-mitra-button {
+            font-size: 15px;
+            color: #757272;
+            padding-right: 45px; 
+            margin-left: 20px;
+            text-decoration: none; 
+        }
+
+        .user-profile {
+            margin-left: 0; 
+            margin-right: 28px; 
+        }
+
         .search-input {
             border-radius: 15px;
             padding-right: 40px;
@@ -68,17 +86,12 @@
             background-color: transparent;
             border: none;
             cursor: pointer;
-            color: #000; /* Warna ikon */
+            color: #000;
             font-size: 16px;
         }
         .cart-icon {
             font-size: 24px;
             cursor: pointer;
-        }
-        .user-profile {
-            display: flex;
-            align-items: center;
-            margin-left: 80px;
         }
         .user-profile img {
             width: 40px;
@@ -110,26 +123,25 @@
             font-weight: 400;
         }
         .user-profile .dropdown-menu {
-            width: 300px; /* Menambahkan lebar pada dropdown */
+            width: 300px;
         }
         .dropdown-user {
             display: flex;
-            justify-content: space-around
+            justify-content: space-around;
         }
         .detailsaldo {
             display: flex;
-            justify-content: space-between
+            justify-content: space-between;
         }
         .bottom-dropdown{
             display: flex;
-            justify-content: space-between
+            justify-content: space-between;
         }
         #userDropdown {
             text-decoration: none;
         }
+      
     </style>
-</head>
-<body>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
@@ -143,55 +155,51 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Beranda</a>
+                        <a class="nav-link" href="{{ url('/p') }}">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Produk</a>
+                        <a class="nav-link" href="{{ url('/p/pencarianbarangumkm') }}">Produk</a>
                     </li>
                     <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a>
-                <div class="dropdown-menu" aria-labelledby="kategoriDropdown">
-                    <div>
-                        <h5 class="dropdown-judul">Kategori Produk</h5>
-                    </div>
-                    <div class="submenu">
-                        <div class="col-md-6">
-                            <h6 class="dropdown-header">UMKM</h6>
-                            <a class="dropdown-item" href="#">Roti</a>
-                            <a class="dropdown-item" href="#">Jenang</a>
-                            <a class="dropdown-item" href="#">Wingko</a>
-                            <a class="dropdown-item" href="#">Kue Kering</a>
-                            <a class="dropdown-item" href="#">Lainnya</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="kategoriDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a>
+                        <div class="dropdown-menu" aria-labelledby="kategoriDropdown">
+                            <div>
+                                <h5 class="dropdown-judul">Kategori Produk</h5>
+                            </div>
+                            <div class="submenu">
+                                <div class="col-md-6">
+                                    <h6 class="dropdown-header">UMKM</h6>
+                                    <a class="dropdown-item" href="#">Roti</a>
+                                    <a class="dropdown-item" href="#">Jenang</a>
+                                    <a class="dropdown-item" href="#">Wingko</a>
+                                    <a class="dropdown-item" href="#">Kue Kering</a>
+                                    <a class="dropdown-item" href="#">Lainnya</a>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="col-md-6">
+                                    <h6 class="dropdown-header">Mitra</h6>
+                                    <a class="dropdown-item" href="#">Beras</a>
+                                    <a class="dropdown-item" href="#">Gula</a>
+                                    <a class="dropdown-item" href="#">Garam</a>
+                                    <a class="dropdown-item" href="#">Minyak</a>
+                                    <a class="dropdown-item" href="#">Mentega</a>
+                                    <a class="dropdown-item" href="#">Lainnya</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="divider"></div>
-                        <div class="col-md-6">
-                            <h6 class="dropdown-header">Mitra</h6>
-                            <a class="dropdown-item" href="#">Beras</a>
-                            <a class="dropdown-item" href="#">Gula</a>
-                            <a class="dropdown-item" href="#">Garam</a>
-                            <a class="dropdown-item" href="#">Minyak</a>
-                            <a class="dropdown-item" href="#">Mentega</a>
-                            <a class="dropdown-item" href="#">Lainnya</a>
-                        </div>
-                    </div>
-                </div>
-            </li>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://www.aspoojateng.com/">Tentang ASPOO</a>
+                        <a class="nav-link" href="https://www.aspoojateng.com/" target="_blank">Tentang ASPOO</a>
                     </li>
                 </ul>
                 <form class="search-form" role="search">
                     <input class="form-control search-input" type="search" placeholder="Search" aria-label="Search">
                     <button type="submit" name="cari" class="fa-solid fa-magnifying-glass search-icon"></button>
                 </form>
-                <a class="nav-link keranjang" href="#">
-                    <img src="{{URL::asset('/img/portal/keranjang.png')}}" alt="Keranjang" width="30">
+                <a class="nav-link keranjang" href="{{ url('/p/keranjang') }}">
+                    <img  src="{{URL::asset('/img/portal/keranjang.png')}}" alt="Keranjang" width="30">
                 </a>
-                <ul>
-                    <div style="font-size: 15px; color:#757272" class="nav-item">
-                        <a  class="nav-link" href="#">Jadi Mitra</a>
-                    </div>
-                </ul>
+                <a class="jadi-mitra-button" href="{{ url('/p/login') }}">Jadi Mitra</a>
                 <div class="user-profile">
                     <div class="dropdown">
                         <a  href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -218,27 +226,27 @@
                                 </div>
                             </div>
                             <div class="dropdown-divider mx-3"></div>
-                            <a class="dropdown-item" href="#">Daftar Transaksi</a>
-                            <a class="dropdown-item" href="#">Status Pembelian</a>
+                            <a class="dropdown-item" href="{{ url('/p/daftartransaksi') }}">Daftar Transaksi</a>
+                            <a class="dropdown-item" href="{{ url('/p/status') }}">Status Pembelian</a>
                             <div class="bottom-dropdown">
-                                <a class="dropdown-item" href="#">Pengaturan</a>
-                                <a style="padding-left: 100px"  class="dropdown-item" href="#">Logout</a>
+                                <a class="dropdown-item" href="{{ url('/p/profile') }}">Pengaturan</a>
+                                <a style="margin-left: 80px;"  class="dropdown-item" href="#">Logout</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <script>
-                    const userDropdown = document.getElementById('userDropdown');
-                    
-                    userDropdown.addEventListener('mouseenter', function () {
-                        if (!this.classList.contains('show')) {
-                            this.click();
-                        }
-                    });
-                </script>
             </div>
         </div>
     </nav>
+    <script>
+        const userDropdown = document.getElementById('userDropdown');
+
+        userDropdown.addEventListener('mouseenter', function () {
+            if (!this.classList.contains('show')) {
+                this.click();
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>

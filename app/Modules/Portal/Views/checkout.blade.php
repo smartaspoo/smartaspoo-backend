@@ -156,13 +156,15 @@
         width: 70%;
         margin-top: 20px;
     }
-    .btn-primary {
+    .btn-custom {
         width: 30%;
-        background-color: white; 
-        color: black; 
+        background-color: #FFF4F4;
+        color: black;
         font-weight: bold;
-        border: none;
+        border: 1px solid black;
+        padding: 10px;
     }
+
     .total-pesanan {
         display: flex; 
         justify-Content: space-between;
@@ -177,7 +179,7 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="btn ">
+            <a href="{{ url('/p/keranjang') }}" class="btn ">
                 <i class="fas fa-arrow-left arrow-icon"></i>
             </a>            
             <ul class="navbar-nav mr-auto">
@@ -191,7 +193,7 @@
     <main class="container" style="margin-top: 50px; font-size: 16px;">
         <div class="row">
             <div class="address">
-                <img src="{{URL::asset('/img/portal/address.png')}}" alt="alamat" class="img-fluid">
+                <img src="{{URL::asset('/img/portal/Address.png')}}" alt="alamat" class="img-fluid">
                 <p class="address-caption"><strong>Alamat Pengiriman</strong> <br />Wardah Maulina | (+62) 823345623442 
                 <br> Jalan Sadewa no 23 rt 04/01 Semarang Utara Suyudono, Kab Semarang, Jawa Tengah, ID 23456</p>
             </div>
@@ -215,23 +217,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <label class="form-check-label" for="proteksiCheckbox">
-                <input class="form-check-input" type="checkbox" id="proteksiCheckbox" onchange="onChange(event)">
-                Proteksi Efek Samping Produk
-            </label>
-            <p class="ms-auto mt-3 text-muted">Rp. 45.000</p>
-        </div>
-        <div style="margin-top: 20px">
-            <p>Melindungi dari bahaya, ketidakyamanan, atau perawatan rawat inap yang timbul karena penggunaan atau konsumsi produk. <a style="color: #196CE9; text-decoration:none; " href="#">Pelajari</a></p>
-        </div>
-        <div class="row-voucher">
-            <img src="{{URL::asset('/img/portal/wallet.png')}}" alt=''>
-            <p class="caption-voucher">Voucer Toko</p>
     <form action="" class="form-voucher">
-            <input type="text" placeholder="Gunakan/masukkan data">
-        </div>
-        <div class="section-divider"></div>
         <div class="row">
             <div class="d-flex justify-content-between align-items-center">
                 <p class="text-muted">Opsi Pengiriman</p>
@@ -244,7 +230,7 @@
                     <option value="" disabled selected>Pilih metode pengiriman</option>
                     <option value="reguler">Reguler</option>
                     <option value="hemat">Hemat</option>
-                    <!-- Tambahkan opsi pengiriman lain jika diperlukan -->
+            
                 </select>
                 <div style="keterangan-ongkir" id="keterangan-ongkir">
                     <p id="keteranganMetode" class="text-muted"></p>
@@ -269,7 +255,6 @@
                     <option value="ovo">OVO</option>
                     <option value="dana">DANA</option>
                     <option value="Transfer Bank">Transfer Bank</option>
-                    <!-- Tambahkan opsi pembayaran lain jika diperlukan -->
                 </select>
             </div>
         </div>
@@ -309,7 +294,7 @@
         <div class="row">
             <div class="end-shop">
                 <p class="shop2">Total Pembayaran : Rp.20.000</p>
-                <button type="submit" value="Buat Pesanan" class="btn btn-primary">Buat Pesanan</button>
+                <button type="submit" value="Buat Pesanan" class=" btn-custom">Buat Pesanan</button>
             </div>
         </div>
     </form>

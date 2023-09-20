@@ -59,7 +59,7 @@
         }
 
         .shipment-details {
-            margin-left: 150px;
+            margin-left: 60px;
         }
 
         .shipment-info {
@@ -154,7 +154,7 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="btn ">
+            <a href="/p/" class="btn ">
                 <i class="fas fa-arrow-left arrow-icon"></i>
             </a>            
             <ul class="navbar-nav mr-auto">

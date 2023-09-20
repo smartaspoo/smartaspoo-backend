@@ -19,16 +19,17 @@
             align-items: flex-start;
         }
         .form-container {
-            width: 70%;
+            flex: 1; 
             padding-right: 20px;
         }
         .profile-box {
-            width: 30%;
+            flex: 1; 
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
             text-align: center;
             position: relative;
+            max-width: 280px;
         }
         .profile-image {
             width: 100px;
@@ -38,10 +39,10 @@
             object-fit: cover;
         }
         .change-image {
-            font-size: 14px;
+            font-size: 12px;
             color: #333;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 10px; /* Mengurangi jarak atas */
         }
         .save-button {
             background-color: #E1B587;
@@ -59,7 +60,7 @@
             background-color: #E1B587;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 5px 10px; /* Mengurangi ukuran tombol Pilih Gambar */
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;

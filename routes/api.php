@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\OrderController;
 use App\Modules\DataBarang\Controllers\DataBarangController;
 use App\Modules\Diskon\Controllers\DiskonController;
 use App\Modules\Keranjang\Controllers\KeranjangController;
@@ -59,3 +60,6 @@ Route::post('/login', [PortalUserController::class, 'login']);
 Route::get('/data-barang',[DataBarangController::class,'datatable']);
 Route::get('/diskon',[DiskonController::class,'datatable']);
 Route::get('/satuan',[SatuanController::class,'datatable']);
+Route::get('/KategoriBarang',[KategoriBarangController::class,'datatable']);
+
+Route::post('/midtrans-callback', [OrderController::class, 'callback']);

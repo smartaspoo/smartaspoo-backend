@@ -11,11 +11,13 @@
         }
         .store-info {
             display: flex;
+            flex-direction: column;
             align-items: center;
+            text-align: center;
         }
         .store-logo {
             max-width: 100px;
-            margin-right: 20px;
+            margin-bottom: 10px;
             cursor: pointer;
         }
         .store-details {
@@ -24,6 +26,7 @@
         .store-title {
             font-size: 24px;
             font-weight: bold;
+            margin-bottom: 10px;
         }
         .store-activity {
             color: #9b9b9b;
@@ -42,9 +45,9 @@
         }
         .action-buttons {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
             margin-top: 20px;
-            margin-left: 117px;
         }
         .action-button {
             padding: 8px 16px;
@@ -53,57 +56,64 @@
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
+            margin: 5px;
         }
         .follow-button {
             background-color: #606C5D;
         }
-        .chat-button {
-            border: 2px solid black;
+        .chat-button,
+        .share-button,
+        .info-button {
+            background-color: white;
             color: black;
-            margin-left: 10px;
-        }
-        .share-button {
             border: 2px solid black;
-            color: black;
-            margin-left: 10px;
         }
         .info-button {
-            border: 2px solid black;
-            color: black;
             font-size: 20px;
             padding: 6px 10px;
-            margin-left: 10px;
-        }
-        .modal-content {
-            background-color: transparent;
-            border: none;
         }
         .tab-list {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         .tab {
             padding: 10px 20px;
             cursor: pointer;
+            margin: 5px;
         }
         .active-tab {
-            border-bottom: 3px solid #4C4F40;
+            color: black;
+            border-bottom: 2px solid blue;
         }
         .right-filter{
-            margin-top: 30px;
+            margin-top: 20px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
         }
         .urutkan {
             padding-top: 10px;
-            padding-right: 22px;
+            padding-right: 10px;
+            font-weight: #000;
+    
+        }
+        .product-card-image {
+            width: 75%;
         }
         .filter-dropdown {
-            text-align: right;
+            text-align: center;
             margin-bottom: 20px;
-            width: 22%;
+            width: 100%;
+            max-width: 200px;
             border: 2px solid;
+            
+        }
+        .product-image {
+            max-width: 100%; 
+            height: auto; 
         }
         .harga {
             color: var(--type-high-emphasis, #171520);
@@ -117,11 +127,11 @@
             font-size: 15px;
             font-style: normal;
             font-weight: 500;
-            line-height: 22.715px; /* 174.734% */
+            line-height: 22.715px; 
         }
         .lokasi {
             display: flex;
-            width: 294.317px;
+            width: 100%;
             height: 22.715px;
             flex-direction: column;
             justify-content: center;
@@ -129,15 +139,38 @@
         }
         .custom-initial {
             display: flex;
-            justify-content: start;
+            justify-content: center;
             align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .store-info {
+                flex-direction: row;
+                text-align: left;
+            }
+            .store-logo {
+                margin-bottom: 0;
+                margin-right: 20px;
+            }
+            .action-buttons {
+                justify-content: flex-start;
+                margin-left: 0;
+            }
+            .tab-list {
+                justify-content: flex-start;
+            }
+            .right-filter {
+                justify-content: flex-end;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container margin-up">
         <div class="store-info">
-            <img class="store-logo" src="{{URL::asset('/img/portal/storelogo.png')}}" alt="Store Logo" data-bs-toggle="modal" data-bs-target="#logoModal">
+            <a href="{{ url('/p/infotoko') }}">
+                <img class="store-logo" src="{{URL::asset('/img/portal/storelogo.png')}}" alt="Store Logo" data-bs-toggle="modal" data-bs-target="#logoModal">
+            </a>
             <div class="store-details">
                 <div class="store-title">Nama Toko</div>
                 <div class="store-activity">Toko telah aktif beberapa menit yang lalu</div>
@@ -154,14 +187,6 @@
                 <div class="action-button chat-button mr-2">Chat Penjual</div>
                 <div class="action-button share-button mr-2"><i class="fa-solid fa-share-nodes"></i></div>
                 <div class="action-button info-button"><i class="fas fa-store"></i></div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="logoModal" tabindex="-1" aria-labelledby="logoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <img src="{{URL::asset('/img/portal/storelogo.png')}}" alt="Store Logo" class="img-fluid">
             </div>
         </div>
     </div>
@@ -189,7 +214,7 @@
                     <!-- Dummy data for recommended product cards -->
                     <div class="col-md-3">
                         <div class="product-card">
-                            <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+                            <img class="product-card-image" src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
                             <h4>Produk 1</h4>
                             <p>Kategori: Makanan</p>
                             <p>Rating: 4.5 (200 ulasan)</p>
@@ -202,7 +227,7 @@
                     <!-- More dummy data for recommended product cards -->
                     <div class="col-md-3">
                         <div class="product-card">
-                            <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+                            <img class="product-card-image" src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
                             <h4>Produk 2</h4>
                             <p>Kategori: Makanan</p>
                             <p>Rating: 4.5 (200 ulasan)</p>

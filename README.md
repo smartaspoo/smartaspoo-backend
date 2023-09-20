@@ -18,3 +18,11 @@
 
 NPM cuma untuk build viewnya doang, soalnya pakai vue. Server tetep pakai php artisan
 
+## Run Laragon (server)
+
+`php -S localhost:7000 -t smartaspoo-backend/public`
+`ngrok http localhost:7000`
+
+## PAYMENT
+`4811 1111 1111 1114`
+`123`
