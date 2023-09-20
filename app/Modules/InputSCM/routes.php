@@ -14,6 +14,7 @@ Route::prefix('/input-scm')->group(function() {
 
     // SUB MENU MARKER (DONT DELETE THIS LINE)
 
+    Route::get("/excel",[InputSCMController::class,'excel']);
     Route::prefix("/{id_umkm}")->group(function(){
         Route::prefix("/barang")->group(function(){
             Route::get('/', [BarangController::class, 'index'])->middleware('authorize:read-input_scm');

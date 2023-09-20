@@ -5,6 +5,8 @@ namespace App\Modules\InputSCM\Controllers;
 use App\Handler\FileHandler;
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
+use App\Modules\InputSCM\Models\InputSCM;
+use App\Modules\InputSCM\Models\UMKM;
 use App\Modules\InputSCM\Repositories\InputSCMRepository;
 use App\Modules\InputSCM\Requests\InputSCMCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
@@ -23,6 +25,12 @@ class InputSCMController extends Controller
         $per_page = $request->input('per_page') != null ? $request->input('per_page') : 15;
         $data = InputSCMRepository::datatable($per_page);
         return JsonResponseHandler::setResult($data)->send();
+    }
+    public function excel(Request $request){
+        $data = UMKM::with(['kecamatan','kota','kelurahan','provinsi','barang','barang.bahan','barang.bahan.supplier'])->get();
+     
+        return JsonResponseHandler::setResult($data)->send();
+
     }
 
     public function create()

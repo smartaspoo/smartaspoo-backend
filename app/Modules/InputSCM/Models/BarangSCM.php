@@ -15,4 +15,7 @@ class BarangSCM extends Model
     public function getIdAttribute(){
         return $this->id_barang;
     }
+    public function bahan(){
+        return $this->hasMany(Bahan::class,"id_barang");
+    }
 }
