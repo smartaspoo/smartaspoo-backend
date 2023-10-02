@@ -69,10 +69,9 @@ class PortalUserController extends Controller
             DB::rollBack();
             return JsonResponseHandler::setResult($e)->send();
         }
-
-
         return JsonResponseHandler::setResult($portaluser)->send();
     }
+    
     public function login(Request $request){
         $email = $request->input('email');
         $password = $request->input('password');

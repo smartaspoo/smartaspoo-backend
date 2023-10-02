@@ -1,4 +1,4 @@
-@extends('layout.index')
+@extends('portal_layout.templates')
 @section('content')
 
 <style>
@@ -48,7 +48,7 @@
                                         <br>
                                         <form role="form">
                                             <div class="mb-3">
-                                                <input v-model="username" type="email" class="form-control form-control-lg" placeholder="Username" aria-label="Username">
+                                                <input v-model="email" type="email" class="form-control form-control-lg" placeholder="email" aria-label="email">
                                             </div>
                                             <div class="mb-3">
                                                 <input v-model="password" type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
@@ -72,7 +72,7 @@
     createApp({
         data() {
             return {
-                username: "<?= (env('APP_ENV') == 'local' ? 'developer@gmail.com' : '') ?>",
+                email: "<?= (env('APP_ENV') == 'local' ? 'developer@gmail.com' : '') ?>",
                 password: "<?= (env('APP_ENV') == 'local' ? 'kecilsemuatanpaspasi' : '') ?>",
                 remember_me: false
             };
@@ -81,13 +81,13 @@
             async login() {
                 try {
                     showLoading();
-                    const { username, password, remember_me } = this;
-                    const response = await httpClient.post('../login', {
-                        username,
+                    const { email, password, remember_me } = this;
+                    const response = await httpClient.post("/p/login", {
+                        email,
                         password,
                         remember_me
                     });
-                    location.href = '/index';
+                    location.href = '/';
                 } catch (err) {
                     hideLoading();
                     showToast({

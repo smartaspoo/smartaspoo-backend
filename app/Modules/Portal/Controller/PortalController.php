@@ -4,12 +4,16 @@ namespace App\Modules\Portal\Controller;
 
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\KategoriProduk\Models\KategoriProduk;
 use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
 use App\Modules\Slider\Models\Slider;
+use App\Modules\User\Model\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class PortalController extends Controller
 {
@@ -27,25 +31,40 @@ class PortalController extends Controller
         $data = PivotKategoriProduk::where('kategori_produk_id',$id)->with(['barang'])->get();
         return JsonResponseHandler::setResult($data)->send();
     }
+
+    public function getBarang(Request $request, $id){
+        $data = DataBarang::where('id',$id)->with(['satuan','foto'])->first();
+        return view('Portal::barang.detailproduk',compact("data"));
+    }
     public function dashboard(){
         $slider = Slider::all();
         $barang = DataBarang::all();
-        $kategori = PivotKategoriProduk::with('barang')->get();
+        $kategori = KategoriProduk::get();
         $data = [
             'slider' => $slider,
-            'kategori_produk' => $kategori
+            'kategori_produk' => $kategori,
+            'rekomendasi' => $barang,
         ];
         return JsonResponseHandler::setResult($data)->send();
 
     }
+    public function fetchLogin(Request $request){
+        $data = Auth::user();
+        if($data){
+            $user = UserModel::with("roles")->find($data->id);
+            return JsonResponseHandler::setResult($user)->send();
+        }else{
+            return JsonResponseHandler::setCode(400)->send();
+        }
+    }
     public function index(Request $request){
-        return view('Portal::index');
+        return view('Portal::dashboard.dashboard');
     }
     public function login(Request $request){
-        return view('Portal::login');
+        return view('Portal::auth.login');
     }
     public function registrasi(Request $request){
-        return view('Portal::registrasi');
+        return view('Portal::auth.registrasi');
     }
     public function statuspengiriman(Request $request){
         return view('Portal::statuspengiriman');

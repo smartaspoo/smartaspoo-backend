@@ -12,6 +12,6 @@ class Slider extends Model
     protected $guarded = [];
     protected $appends = ['url_foto'];
     public function getUrlFotoAttribute(){
-        return url($this->foto);
+        return url("storage/".$this->foto);
     }
 }

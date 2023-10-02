@@ -48,37 +48,6 @@ Route::get('/', function () {
     return redirect('/p');
 });
 
-// tes view blade dan layout admin
-Route::get('/karyawan', [KaryawanController::class, 'index']);
-Route::post('/karyawan/tespost', [KaryawanController::class, 'tespost']);
-Route::post('/karyawan/tessubmit', [KaryawanController::class, 'tessubmit']);
-
-// tes asset vue di dalam module -> views
-Route::get('/vue/karyawan/{filename}', function ($filename)
-{
-    if(preg_match('/[^a-zA-Z_\-0-9.]/i', $filename))
-    {
-        abort(403); //return 404 error if file not found
-    }
-
-    $path = base_path('app/Modules/karyawan/Views/'.$filename);
- 
-    if (!File::exists($path)) {
-        abort(404); //return 404 error if file not found
-    }
- 
-    $type = File::extension($path); //determine the file type
-    if($type != 'js' && $type != 'vue'){
-        abort(404); //return 404 error if file not found
-    }
-    $file = File::get($path); //get the file
- 
-    $response = Response::make($file, 200); //200 OK HTML Response
-    $response->header("Content-Type", $type); //HTML filetype header
- 
-    return $response; //return file
-});
-
 Route::get('/p/order', [OrderController::class, 'order']);
 Route::post('/bayar', [OrderController::class, 'bayar']);
 Route::get('/p/invoice/{id}', [OrderController::class, 'invoice']);

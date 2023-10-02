@@ -1,12 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartASPOO</title>
-    <link rel="icon" href="{{URL::asset('/img/portal/android-chrome-512x512.png')}}" type="image/png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+@include('layout.head')
+<body id="root-content" class="content">
+    <script src="{!! asset('js/toast.js') !!}"></script>
+    <script src="{!! asset('js/loading.js') !!}"></script>
+    <script src="{!! asset('js/httpClient.js') !!}"></script>
+    <script>
+        initializeHttpClient("{!! csrf_token() !!}");
+    </script>
+    <script src="{!! asset('js/navigator.js') !!}"></script>
+    <script src="{!! asset('js/vue_initial.js') !!}"></script>
+
+    <script src="{!! asset('js/ckeditor_initial.js') !!}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
         body {
@@ -142,9 +147,7 @@
         }
       
     </style>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img style="width: 100px" src="{{URL::asset('/img/portal/logo.png')}}" alt="Logo" width="60">
@@ -192,22 +195,35 @@
                         <a class="nav-link" href="https://www.aspoojateng.com/" target="_blank">Tentang ASPOO</a>
                     </li>
                 </ul>
-                <form class="search-form" role="search">
-                    <input class="form-control search-input" type="search" placeholder="Search" aria-label="Search">
+                <form class="search-form" action="/p/cari" role="search">
+                    <input class="form-control search-input" type="search" placeholder="Search" name="q" aria-label="Search">
                     <button type="submit" name="cari" class="fa-solid fa-magnifying-glass search-icon"></button>
                 </form>
                 <a class="nav-link keranjang" href="{{ url('/p/keranjang') }}">
                     <img  src="{{URL::asset('/img/portal/keranjang.png')}}" alt="Keranjang" width="30">
                 </a>
-                <a class="jadi-mitra-button" href="{{ url('/p/login') }}">Jadi Mitra</a>
-                <div class="user-profile">
+                <a class="jadi-mitra-button" v-if="this.isLoggedin == false" href="{{ url('/p/login') }}">Jadi Mitra</a>
+                <div class="user-profile" v-if="this.isLoggedin == false">
+                    <div class="dropdown">
+                        <a  href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="user-info">
+                                <img src="{{URL::asset('/img/portal/user-icon.png')}}" alt="">
+                              
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" :href="`{{url("/p/login")}}`">Login</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-profile" v-if="this.isLoggedin == true">
                     <div class="dropdown">
                         <a  href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="user-info">
                                 <img src="{{URL::asset('/img/portal/user-icon.png')}}" alt="">
                                 <div class="box-user">
-                                    <div class="user-name">username </div>
-                                    <div class="user-role">Customer</div>
+                                    <div class="user-name">@{{this.userData.name}} </div>
+                                    <div class="user-role">@{{this.userData.roleName}}</div>
                                 </div>
                             </div>
                         </a>
@@ -215,7 +231,7 @@
                             <div class=" dropdown-user">
                                 <img src="{{URL::asset('/img/portal/user-icon.png')}}" alt="Avatar" width="40" class="mr-3">
                                 <div>
-                                    <div class="user-name">username</div>
+                                    <div class="user-name">@{{this.userData.email}}</div>
                                 </div>
                             </div>
                             <div class="dropdown-divider mx-3"></div>
@@ -230,7 +246,7 @@
                             <a class="dropdown-item" href="{{ url('/p/status') }}">Status Pembelian</a>
                             <div class="bottom-dropdown">
                                 <a class="dropdown-item" href="{{ url('/p/profile') }}">Pengaturan</a>
-                                <a style="margin-left: 80px;"  class="dropdown-item" href="#">Logout</a>
+                                <a style="margin-left: 80px;"  class="dropdown-item" href="{{url("/p/logout")}}">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -238,6 +254,7 @@
             </div>
         </div>
     </nav>
+
     <script>
         const userDropdown = document.getElementById('userDropdown');
 
@@ -246,7 +263,34 @@
                 this.click();
             }
         });
+
+        Vue.createApp({
+            data(){
+                return {
+                    userData : {},
+                    isLoggedin : false,
+                }
+            },
+            async created(){
+                await this.fetchProfile();
+            },
+            methods: {
+                async fetchProfile(){
+                    const response = await httpClient.post("{!! url('p/fetch-login') !!}/")
+                    if(response.data.code == "400"){
+                        this.isLoggedin = false
+                    }else{
+                        this.isLoggedin = true
+                        this.userData = response.data.result
+                        this.userData.roles.forEach(element => {
+                                this.userData.roleName = element.name
+                        });
+                    }
+                    console.log("provile",response)
+                },
+           
+            }
+
+        }).mount("#navbar")
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+

@@ -11,6 +11,7 @@ use App\Modules\User\Request\UserLoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -50,6 +51,12 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return JsonResponseHandler::setMessage("Logout Berhasil")->send();
+    }
+    public function logoutWeb(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return Redirect::to("/p");
     }
     public function index()
     {
