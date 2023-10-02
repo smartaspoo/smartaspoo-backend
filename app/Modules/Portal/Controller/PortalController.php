@@ -21,6 +21,10 @@ class PortalController extends Controller
         $data = DataBarang::where('id',$id)->with(['satuan','foto'])->get();
         return JsonResponseHandler::setResult($data)->send();
     }
+    public function pencarianbarangumkm(){
+        return view('Portal::pencarianbarangumkm');
+
+    }
     public function searchBarang(Request $request){
         $payload = $request->input('nama');
         $data = DataBarang::where('nama_barang','LIKE',"%".$payload."%")->with(['satuan','foto'])->get();
@@ -30,6 +34,11 @@ class PortalController extends Controller
     public function listByKategoriProduk($id){
         $data = PivotKategoriProduk::where('kategori_produk_id',$id)->with(['barang'])->get();
         return JsonResponseHandler::setResult($data)->send();
+    }
+
+    public function getCari(Request $request){
+        return view('Portal::cari');
+
     }
 
     public function getBarang(Request $request, $id){
@@ -99,9 +108,7 @@ class PortalController extends Controller
     public function ratingdanulasan(Request $request){
         return view('Portal::ratingdanulasan');
     }
-    public function pencarianbarangumkm(Request $request){
-        return view('Portal::pencarianbarangumkm');
-    }
+
     public function pusatbantuan(Request $request){
         return view('Portal::pusatbantuan');
     }

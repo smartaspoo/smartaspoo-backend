@@ -23,7 +23,6 @@ Route::prefix('/p')->group(function () {
     Route::get("/keranjang",[PortalController::class,"keranjang"]);
     Route::get("/infotoko",[PortalController::class,"infotoko"]);
     Route::get("/checkout",[PortalController::class,"checkout"]);
-    Route::get("/cari",[PortalController::class,"pencarianbarangumkm"]);
     Route::get("/setelahcheckout",[PortalController::class,"setelahcheckout"]);
     Route::get("/ratingdanulasan",[PortalController::class,"ratingdanulasan"]);
     Route::get("/pencarianbarangumkm",[PortalController::class,"pencarianbarangumkm"]);
@@ -32,9 +31,12 @@ Route::prefix('/p')->group(function () {
     Route::get("/cekongkir",[PortalController::class,"cekongkir"]);
     Route::post("/cekongkir",[PortalController::class,"cekHasil"]);
 
+    // pencarianbarangumkm
+    Route::get("/cari",[PortalController::class,"getCari"]);
     Route::prefix("barang")->group(function(){
         Route::get('/{id}',[PortalController::class,'getBarang']);
         Route::post('/keranjang',[PortalController::class,'postKeranjang']);
+        
     });
 
     Route::get("/logout",[UserController::class,"logoutWeb"]);
