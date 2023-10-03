@@ -4,12 +4,12 @@
         <default-datatable title="Approve Transaksi" url="{!! url('approve-transaksi') !!}" :headers="headers"
             :can-add="false" :can-edit="false" :can-delete="false">
             <template #left-action="{ content }">
-                <button @click="approveTransaksi(content.id)" class="btn btn-xs btn-primary mr-1">
+                <button @click="approveTransaksi(content.kode_transaksi)" class="btn btn-xs btn-primary mr-1">
                     Approve
                 </button>
-                <button @click="viewTransaksi(content.id)" class="btn btn-xs btn-info mr-1">
+                <a :href="`{!! url('approve-transaksi') !!}/preview/${content.kode_transaksi}`" class="btn btn-xs btn-info mr-1">
                     Lihat Data
-                </button>
+                </a>
             </template>
         </default-datatable>
     </div>
@@ -26,7 +26,7 @@
                             text: 'Kurir Pengiriman',
                             value: 'kurir_pengiriman',
                         },
-                   
+
                         {
                             text: 'Total Transaksi',
                             value: 'total_biaya_readable',
@@ -41,12 +41,28 @@
             },
             created() {},
             methods: {
-                async approveTransaksi() {
+                async approveTransaksi(kode) {
+                    console.log(kode)
+                    try {
+                        showLoading()
+                        const response = await httpClient.post("{!! url('approve-transaksi/preview/') !!}", {
+                            kode
+                        })
+                        hideLoading()
+                        showToast({
+                            message: "Data berhasil di Approve!"
+                        })
+                        history.back()
 
-                },
-                async viewTransaksi() {
-
+                    } catch (err) {
+                        hideLoading()
+                        showToast({
+                            message: err.message,
+                            type: 'error'
+                        })
+                    }
                 }
+
             },
             components: {
                 ...commonComponentMap(

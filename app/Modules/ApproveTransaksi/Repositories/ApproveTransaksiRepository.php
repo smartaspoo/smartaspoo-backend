@@ -8,7 +8,7 @@ class ApproveTransaksiRepository
 {
     public static function datatable($per_page = 15)
     {
-        $data = ApproveTransaksi::where('status',null)->with("pembeli")->paginate($per_page);
+        $data = ApproveTransaksi::whereNull('status')->with("pembeli")->paginate($per_page);
         return $data;
     }
     public static function get($approve_transaksi_id)

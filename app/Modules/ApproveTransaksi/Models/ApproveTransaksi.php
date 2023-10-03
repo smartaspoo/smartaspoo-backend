@@ -18,6 +18,7 @@ class ApproveTransaksi extends Model
         return $rupiah;
     }
 
+
     public function pembeli(){
         return $this->hasOne(User::class,"id","user_id");
     }
