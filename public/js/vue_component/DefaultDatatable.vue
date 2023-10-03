@@ -37,6 +37,7 @@
                 <table class="table align-items-center mb-0 table-hover">
                     <thead class="bg-grey1">
                         <tr>
+                            <th class="text-center">No.</th>
                             <th
                                 v-for="(header, index) in headers"
                                 :key="index"
@@ -51,7 +52,7 @@
                     </thead>
                     <tbody>
                         <tr v-if="isContentLoading">
-                            <td :colspan="headers.length + 1">
+                            <td :colspan="headers.length + 2">
                                 <div class="d-flex justify-content-center">
                                     <div class="loader loader-lg"></div>
                                 </div>
@@ -62,6 +63,7 @@
                                 v-for="(content, index) in contents"
                                 :key="index"
                             >
+                                <td class="text-center">{{ index+1 }}</td>
                                 <td
                                     v-for="(header, _index) in headers"
                                     :key="_index"

@@ -33,10 +33,22 @@ class PortalController extends Controller
         $data = DataBarang::where('id',$id)->with(['satuan','foto'])->get();
         return JsonResponseHandler::setResult($data)->send();
     }
-    public function pencarianbarangumkm(){
-        return view('Portal::pencarianbarangumkm');
 
+    public function postKeranjang(Request $request){
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+
+        $keranjang = Keranjang::create($data);
+
+        if($keranjang){
+            return JsonResponseHandler::setMessage("SUCCESS")->setResult($keranjang)->send();
+        }else{
+            return JsonResponseHandler::setMessage("ERROR")->send();
+        }
+
+        dd($request->all());
     }
+
     public function searchBarang(Request $request){
         $payload = $request->input('nama');
         $data = DataBarang::where('nama_barang','LIKE',"%".$payload."%")->with(['satuan','foto'])->get();

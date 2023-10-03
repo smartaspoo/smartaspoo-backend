@@ -314,8 +314,7 @@
                     <div class="order-title">Atur Jumlah</div>
                     <div class="order-quantity">
                         <label class="quantity-label" for="quantity">Quantity:</label>
-                        <input class="form-control" type="number" id="quantity" name="quantity" value="1"
-                            min="1" max="54">
+                        <input class="form-control" type="number" v-model="barang.jumlah" min="1" max="54">
                         <br>
                         <span class="stock-info">Stok total : <span style="color: red;">75</span></span>
                     </div>
@@ -323,7 +322,7 @@
                         Total Harga = <span id="totalPrice">{{ $data->harga_umum }}</span>
                     </div>
                     <div class="order-buttons">
-                        <button class="order-button">Keranjang</button>
+                        <button class="order-button"> <span @click="tambahKeranjang()">Keranjang</span> </button>
                         <button class="order-button">Beli Langsung</button>
                     </div>
                 </div>
@@ -355,7 +354,8 @@
                 data() {
                     return {
                         barang: {
-                            id: '{{ $data->id }}'
+                            id: '{{ $data->id }}',
+                            jumlah: 1
                         }
                     }
 
@@ -364,7 +364,8 @@
                 methods: {
                     async tambahKeranjang() {
                         const response = await httpClient.post("{!! url('p/barang/keranjang') !!}/", {
-                            id_barang: this.barang.id
+                            barang_id: this.barang.id,
+                            jumlah: this.barang.jumlah
                         })
                         console.log(response)
                     }
@@ -373,15 +374,6 @@
             }).mount("#container")
         </script>
         <script>
-            const quantityInput = document.getElementById('quantity');
-            const totalPriceSpan = document.getElementById('totalPrice');
-            const productPrice = 90000; // Harga produk
-
-            quantityInput.addEventListener('input', () => {
-                const quantity = parseInt(quantityInput.value);
-                const total = quantity * productPrice;
-                totalPriceSpan.textContent = total.toLocaleString('id-ID');
-            });
             const detailSection = document.querySelector('.description-section:nth-child(1)');
             const infoPentingSection = document.querySelector('.description-section:nth-child(2)');
             const detailContent = document.getElementById('detailContent');
