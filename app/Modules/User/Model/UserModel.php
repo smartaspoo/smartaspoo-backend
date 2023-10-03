@@ -6,12 +6,16 @@ use App\Handler\ModelSearchHandler;
 use App\Modules\Role\Model\RoleModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class UserModel extends Authenticatable
 {
-    use SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     protected $table = 'users';
     protected $guarded = [];
+
 
     // Scope
     public function scopeSearch($query, $keyword)

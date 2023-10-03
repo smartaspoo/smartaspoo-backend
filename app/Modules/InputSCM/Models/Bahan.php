@@ -16,4 +16,7 @@ class Bahan extends Model
     public function getIdAttribute(){
         return $this->id_bahan_baku;
     }
+    public function supplier(){
+        return $this->hasMany(Supplier::class,"id_bahan_baku");
+    }
 }

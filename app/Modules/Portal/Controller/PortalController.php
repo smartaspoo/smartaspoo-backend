@@ -4,18 +4,89 @@ namespace App\Modules\Portal\Controller;
 
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Modules\DataBarang\Models\DataBarang;
+use App\Modules\KategoriProduk\Models\KategoriProduk;
+use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
+use App\Modules\Keranjang\Models\Keranjang;
+use App\Modules\Slider\Models\Slider;
+use App\Modules\User\Model\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class PortalController extends Controller
 {
+    public function detailBarang($id){
+        $data = DataBarang::where('id',$id)->with(['satuan','foto'])->get();
+        return JsonResponseHandler::setResult($data)->send();
+    }
+
+    public function postKeranjang(Request $request){
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+
+        $keranjang = Keranjang::create($data);
+
+        if($keranjang){
+            return JsonResponseHandler::setMessage("SUCCESS")->setResult($keranjang)->send();
+        }else{
+            return JsonResponseHandler::setMessage("ERROR")->send();
+        }
+
+        dd($request->all());
+    }
+
+    public function searchBarang(Request $request){
+        $payload = $request->input('nama');
+        $data = DataBarang::where('nama_barang','LIKE',"%".$payload."%")->with(['satuan','foto'])->get();
+        return JsonResponseHandler::setResult($data)->send();
+
+    }
+    public function listByKategoriProduk($id){
+        $data = PivotKategoriProduk::where('kategori_produk_id',$id)->with(['barang'])->get();
+        return JsonResponseHandler::setResult($data)->send();
+    }
+
+    public function getCari(Request $request){
+        return view('Portal::cari');
+
+    }
+
+    public function getBarang(Request $request, $id){
+        $data = DataBarang::where('id',$id)->with(['satuan','foto'])->first();
+        return view('Portal::barang.detailproduk',compact("data"));
+    }
+    public function dashboard(){
+        $slider = Slider::all();
+        $barang = DataBarang::all();
+        $kategori = KategoriProduk::get();
+        $data = [
+            'slider' => $slider,
+            'kategori_produk' => $kategori,
+            'rekomendasi' => $barang,
+        ];
+        return JsonResponseHandler::setResult($data)->send();
+
+    }
+    public function fetchLogin(Request $request){
+        $data = Auth::user();
+        if($data){
+            $user = UserModel::with("roles")->find($data->id);
+            return JsonResponseHandler::setResult($user)->send();
+        }else{
+            return JsonResponseHandler::setCode(400)->send();
+        }
+    }
     public function index(Request $request){
-        return view('Portal::index');
+        return view('Portal::dashboard.dashboard');
     }
     public function login(Request $request){
-        return view('Portal::login');
+        return view('Portal::auth.login');
     }
     public function registrasi(Request $request){
-        return view('Portal::registrasi');
+        return view('Portal::auth.registrasi');
     }
     public function statuspengiriman(Request $request){
         return view('Portal::statuspengiriman');
@@ -50,7 +121,41 @@ class PortalController extends Controller
     public function ratingdanulasan(Request $request){
         return view('Portal::ratingdanulasan');
     }
-    public function pencarianbarangumkm(Request $request){
-        return view('Portal::pencarianbarangumkm');
+
+    public function pusatbantuan(Request $request){
+        return view('Portal::pusatbantuan');
     }
+    public function kebijakan(Request $request){
+        return view('Portal::kebijakan');
+    }
+    
+    public function cekongkir(Request $request){
+        $response = Http::withHeaders ([
+            'key' => 'f4f21baace88e503f1f1602d7c07a23a'
+        ])->get('https://api.rajaongkir.com/starter/city');
+        
+        $cities = $response['rajaongkir']['results'];
+
+        return view('Portal::cekongkir', ['cities' => $cities, 'ongkir' => '']);
+    }
+    public function cekHasil(Request $request){
+        $response = Http::withHeaders ([
+            'key' => 'f4f21baace88e503f1f1602d7c07a23a'
+        ])->get('https://api.rajaongkir.com/starter/city');
+        
+        $responseCost = Http::withHeaders ([
+            'key' => 'f4f21baace88e503f1f1602d7c07a23a'
+        ])->post('https://api.rajaongkir.com/starter/cost', [
+            'origin' => $request->origin,
+            'destination' => $request->destination,
+            'weight' => $request->weight,
+            'courier' => $request->courier,
+        ]);
+
+        $cities = $response['rajaongkir']['results'];
+        $ongkir = $responseCost['rajaongkir'];
+        
+        return view('Portal::cekongkir', ['cities' => $cities, 'ongkir' => $ongkir]);
+    }
+
 }

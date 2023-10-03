@@ -8,7 +8,7 @@
             align-items: center; 
             padding: 20px;
             font-family: 'Poppins', sans-serif; 
-            margin-top: 40px;
+            margin-top: 60px;
         }
         h4 {
             padding-top: 30px;
@@ -47,13 +47,13 @@
         <div class="box">
     <div class="caption">
         <h4>
-            <a href="https://www.aspoojateng.com/" class="detail">Tentang AspooMarket</a>
+            <a href="https://www.aspoojateng.com/" target="_blank" class="detail">Tentang AspooMarket</a>
         </h4>
         <h4>
-            <a href="#" class="detail">Kebijakan</a>
+            <a href="{{ url('/p/kebijakan') }}" class="detail">Kebijakan</a>
         </h4>
         <h4>
-            <a href="#" class="detail">Pusat Bantuan</a>
+            <a href="{{ url('/p/pusatbantuan') }}" class="detail">Pusat Bantuan</a>
         </h4>
     </div>
     <div>

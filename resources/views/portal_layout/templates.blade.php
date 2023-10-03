@@ -1,3 +1,3 @@
 @include('portal_layout.navbar')
-@yield("content")
+    @yield('content')
 @include('portal_layout.footer')

@@ -24,12 +24,12 @@
 </head>
 <body>
     <div class="container custom-margin"> 
-        <ul class="nav nav-underline">
+        <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true" style="font-size: 28px;"><i class="bi bi-shop-window" ></i>&nbsp; UMKM</a>
+                <a href="{{ url('/p/pencarianbarangumkm') }}" class="nav-link active" aria-disabled="true" style="font-size: 28px; color:#000"><i class="bi bi-shop-window" ></i>PRODUK</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" style="font-size: 28px;">TOKO</a>
+                <a href="{{ url('/p/pencarianbarangtoko') }}" class="nav-link active" aria-current="page" style="font-size: 28px; color:#000; text-decoration: underline;" >TOKO</a>
             </li>
         </ul>
     </div>

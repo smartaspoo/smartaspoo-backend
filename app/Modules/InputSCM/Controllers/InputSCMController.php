@@ -5,6 +5,8 @@ namespace App\Modules\InputSCM\Controllers;
 use App\Handler\FileHandler;
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
+use App\Modules\InputSCM\Models\InputSCM;
+use App\Modules\InputSCM\Models\UMKM;
 use App\Modules\InputSCM\Repositories\InputSCMRepository;
 use App\Modules\InputSCM\Requests\InputSCMCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
@@ -24,6 +26,12 @@ class InputSCMController extends Controller
         $data = InputSCMRepository::datatable($per_page);
         return JsonResponseHandler::setResult($data)->send();
     }
+    public function excel(Request $request){
+        $data = UMKM::with(['kecamatan','kota','kelurahan','provinsi','barang','barang.bahan','barang.bahan.supplier'])->get();
+     
+        return JsonResponseHandler::setResult($data)->send();
+
+    }
 
     public function create()
     {
@@ -33,7 +41,7 @@ class InputSCMController extends Controller
     public function store(InputSCMCreateRequest $request)
     {
         $payload = $request->all();
-        $playload['voice_file'] = FileHandler::store(file : $request->file("voice_file"),targetDir: "uploads/voice",allowedExtensions : ["mp3","m4a"]);
+        $payload['voice_file'] = FileHandler::store(file : $request->file("voice_file"),targetDir: "uploads/voice",allowedExtensions : ["mp3","m4a"]);
         $input_scm = InputSCMRepository::create($payload);
 
         return JsonResponseHandler::setResult($input_scm)->send();
