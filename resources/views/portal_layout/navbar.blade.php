@@ -1,15 +1,6 @@
 @include('layout.head')
 <body id="root-content" class="content">
-    <script src="{!! asset('js/toast.js') !!}"></script>
-    <script src="{!! asset('js/loading.js') !!}"></script>
-    <script src="{!! asset('js/httpClient.js') !!}"></script>
-    <script>
-        initializeHttpClient("{!! csrf_token() !!}");
-    </script>
-    <script src="{!! asset('js/navigator.js') !!}"></script>
-    <script src="{!! asset('js/vue_initial.js') !!}"></script>
 
-    <script src="{!! asset('js/ckeditor_initial.js') !!}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>

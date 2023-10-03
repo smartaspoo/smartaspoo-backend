@@ -5,6 +5,7 @@ namespace App\Modules\Keranjang\Models;
 use App\Modules\DataBarang\Models\DataBarang;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Keranjang extends Model
 {

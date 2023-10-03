@@ -39,5 +39,8 @@ Route::prefix('/p')->group(function () {
         
     });
 
+    Route::post("/keranjang-data",[PortalController::class,"getKeranjangData"]);
+    Route::post("/user-role",[PortalController::class,"getRolesUser"]);
+
     Route::get("/logout",[UserController::class,"logoutWeb"]);
 });

@@ -194,7 +194,7 @@
         <div class="row">
             <div class="address">
                 <img src="{{URL::asset('/img/portal/Address.png')}}" alt="alamat" class="img-fluid">
-                <p class="address-caption"><strong>Alamat Pengiriman</strong> <br />Wardah Maulina | (+62) 823345623442 
+                <p class="address-caption"><strong>Alamat Pengiriman</strong> <br />Blabla | (+62) 823345623442 
                 <br> Jalan Sadewa no 23 rt 04/01 Semarang Utara Suyudono, Kab Semarang, Jawa Tengah, ID 23456</p>
             </div>
         </div>

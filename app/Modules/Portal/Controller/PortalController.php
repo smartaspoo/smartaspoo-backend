@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\KategoriProduk\Models\KategoriProduk;
 use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
+use App\Modules\Keranjang\Models\Keranjang;
 use App\Modules\Slider\Models\Slider;
 use App\Modules\User\Model\UserModel;
 use Illuminate\Http\Request;
@@ -17,6 +18,17 @@ use Illuminate\Support\Facades\Session;
 
 class PortalController extends Controller
 {
+
+    public function getKeranjangData(){
+        $user = Auth::user();
+        $keranjang = Keranjang::where("user_id",$user->id)->with("barang")->get();
+        return JsonResponseHandler::setResult($keranjang)->send();
+    }
+
+    public function getRolesUser(){
+        return JsonResponseHandler::setResult(2)->send();
+        
+    }
     public function detailBarang($id){
         $data = DataBarang::where('id',$id)->with(['satuan','foto'])->get();
         return JsonResponseHandler::setResult($data)->send();
