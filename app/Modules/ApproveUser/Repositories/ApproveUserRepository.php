@@ -8,8 +8,10 @@ class ApproveUserRepository
 {
     public static function datatable($per_page = 15)
     {
-        $data = ApproveUser::where("email_verifier_id",null)->paginate($per_page);
-        return $data;
+        $datas = ApproveUser::where("email_verifier_id",null)->whereHas('role',function($q){
+            $q->whereIn('role_id',[3,4]);
+        })->paginate($per_page);
+        return $datas;
     }
     public static function get($approve_user_id)
     {

@@ -4,10 +4,14 @@ namespace App\Modules\ApproveUser\Controllers;
 
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
+use App\Modules\ApproveUser\Models\ApproveUser;
 use App\Modules\ApproveUser\Repositories\ApproveUserRepository;
 use App\Modules\ApproveUser\Requests\ApproveUserCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
+use App\Modules\PortalUser\Models\PortalUser;
+use App\Modules\PortalUser\Models\TokoUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApproveUserController extends Controller
 {
@@ -15,6 +19,30 @@ class ApproveUserController extends Controller
     {
         $permissions = PermissionRepository::getPermissionStatusOnMenuPath($request->path());
         return view('ApproveUser::index', ['permissions' => $permissions]);
+    }
+
+    public function approve(Request $request,$id){
+        $data = ApproveUser::find($id);
+        $data->email_verified_at = date("Y-m-d H:i:s");
+        $data->email_verifier_id = Auth::user()->id;
+        $data->save();
+
+        $userToko = TokoUser::create([
+            'user_id' => $data->id,
+            'nama' => $data->name,
+        ]);
+
+        $userPortal = PortalUser::where('user_id',$data->id)->first();
+
+        $userPortal->password = $data->password;
+        $userPortal->status = 1;
+        $userPortal->approved_by = Auth::user()->id;
+        $userPortal->approved_at = date("Y-m-d H:i:s");
+
+        $userPortal->save();
+
+        
+        return JsonResponseHandler::setResult($data)->send();
     }
 
     public function datatable(Request $request)

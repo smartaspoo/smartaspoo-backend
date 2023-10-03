@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     require app_path('Modules/Keranjang/routes.php');
     require app_path('Modules/TransaksiBarang/routes.php');
     require app_path('Modules/ApproveUser/routes.php');
+    require app_path('Modules/ApproveTransaksi/routes.php');
     
     // ROUTE_MARKER
     // Add routes in the line below (DONT REMOVE THIS SECTION !!!!!!, because this line is LINE_MARKER used by Module Generator)
