@@ -6,7 +6,7 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
-
+        
         .space {
             width: 150px;
         }
@@ -14,6 +14,9 @@
         .category-title {
             font-size: 18px;
             margin-top: 20px;
+        }
+        .product-card h5 {
+        text-align: center; 
         }
 
         .product-card {
@@ -26,6 +29,8 @@
 
         .product-card img {
             max-width: 100%;
+            display: block; 
+            margin: 0 auto;
         }
 
         .product-card .cart-icon {
@@ -123,9 +128,38 @@
                 <span class="visually-hidden">Next</span>
             </a>
         </div>
+        </br>
+
+        <div class="section-heading">Kategori Toko</div>
+        <div id="carouselKategori" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item " v-for="(chunk, index) in chunckKategoriProduk" :key="index"
+                    :class="{ active: index === 0 }">
+                    <div class="row">
+                        <div class="col-md-4">
+                        <div class="product-card">
+                            <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 1">
+                            <h5>Kategori 1</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 2">
+                            <h5>Kategori 2</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 3">
+                            <h5>Kategori 3</h5>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="section-divider"></div>
-
         <!-- Section Kategori -->
         <div class="section-heading">Kategori Pilihan</div>
         <div id="carouselKategori" class="carousel slide" data-bs-ride="carousel">
@@ -133,12 +167,24 @@
                 <div class="carousel-item " v-for="(chunk, index) in chunckKategoriProduk" :key="index"
                     :class="{ active: index === 0 }">
                     <div class="row">
-                        <div class="col-md-4" v-for="kategori  in chunk" :key="kategori.id">
-                            <div class="product-card">
-                                <h5>@{{ kategori.nama }}</h5>
-                            </div>
+                        <div class="col-md-4">
+                        <div class="product-card">
+                            <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 1">
+                            <h5>Kategori 1</h5>
                         </div>
-
+                    </div>
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 2">
+                            <h5>Kategori 2</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Kategori 3">
+                            <h5>Kategori 3</h5>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
