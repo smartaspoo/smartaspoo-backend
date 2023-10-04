@@ -88,7 +88,7 @@ class PortalController extends Controller
     }
 
     public function getBarang(Request $request, $id){
-        $data = DataBarang::where('id',$id)->with(['satuan','foto'])->first();
+        $data = DataBarang::where('id',$id)->with(['satuan','foto','user','user.detail'])->first();
         return view('Portal::barang.detailproduk',compact("data"));
     }
     public function dashboard(){

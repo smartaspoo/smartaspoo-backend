@@ -280,6 +280,13 @@
         }
     </style>
     </head>
+    @php
+        function rupiah($angka)
+        {
+            $rupiah = 'Rp. ' . number_format($angka, 0, ',', '.');
+            return $rupiah;
+        }
+    @endphp
 
     <body>
         <div id="container" class="container mt-5">
@@ -303,20 +310,18 @@
                                         <div class="col-md-12">
 
                                             <div class="section2">
-                                            <hr>
+                                                <hr>
 
                                                 <div class="store-card">
                                                     <div class="store-image">
-                                                        <img style="max-width: 100px"
+                                                        <img style="max-width: 75px"
                                                             src="{{ URL::asset('/img/portal/storelogo.png') }}"
                                                             alt="Toko Image">
+                                                        
                                                     </div>
                                                     <div class="store-details">
-                                                        <div class="store-name">Dyriana</div>
-                                                        <div class="store-rating">Rating: 4.8 <i class="fas fa-star"></i>
-                                                        </div>
-                                                        <div class="store-location">Semarang, Indonesia</div>
-                                                        <button class="visit-store-button">Kunjungi Toko</button>
+                                                        <div class="store-name">{{@$data->user->nama}}</div>
+                                                        <div class="store-location">{{@$data->user->detail->alamat}}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -325,10 +330,22 @@
 
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="product-name">{{ $data->nama_barang }}</div>
-                                    <div class="product-price">{{ $data->harga_umum }}</div>
-                                    <div class="discount-label">{{ $data->diskon }}</div>
-                                    <div class="product-original-price">{{ $data->harga_umum }}</div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h1 style="margin-bottom: 0px"><strong>{{ $data->nama_barang }}</strong></h1>
+                                            <small>
+                                                Terjual <span class="text-secondary">{{ $data->terjual }}</span>
+                                            </small>
+                                        </div>
+
+                                        <div class="col-md-12 mt-3">
+                                            <h1><strong>{{ rupiah($data->harga_user) }}</strong></h1>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="badge badge-danger">{{ $data->diskon }}%</span> <span
+                                                class="text-muted"><del>{{ rupiah($data->harga_user_asli) }}</del></span>
+                                        </div>
+                                    </div>
                                     <div class="product-description">
                                         <div class="description-sections">
                                             <div class="description-section">Detail</div>
@@ -366,14 +383,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <p><b>Stok Total :</b> 75</p>
+                                    <p><b>Stok Sisa :</b> {{ $data->stock_global }}</p>
                                 </div>
                                 <div class="col-md-12">
-                                    <h3><b>Total Harga :</b> {{ $data->harga_user }}</h3>
+                                    <h3><b>Total Harga :</b> @{{ rupiah(Math.round(parseFloat(this.barang.harga)) * parseInt(this.barang.jumlah)) }}</h3>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button class="btn btn-dark"> <span @click="tambahKeranjang()">Keranjang</span>
+                                <button @click="tambahKeranjang()" class="btn btn-dark btn-block"> <span>Keranjang</span>
                                 </button>
 
                             </div>
@@ -389,13 +406,16 @@
                     return {
                         barang: {
                             id: '{{ $data->id }}',
-                            jumlah: 1
+                            harga: '{{ $data->harga_user }}',
+                            jumlah: 1,
                         }
                     }
-
                 },
-
                 methods: {
+                    rupiah(amount) {
+                        const rupiahFormat = "Rp " + amount.toLocaleString("id-ID");
+                        return rupiahFormat;
+                    },
                     async tambahKeranjang() {
                         try {
                             showLoading()
