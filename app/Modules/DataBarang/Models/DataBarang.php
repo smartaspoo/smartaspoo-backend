@@ -17,7 +17,6 @@ class DataBarang extends Model
     protected $table = 'barang';
     protected $guarded = [];
 
-    protected $appends = ['harga_user'];
     protected $fillable = ['nama_barang','harga_supplier','harga_umum','diskon','keterangan','info_penting','stock_global','created_by_user_id','satuan_id'];
     protected $appends = ['harga_user','thumbnail_readable'];
 
