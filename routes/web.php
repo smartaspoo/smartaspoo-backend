@@ -23,7 +23,6 @@ Route::middleware(['auth'])->group(function () {
     require app_path('Modules/Role/routes.php');
     require app_path('Modules/Permission/routes.php');
     require app_path('Modules/Module/routes.php');
-
     require app_path('Modules/Penjualan/routes.php');
     require app_path('Modules/DataBarang/routes.php');
     require app_path('Modules/Diskon/routes.php');

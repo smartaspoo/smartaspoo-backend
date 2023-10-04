@@ -86,6 +86,11 @@ class PortalController extends Controller
         return view('Portal::cari');
 
     }
+    public function getDataProfile(Request $request){
+        $auth = Auth::user();
+        $user = UserPortal::find($auth->id)->with(['details'])->first();
+        return JsonResponseHandler::setResult($user)->send();
+    }
 
     public function getBarang(Request $request, $id){
         $data = DataBarang::where('id',$id)->with(['satuan','foto','user','user.detail'])->first();

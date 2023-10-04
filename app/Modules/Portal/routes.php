@@ -18,7 +18,6 @@ Route::prefix('/p')->group(function () {
     Route::get("/status",[PortalController::class,"statuspengiriman"]);
     Route::get("/penjualan",[PortalController::class,"detailbarangpenjualan"]);
     Route::get("/daftartransaksi",[PortalController::class,"daftartransaksi"]);
-    Route::get("/profile",[PortalController::class,"profile"]);
     Route::get("/detailproduk",[PortalController::class,"detailproduk"]);
     Route::get("/infotoko",[PortalController::class,"infotoko"]);
     Route::get("/checkout",[PortalController::class,"checkout"]);
@@ -44,6 +43,11 @@ Route::prefix('/p')->group(function () {
         Route::post("/",[PortalController::class,"postKeranjangToCheckout"]);
         Route::delete("/{id}",[PortalController::class,"deleteKeranjang"]);
         Route::post("/data",[PortalController::class,"getKeranjangData"]);
+    });
+
+    Route::prefix("profile")->group(function(){
+        Route::get("/",[PortalController::class,"profile"]);
+        Route::get("/data",[PortalController::class,"getDataProfile"]);
     });
  
     Route::post("/user-role",[PortalController::class,"getRolesUser"]);

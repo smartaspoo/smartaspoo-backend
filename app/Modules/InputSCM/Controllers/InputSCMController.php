@@ -52,6 +52,18 @@ class InputSCMController extends Controller
         $input_scm = InputSCMRepository::get($id);
         return JsonResponseHandler::setResult($input_scm)->send();
     }
+    public function getEdit($id){
+        $data = UMKM::where("id_umkm",$id)->first();
+        return JsonResponseHandler::setResult($data)->send();
+    }
+    public function saveEdit(Request $request,$id){
+        $data = UMKM::where("id_umkm",$id)->first();
+        $payload = $request->all();
+        $data->nama = $payload['nama'];
+        $data->tahun_berdiri = $payload['tahun_berdiri'];
+        $data->save();
+        return JsonResponseHandler::setResult($data)->send();
+    }
 
     public function edit($id)
     {

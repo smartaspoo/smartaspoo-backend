@@ -14,7 +14,7 @@ class InputSCMRepository
     }
     public static function get($input_scm_id)
     {
-        $input_scm = UMKM::where('id', $input_scm_id)->first();
+        $input_scm = UMKM::where('id_umkm', $input_scm_id)->first();
         return $input_scm;
     }
     public static function create($input_scm)
