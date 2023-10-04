@@ -363,11 +363,23 @@
 
                 methods: {
                     async tambahKeranjang() {
-                        const response = await httpClient.post("{!! url('p/barang/keranjang') !!}/", {
-                            barang_id: this.barang.id,
-                            jumlah: this.barang.jumlah
-                        })
-                        console.log(response)
+                        try {
+                            showLoading()
+                            const response = await httpClient.post("{!! url('p/barang/keranjang') !!}/", {
+                                barang_id: this.barang.id,
+                                jumlah: this.barang.jumlah
+                            })
+                            hideLoading()
+                            showToast({
+                                message: "Data berhasil masuk keranjang!"
+                            })
+                        } catch (err) {
+                            hideLoading()
+                            showToast({
+                                message: err.message,
+                                type: 'error'
+                            })
+                        }
                     }
                 },
 
