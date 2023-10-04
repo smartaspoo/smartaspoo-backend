@@ -282,72 +282,106 @@
     </head>
 
     <body>
-        <div class="container mt-1" id="container">
-            <div class="page-title">Detail Produk</div>
-            <div class="product-details">
-                <div class="product-image">
-                    <img src="{{ URL::asset('/img/portal/produk.png') }}" alt="Product Image">
-                </div>
-                <div class="product-info">
-                    <div class="product-name">{{ $data->nama_barang }}</div>
-                    <div class="product-price">{{ $data->harga_umum }}</div>
-                    <div class="discount-label">{{ $data->diskon }}</div>
-                    <div class="product-original-price">{{ $data->harga_umum }}</div>
-                    <div class="product-description">
-                        <div class="description-sections">
-                            <div class="description-section">Detail</div>
-                            <div class="description-section">Info Penting</div>
+        <div id="container" class="container mt-5">
+
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Detail Produk</span>
                         </div>
-                        <div class="description-content" id="detailContent">
-                            <p>
-                                {{ $data->keterangan }}
-                            </p>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="product-image">
+                                                <img src="{{ URL::asset('/img/portal/produk.png') }}" alt="Product Image">
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-12">
+
+                                            <div class="section2">
+                                            <hr>
+
+                                                <div class="store-card">
+                                                    <div class="store-image">
+                                                        <img style="max-width: 100px"
+                                                            src="{{ URL::asset('/img/portal/storelogo.png') }}"
+                                                            alt="Toko Image">
+                                                    </div>
+                                                    <div class="store-details">
+                                                        <div class="store-name">Dyriana</div>
+                                                        <div class="store-rating">Rating: 4.8 <i class="fas fa-star"></i>
+                                                        </div>
+                                                        <div class="store-location">Semarang, Indonesia</div>
+                                                        <button class="visit-store-button">Kunjungi Toko</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="product-name">{{ $data->nama_barang }}</div>
+                                    <div class="product-price">{{ $data->harga_umum }}</div>
+                                    <div class="discount-label">{{ $data->diskon }}</div>
+                                    <div class="product-original-price">{{ $data->harga_umum }}</div>
+                                    <div class="product-description">
+                                        <div class="description-sections">
+                                            <div class="description-section">Detail</div>
+                                            <div class="description-section">Info Penting</div>
+                                        </div>
+                                        <div class="description-content" id="detailContent">
+                                            <p>
+                                                {{ $data->keterangan }}
+                                            </p>
+                                        </div>
+                                        <div class="description-content" id="infoPentingContent">
+                                            <p>
+                                                {{ $data->info_penting }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="description-content" id="infoPentingContent">
-                            <p>
-                                {{ $data->info_penting }}
-                            </p>
-                        </div>
+
                     </div>
                 </div>
-                <div class="order-box">
-                    <div class="order-title">Atur Jumlah</div>
-                    <div class="order-quantity">
-                        <label class="quantity-label" for="quantity">Quantity:</label>
-                        <input class="form-control" type="number" v-model="barang.jumlah" min="1" max="54">
-                        <br>
-                        <span class="stock-info">Stok total : <span style="color: red;">75</span></span>
-                    </div>
-                    <div class="total-price">
-                        Total Harga = <span id="totalPrice">{{ $data->harga_umum }}</span>
-                    </div>
-                    <div class="order-buttons">
-                        <button class="order-button"> <span @click="tambahKeranjang()">Keranjang</span> </button>
-                        <button class="order-button">Beli Langsung</button>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-title">Atur Jumlah</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="form-control">
+                                        <div class="form-label">Quantity : </div>
+                                        <input type="number" min="1" v-model="barang.jumlah" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <p><b>Stok Total :</b> 75</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <h3><b>Total Harga :</b> {{ $data->harga_user }}</h3>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-dark"> <span @click="tambahKeranjang()">Keranjang</span>
+                                </button>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="section-divider"></div>
-
-        <div class="container mt-5">
-            <div class="section2">
-                <div class="store-card">
-                    <div class="store-image">
-                        <img style="max-width: 100px" src="{{ URL::asset('/img/portal/storelogo.png') }}" alt="Toko Image">
-                    </div>
-                    <div class="store-details">
-                        <div class="store-name">Dyriana</div>
-                        <div class="store-rating">Rating: 4.8 <i class="fas fa-star"></i></div>
-                        <div class="store-location">Semarang, Indonesia</div>
-                        <button class="visit-store-button">Kunjungi Toko</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-divider"></div>
 
         <script>
             Vue.createApp({

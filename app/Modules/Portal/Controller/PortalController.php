@@ -30,8 +30,13 @@ class PortalController extends Controller
 
     }
     public function postKeranjangToCheckout(Request $request){
-        $data = json_decode($request->data);
-        dd($data);
+        $datas = json_decode($request->data);
+        foreach($datas->data_keranjang as $data){
+            $keranjang = Keranjang::where('id',$data->id)->first();
+            $keranjang->jumlah = $data->jumlah;
+            $keranjang->save();
+        }
+        return JsonResponseHandler::setResult($keranjang)->send();
     }
     public function getKeranjangData(){
         $user = Auth::user();
