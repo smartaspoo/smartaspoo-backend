@@ -286,6 +286,7 @@
                           <i class="fas fa-shopping-cart cart-icon"></i>
                       </div>
                   </div>
+                  
               </div>
           </div>
       </div>

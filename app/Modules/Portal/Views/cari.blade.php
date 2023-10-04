@@ -109,12 +109,11 @@
                       <div class="product-card">
                           <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Produk 1">
                           <h4>Produk 1</h4>
-                          <p>Kategori: Makanan</p>
-                          <p>Rating: 4.5 (200 ulasan)</p>
-                          <p class="harga">Harga: $90</p>
-                          <p><span class="badge bg-danger">-10%</span><s class="diskon">Harga: $100</s></p>
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                            additional content.</p>
+                          <p class="harga">Rp.90.000</p>
+                          <p><span class="badge bg-danger">-10%</span></p>
                           <p class="lokasi">Lokasi: Toko A</p>
-                          <i class="fas fa-shopping-cart cart-icon"></i>
                       </div>
                   </div>
                   <!-- More dummy data for recommended product cards -->
@@ -122,36 +121,33 @@
                       <div class="product-card">
                           <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Produk 2">
                           <h4>Produk 2</h4>
-                          <p>Kategori: Makanan</p>
-                          <p>Rating: 4.5 (200 ulasan)</p>
-                          <p class="harga">Harga: $90</p>
-                          <p><span class="badge bg-danger">-10%</span><s class="diskon">Harga: $100</s></p>
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                            additional content.</p>
+                          <p class="harga">Rp.90.000</p>
+                          <p><span class="badge bg-danger">-10%</span></p>
                           <p class="lokasi">Lokasi: Toko A</p>
-                          <i class="fas fa-shopping-cart cart-icon"></i>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="product-card">
                           <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Produk 3">
                           <h4>Produk 3</h4>
-                          <p>Kategori: Makanan</p>
-                          <p>Rating: 4.5 (200 ulasan)</p>
-                          <p class="harga">Harga: $90</p>
-                          <p><span class="badge bg-danger">-10%</span><s class="diskon">Harga: $100</s></p>
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                            additional content.</p>
+                          <p class="harga">Rp.90.000</p>
+                          <p><span class="badge bg-danger">-10%</span></p>
                           <p class="lokasi">Lokasi: Toko A</p>
-                          <i class="fas fa-shopping-cart cart-icon"></i>
                       </div>
                   </div>
                   <div class="col-md-3">
                       <div class="product-card">
                           <img src="{{URL::asset('/img/portal/kategori.png')}}" alt="Produk 4">
                           <h4>Produk 4</h4>
-                          <p>Kategori: Makanan</p>
-                          <p>Rating: 4.5 (200 ulasan)</p>
-                          <p class="harga">Harga: $90</p>
-                          <p><span class="badge bg-danger">-10%</span><s class="diskon">Harga: $100</s></p>
+                          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                            additional content.</p>
+                          <p class="harga">Rp.90.000</p>
+                          <p><span class="badge bg-danger">-10%</span></p>
                           <p class="lokasi">Lokasi: Toko A</p>
-                          <i class="fas fa-shopping-cart cart-icon"></i>
                       </div>
                   </div>
               </div>

@@ -99,6 +99,12 @@
             font-weight: 600;
         }
 
+        .product-total {
+            padding-top: 75px;
+            color: #757575;
+            margin-right: 25px;
+        }
+
         .product-quantity {
             padding-top: 85px;
             color: #757575;
@@ -143,6 +149,11 @@
             justify-content: space-between;
             align-items: center;
             margin-top: 10px;
+        }
+
+        .caption-pesan1 {
+            border: 1px solid black;
+            height: 30px;
         }
 
         .form-grouppesan {
@@ -208,6 +219,7 @@
 </head>
 
 <body>
+
     <nav class="navbar">
         <div class="container">
             <a href="{{ url('/p/keranjang') }}" class="btn ">
@@ -228,46 +240,52 @@
                 <p class="address-caption"><strong>Alamat Pengiriman</strong> <br />{{$user->name}} |
                     {{$userdetail->telepon}}
 
-                    <br>{{$userdetail->alamat}} </p>
+                    <br>{{$userdetail->alamat}}
+                </p>
             </div>
         </div>
         <div class="section-divider"></div>
         <div class="row">
             <div class="shop-title">
                 <p class="shop">Aspo Mall</p>
-                <p class="title"><strong> {{ $data->barang->user->name }}</strong></p>
+                <p class="title"><strong> {{ $data[0]->barang->user->name }}</strong></p>
             </div>
         </div>
+        @php
+        function rupiah($angka){
+        $rupiah = "Rp " . number_format($angka,0,',','.');
+        return $rupiah;
+        }
+        $totalHarga = 0;
+        @endphp
+        @foreach($data as $dt)
+
         <div class="row">
             <div class="content-container">
                 <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Product Image" class="product-image">
                 <div class="product-details">
-                    <div class="product-name">{{$data->barang->nama_barang}}</div>
-                    <div class="product-price">{{$data->barang->harga_user}}</div>
+
+                    <div class="product-name">{{$dt->barang->nama_barang}}</div>
+                    <div class="product-price">{{rupiah($dt->barang->harga_user)}}</div>
                 </div>
                 <div class="caption-total">
-                    <div class="product-quantity">x1</div>
+                    @php
+                    $totalHarga += $dt->barang->harga_user*$dt->jumlah;
+                    @endphp
+                    <div class="product-quantity">Jumlah = x{{$dt->jumlah}}</div>
+                    <div class="product-total"><b>Total Harga : {{rupiah($dt->barang->harga_user*$dt->jumlah)}}</b>
+                    </div>
                 </div>
             </div>
         </div>
+        @endforeach
         <form action="" class="form-voucher">
-            <div class="row">
-                <div class="d-flex justify-content-between align-items-center">
-                    <p class="text-muted">Opsi Pengiriman</p>
-                </div>
-            </div>
             <div class="section-divider"></div>
             <div class="row">
-                <div class="form-group">
-                    <select class="form-select" id="metodePengiriman">
-                        <option value="" disabled selected>Pilih metode pengiriman</option>
-                        <option value="reguler">Reguler</option>
-                        <option value="hemat">Hemat</option>
-
-                    </select>
-                    <div style="keterangan-ongkir" id="keterangan-ongkir">
-                        <p id="keteranganMetode" class="text-muted"></p>
-                        <p id="keteranganHarga" class="text-muted"></p>
+                <div class="form-grouppesan">
+                    <label for="pesanTextarea">Ongkir</label>
+                    <div class="caption-pesan1">
+                        <input class="form-control" id="ongkirTextarea" placeholder="" type="number" min="0"></input>
                     </div>
                 </div>
             </div>
@@ -276,8 +294,8 @@
                 <div class="form-grouppesan">
                     <label for="pesanTextarea">Pesan</label>
                     <div class="caption-pesan">
-                        <textarea class="form-control" id="pesanTextarea"
-                            placeholder="Silahkan tinggalkan pesan disini"></textarea>
+                        <textarea class="form-control" id="pesanTextarea" placeholder="Silahkan tinggalkan pesan disini">
+                        </textarea>
                     </div>
                 </div>
             </div>
@@ -290,42 +308,25 @@
                     </select>
                 </div>
             </div>
-            <div class="row ">
-                <div class="total-pesanan">
-                    <a>Total Pesanan ( 1 Produk ) :</a>
-                    <a>Rp. 45.000</a>
-                </div>
-            </div>
             <div class="row">
                 <p class="rincian"><strong>Rincian Pembayaran</strong></p>
             </div>
             <div class="row">
                 <div class="total-pesanan">
                     <a>Subtotal untuk produk</a>
-                    <span id="subtotalProduk">Rp. 45.000</span>
+                    <span >{{rupiah($totalHarga)}}</span>
+                    <input type="hidden" id="subtotalProduk" value="{{$totalHarga}}">
                 </div>
             </div>
             <div class="row">
                 <div class="total-pesanan">
                     <a>Subtotal pengiriman</a>
-                    <span id="subtotalPengiriman">Rp. 0</span>
-                </div>
-            </div>
-            <div class="row ">
-                <div class="total-pesanan">
-                    <a>Biaya Layanan</a>
-                    <a>Rp. 45.000</a>
-                </div>
-            </div>
-            <div class="row ">
-                <div class="total-pesanan">
-                    <a>Biaya Penanganan</a>
-                    <a>Rp. 45.000</a>
+                    <span id="subtotalPengiriman">Rp 0</span>
                 </div>
             </div>
             <div class="row">
                 <div class="end-shop">
-                    <p class="shop2">Total Pembayaran : Rp.20.000</p>
+                    <p class="shop2">Total Pembayaran : <span id="totalPembayaran">121</span> </p>
                     <button type="submit" value="Buat Pesanan" class=" btn-custom">Buat Pesanan</button>
                 </div>
             </div>
@@ -333,89 +334,46 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        const metodePengiriman = document.getElementById('metodePengiriman');
-        const keteranganMetode = document.getElementById('keteranganMetode');
+        function rupiah(amount) {
+            const rupiahFormat = "Rp " + amount.toLocaleString("id-ID");
+            return rupiahFormat;
+        };
+        let hargaPengiriman = 0;
 
-        metodePengiriman.addEventListener('change', function () {
-            if (metodePengiriman.value === 'reguler') {
-                const today = new Date();
-                const futureDate = new Date(today);
-                futureDate.setDate(futureDate.getDate() + 3);
+        const ongkirTextarea = document.getElementById('ongkirTextarea');
+        const subtotalPengiriman = document.getElementById('subtotalPengiriman');
 
-                const untilDate = new Date(today);
-                untilDate.setDate(untilDate.getDate() + 5);
+        // Menambahkan event listener untuk textarea
+        ongkirTextarea.addEventListener('input', function() {
+            // Mengambil nilai dari textarea
+            const inputValue = ongkirTextarea.value;
 
-                const options = {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                };
-                const formattedToday = today.toLocaleDateString('id-ID', options);
-                const formattedFutureDate = futureDate.toLocaleDateString('id-ID', options);
-                const formattedUntilDate = untilDate.toLocaleDateString('id-ID', options);
-
-                keteranganMetode.textContent =
-                    `Akan diterima mulai ${formattedFutureDate} hingga ${formattedUntilDate}`;
-                keteranganHarga.textContent = 'Rp. 30.000';
-            } else if (metodePengiriman.value === 'hemat') {
-                const today = new Date();
-                const futureDate = new Date(today);
-                futureDate.setDate(futureDate.getDate() + 5);
-
-                const untilDate = new Date(today);
-                untilDate.setDate(untilDate.getDate() + 7);
-
-                const options = {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                };
-                const formattedToday = today.toLocaleDateString('id-ID', options);
-                const formattedFutureDate = futureDate.toLocaleDateString('id-ID', options);
-                const formattedUntilDate = untilDate.toLocaleDateString('id-ID', options);
-
-                keteranganMetode.textContent =
-                    `Akan diterima mulai ${formattedFutureDate} hingga ${formattedUntilDate}`;
-                keteranganHarga.textContent = 'Rp. 20.000';
-            } else {
-                keteranganMetode.textContent = '';
-            }
+            // Menampilkan nilai di bawah textarea
+            subtotalPengiriman.textContent = rupiah(parseInt(inputValue));
+            updateSubtotal(inputValue)
         });
 
-        function hitungSubtotalPengiriman() {
-            if (metodePengiriman.value === 'reguler') {
-                hargaPengiriman = 30000; // Harga pengiriman reguler
-            } else if (metodePengiriman.value === 'hemat') {
-                hargaPengiriman = 20000; // Harga pengiriman hemat
-            } else {
-                hargaPengiriman = 0; // Harga pengiriman jika tidak dipilih
-            }
-            return hargaPengiriman;
-        }
+
+
 
         // Fungsi untuk mengupdate tampilan subtotal
-        function updateSubtotal() {
-            const subtotalProduk = hitungSubtotalProduk();
-            const subtotalPengiriman = hitungSubtotalPengiriman();
+        function updateSubtotal(input) {
+            const subtotalPengiriman = parseInt(input) || 0; // Konversi ke integer atau 0 jika tidak valid
+            const subtotalProduk = document.querySelector("#subtotalProduk")
+            const totalPesanan = parseInt(subtotalProduk.value) + parseInt(subtotalPengiriman);
 
-            const totalPesanan = subtotalProduk + subtotalPengiriman;
-
-            document.getElementById('subtotalProduk').textContent = `Rp. ${subtotalProduk}`;
-            document.getElementById('subtotalPengiriman').textContent = `Rp. ${subtotalPengiriman}`;
+            document.getElementById('subtotalPengiriman').textContent = rupiah(subtotalPengiriman);
 
             // Update total pembayaran
-            document.querySelector('.shop2').textContent = `Total Pembayaran : Rp.${totalPesanan}`;
+            document.querySelector('#totalPembayaran').textContent = rupiah(totalPesanan);
         }
 
-        // Panggil fungsi updateSubtotal saat halaman dimuat ulang
-        updateSubtotal();
 
-        // Tambahkan event listener ke metode pengiriman
-        metodePengiriman.addEventListener('change', function () {
-            updateSubtotal();
-});
     </script>
+
+
 </body>
 
 </html>
