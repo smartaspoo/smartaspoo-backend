@@ -9,7 +9,10 @@ use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\KategoriProduk\Models\KategoriProduk;
 use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
 use App\Modules\Keranjang\Models\Keranjang;
+use App\Modules\Portal\Model\UserDetail;
+use App\Modules\Portal\Model\UserPortal;
 use App\Modules\Slider\Models\Slider;
+use App\Modules\TransaksiBarang\Models\TransaksiBarang;
 use App\Modules\User\Model\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,8 +33,13 @@ class PortalController extends Controller
 
     }
     public function postKeranjangToCheckout(Request $request){
-        $data = json_decode($request->data);
-        dd($data);
+        $datas = json_decode($request->data);
+        foreach($datas->data_keranjang as $data){
+            $keranjang = Keranjang::where('id',$data->id)->first();
+            $keranjang->jumlah = $data->jumlah;
+            $keranjang->save();
+        }
+        return JsonResponseHandler::setResult($keranjang)->send();
     }
     public function getKeranjangData(){
         $user = Auth::user();
@@ -80,7 +88,7 @@ class PortalController extends Controller
     }
 
     public function getBarang(Request $request, $id){
-        $data = DataBarang::where('id',$id)->with(['satuan','foto'])->first();
+        $data = DataBarang::where('id',$id)->with(['satuan','foto','user','user.detail'])->first();
         return view('Portal::barang.detailproduk',compact("data"));
     }
     public function dashboard(){
@@ -135,7 +143,12 @@ class PortalController extends Controller
         return view('Portal::infotoko');
     }
     public function checkout(Request $request){
-        return view('Portal::checkout');
+        $user = Auth::user();
+        $data = Keranjang::where('user_id',$user->id)->with(['barang','barang.user'])->first();
+        $userdata = UserDetail::where('user_id',$user->id)->first();
+        $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user];
+        // dd($data->barang->user);
+        return view('Portal::checkout', $ret);
     }
     public function pencarianbarangtoko(Request $request){
         return view('Portal::pencarianbarangtoko');

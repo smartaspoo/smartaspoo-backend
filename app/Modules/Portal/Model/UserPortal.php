@@ -3,6 +3,7 @@
 namespace App\Modules\Portal\Model;
 
 use App\Handler\ModelSearchHandler;
+use App\Modules\Portal\Models\UserDetail;
 use App\Modules\Role\Model\RoleModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -33,6 +34,10 @@ class UserPortal extends Authenticatable
     // Function
     protected function getRoles() {
         return $this->roles();
+    }
+
+    public function details(){
+        return $this->hasOne(UserDetail::class,"user_id",'id');
     }
 
     protected function getRoleIdsAttribute() {

@@ -62,15 +62,22 @@
             },
 
             methods: {
-                async checkout(){
+                async checkout() {
                     try {
                         showLoading()
-                        data = {data : JSON.stringify(this.keranjangList)}
-                        const response = await httpClient.post(`{{ url('') }}/p/keranjang`,data)
+                        var all = {
+                            data_keranjang: this.keranjangList,
+                            keranjang_total: this.keranjangTotal
+                        }
+                        data = {
+                            data: JSON.stringify(all)
+                        }
+                        const response = await httpClient.post(`{{ url('') }}/p/keranjang`, data)
                         hideLoading()
                         showToast({
                             message: "Berhasil checkout! Anda akan diarahkan ke halaman Checkout"
                         })
+                        window.location.href = "{{url('')}}/p/checkout"
 
                     } catch (err) {
                         hideLoading()
