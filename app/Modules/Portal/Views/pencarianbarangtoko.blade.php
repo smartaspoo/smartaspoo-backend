@@ -1,69 +1,85 @@
 @extends("portal_layout.templates")
 @section("content")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
         body {
             font-family: 'Poppins';
         }
+
         .custom-margin {
             margin-top: 121px;
             margin-bottom: 50px;
         }
+
         .custom-card {
-            margin-left: 202px; 
+            margin-left: 202px;
         }
+
         .card {
-            border-radius: 25px;
-            width:  490px; 
-            height: 230px; 
+            height: 90%;
+            width: 250px;
+            
         }
-        
-       
     </style>
-</head>
-<body>
-    <div class="container custom-margin"> 
-        <ul class="nav">
-            <li class="nav-item">
-                <a href="{{ url('/p/pencarianbarangumkm') }}" class="nav-link active" aria-disabled="true" style="font-size: 28px; color:#000"><i class="bi bi-shop-window" ></i>PRODUK</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('/p/pencarianbarangtoko') }}" class="nav-link active" aria-current="page" style="font-size: 28px; color:#000; text-decoration: underline;" >TOKO</a>
-            </li>
-        </ul>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-sm-3 mb-3 mb-sm-0 custom-card"> 
-            <div class="card">
-                <div class="card-body d-flex justify-content-between align-items-start">
-                    <div>
-                        <img src="{{URL::asset('/img/portal/produk.png')}}" style="max-width: 100px" >
-                    </div>
-                    <div class="text-end">
-                        <p class="card-text" style="margin-right: 160px; margin-bottom: 5px; color: #000; font-size: 24px;">Lunpia Modern</p>
-                        <p class="card-text" style="margin-right: 240px; margin-bottom: 5px; color: #757272; font-size: 20px;">Semarang</p>
-                        <p class="card-text" style="margin-right: 280px;"><span style="color: gold;">&#9733; &#9733; &#9733; &#9733;</span></p>
-                        <a href="#" class="btn" style="margin-right: 10px; background-color: #D9D9D9; color: #000; font-size: 20px; font-style: normal; font-weight: 600;  border-radius: 10px;">Lihat Toko</a>
+    </head>
+
+    <body>
+        <div class="container custom-margin">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="{{ url('/p/pencarianbarangumkm') }}" class="nav-link active" aria-disabled="true"
+                        style="font-size: 28px; color:#000"><i class="bi bi-archive"></i><span
+                            style="margin-left: 8px;"></i>PRODUK</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('/p/pencarianbarangtoko') }}" class="nav-link active" aria-current="page"
+                        style="font-size: 28px; color:#000; text-decoration: underline;"><i class="bi bi-shop-window"></i><span
+                            style="margin-left: 8px;">TOKO</span></a>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col col-md-2 offset-md-2">
+                <div class="card mx-auto"> 
+                    <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3 mb-3 mb-sm-0 custom-card" style="margin-left: 185px;"> 
-            <div class="card">
-                <div class="card-body d-flex justify-content-between align-items-start">
-                    <div>
-                        <img src="{{URL::asset('/img/portal/produk.png')}}" style="max-width: 100px" >
-                    </div>
-                    <div class="text-end">
-                        <p class="card-text" style="margin-right: 160px; margin-bottom: 5px; color: #000; font-size: 24px;">Lunpia Modern</p>
-                        <p class="card-text" style="margin-right: 240px; margin-bottom: 5px; color: #757272; font-size: 20px;">Semarang</p>
-                        <p class="card-text" style="margin-right: 280px;"><span style="color: gold;">&#9733; &#9733; &#9733; &#9733;</span></p>
-                        <a href="#" class="btn" style="margin-right: 10px; background-color: #D9D9D9; color: #000; font-size: 20px; font-style: normal; font-weight: 600;  border-radius: 10px;">Lihat Toko</a>
+            <div class="col col-md-2"> 
+                <div class="card mx-auto">
+                    <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a short card.</p>
                     </div>
                 </div>
             </div>
+            <div class="col col-md-2">
+            <div class="card mx-auto">
+                <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                        additional content.</p>
+                </div>
+            </div>
+            </div>
+            <div class="col">
+            <div class="card">
+                <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Produk 1">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                        additional content.</p>
+                </div>
+            </div>
+            </div>
         </div>
-    </div>
 @endsection
