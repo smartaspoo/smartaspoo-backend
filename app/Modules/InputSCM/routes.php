@@ -16,6 +16,8 @@ Route::prefix('/input-scm')->group(function() {
 
     Route::get("/excel",[InputSCMController::class,'excel']);
     Route::prefix("/{id_umkm}")->group(function(){
+        Route::get('/preview', [InputSCMController::class, 'preview'])->middleware('authorize:read-input_scm');
+
         Route::prefix("/barang")->group(function(){
             Route::get('/', [BarangController::class, 'index'])->middleware('authorize:read-input_scm');
             Route::get('/datatable', [BarangController::class, 'datatable'])->middleware('authorize:read-input_scm');
