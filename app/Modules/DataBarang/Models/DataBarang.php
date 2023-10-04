@@ -48,9 +48,7 @@ class DataBarang extends Model
     public function foto(){
         return $this->hasMany(DataBarangFoto::class,"barang_id",'id');
     }
-    public function getHargaUserAttribute(){
-        return 50000;
-    }
+   
     public static function getHargaBarang($user, $barang){
         $role = UserRoleModel::where('user_id',$user->id)->first();
         if($role == "2"){
