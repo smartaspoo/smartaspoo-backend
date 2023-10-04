@@ -114,7 +114,7 @@
 
   <div class="section-divider"></div>
 
-  <!-- Section Kategori -->
+    
   <div class="section-heading">Kategori Pilihan</div>
   <div id="carouselKategori" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">

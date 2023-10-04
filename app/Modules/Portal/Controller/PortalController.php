@@ -22,6 +22,20 @@ use Illuminate\Support\Facades\Session;
 class PortalController extends Controller
 {
 
+    public function deleteKeranjang(Request $request,$id){
+        $delete = Keranjang::where("id",$id)->where('user_id',Auth::user()->id);
+        if($delete){
+            $delete->delete();
+        }else{
+            $delete = "Barang di keranjang tidak ditemukan";
+        }
+        return JsonResponseHandler::setResult($delete)->send();
+
+    }
+    public function postKeranjangToCheckout(Request $request){
+        $data = json_decode($request->data);
+        dd($data);
+    }
     public function getKeranjangData(){
         $user = Auth::user();
         $keranjang = Keranjang::where("user_id",$user->id)->with("barang")->get();
@@ -118,7 +132,7 @@ class PortalController extends Controller
         return view('Portal::detailproduk');
     }
     public function keranjang(Request $request){
-        return view('Portal::keranjang');
+        return view('Portal::dashboard.keranjang');
     }
     public function infotoko(Request $request){
         return view('Portal::infotoko');
@@ -176,6 +190,5 @@ class PortalController extends Controller
         
         return view('Portal::cekongkir', ['cities' => $cities, 'ongkir' => $ongkir]);
     }
-
 
 }

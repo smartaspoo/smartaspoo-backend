@@ -7,6 +7,9 @@ use App\Modules\Satuan\Models\Satuan;
 use App\Modules\User\Model\UserRoleModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
+
+use function PHPUnit\Framework\isNull;
 
 class DataBarang extends Model
 {
@@ -16,7 +19,27 @@ class DataBarang extends Model
 
     protected $appends = ['harga_user'];
     protected $fillable = ['nama_barang','harga_supplier','harga_umum','diskon','keterangan','info_penting','stock_global','created_by_user_id','satuan_id'];
- 
+    protected $appends = ['harga_user','thumbnail_readable'];
+
+    public function getThumbnailReadableAttribute(){
+        if(isNull($this->thumbnail)){
+            return url("/img/portal/produk.png");
+        }
+    }
+
+    public function getHargaUserAttribute(){
+        $user = Auth::user();
+        if($user){
+            $role = UserRoleModel::where('user_id',$user->id)->first();
+            if($role == "2"){
+                return $this->harga_umum;
+            } else{
+                return $this->harga_supplier;
+            }
+        }else{
+            return $this->harga_umum;
+        }
+    }
     public function satuan(){
         return $this->hasOne(Satuan::class,"id","satuan_id");
     }
