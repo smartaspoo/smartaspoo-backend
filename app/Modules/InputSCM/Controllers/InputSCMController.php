@@ -72,4 +72,10 @@ class InputSCMController extends Controller
         $delete = InputSCMRepository::delete($id);
         return JsonResponseHandler::setResult($delete)->send();
     }
+    public function preview(Request $request, $id)
+    {
+        $data = UMKM::where('id_umkm',$id)->with(['kecamatan','kota','kelurahan','provinsi','barang','barang.bahan','barang.bahan.supplier'])->first();
+        
+        return view('InputSCM::preview', ['data' => $data]); 
+    }
 }

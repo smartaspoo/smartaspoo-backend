@@ -8,6 +8,9 @@
                 <a :href="`{!! url('input-scm') !!}/${content.id_umkm}/barang/`" class="btn btn-xs btn-info mr-1">
                     Lihat Detail
                 </a>
+                <a :href="`{!! url('input-scm') !!}/${content.id_umkm}/preview`" class="btn btn-xs btn-warning mr-1">
+                    Preview SCM
+                </a>
             </template>
         </default-datatable>
     </div>
