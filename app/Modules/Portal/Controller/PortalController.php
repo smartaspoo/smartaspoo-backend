@@ -9,7 +9,10 @@ use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\KategoriProduk\Models\KategoriProduk;
 use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
 use App\Modules\Keranjang\Models\Keranjang;
+use App\Modules\Portal\Model\UserDetail;
+use App\Modules\Portal\Model\UserPortal;
 use App\Modules\Slider\Models\Slider;
+use App\Modules\TransaksiBarang\Models\TransaksiBarang;
 use App\Modules\User\Model\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -140,7 +143,12 @@ class PortalController extends Controller
         return view('Portal::infotoko');
     }
     public function checkout(Request $request){
-        return view('Portal::checkout');
+        $user = Auth::user();
+        $data = Keranjang::where('user_id',$user->id)->with(['barang','barang.user'])->first();
+        $userdata = UserDetail::where('user_id',$user->id)->first();
+        $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user];
+        // dd($data->barang->user);
+        return view('Portal::checkout', $ret);
     }
     public function pencarianbarangtoko(Request $request){
         return view('Portal::pencarianbarangtoko');

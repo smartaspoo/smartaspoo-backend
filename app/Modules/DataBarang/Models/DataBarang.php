@@ -16,6 +16,7 @@ class DataBarang extends Model
     use SoftDeletes;
     protected $table = 'barang';
     protected $guarded = [];
+
     protected $fillable = ['nama_barang','harga_supplier','harga_umum','diskon','keterangan','info_penting','stock_global','created_by_user_id','satuan_id'];
     protected $appends = ['harga_user','thumbnail_readable'];
 
@@ -47,6 +48,7 @@ class DataBarang extends Model
     public function foto(){
         return $this->hasMany(DataBarangFoto::class,"barang_id",'id');
     }
+   
     public static function getHargaBarang($user, $barang){
         $role = UserRoleModel::where('user_id',$user->id)->first();
         if($role == "2"){
