@@ -98,13 +98,11 @@
                         </div>
                         <hr>
                         <div class="margin-40">
-                            @if (count($barang->bahan) >0 )
-                            <h2 class="card-header" style="color: black; background-color:#00FF00"><strong>Daftar
-                                Bahan</strong>
-                            </h2>
-                            @endif
+
                             <div class="p-3">
                                 @foreach ($barang->bahan as $bahan)
+                                    <h2 class="card-header" style="color: black; background-color:#00FF00"><strong>Bahan : {{ $bahan['nama'] }}</strong>
+                                    </h2>
                                     <p class="data-label">Nama Bahan :</p>
                                     <p>{{ $bahan['nama'] }}</p>
 
@@ -113,47 +111,47 @@
 
                                     <p class="data-label">Sifat Bahan :</p>
                                     <p>{{ $bahan['sifat_bahan'] }}</p>
+                                    <div class="margin-70">
+                                        <div class="p-3">
+                                            @foreach ($bahan->supplier as $supplier)
+                                            <h2 class="card-header"
+                                                style="color: rgb(255, 255, 255); background-color:#5353ec">
+                                                <strong> Supplier : {{ $supplier['nama'] }}</strong>
+                                            </h2>
+                                                <p class="data-label">Nama Supplier :</p>
+                                                <p>{{ $supplier['nama'] }}</p>
+
+                                                <p class="data-label">Alamat Supplier :</p>
+                                                <p>{{ $supplier['alamat'] }}</p>
+
+                                                <p class="data-label">Kontak Supplier :</p>
+                                                <p>{{ $supplier['kontak'] }}</p>
+
+                                                <p class="data-label">Tempo Pengambilan Barang :</p>
+                                                <p>{{ $supplier['tempo_barang'] }}</p>
+
+                                                <p class="data-label">Volume Beli Barang :</p>
+                                                <p>{{ $supplier['vol_beli'] }}</p>
+
+                                                <p class="data-label">Jenis Supplier :</p>
+                                                <p>{{ $supplier['jenis_supplier'] }}</p>
+
+                                                <p class="data-label">Lama Langganan :</p>
+                                                <p>{{ $supplier['lama_langganan'] }}</p>
+
+                                                <p class="data-label">Alasan Berlangganan :</p>
+                                                <p>{{ $supplier['alasan'] }}</p>
+
+                                                <p class="data-label">Catatan :</p>
+                                                <p>{{ $supplier['catatan'] }}</p>
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
                         <hr>
-                        <div class="margin-70">
-                            @if (count($bahan->supplier) >0 )
-                            <h2 class="card-header" style="color: rgb(255, 255, 255); background-color:#5353ec">
-                                <strong>Daftar Supplier</strong>
-                            </h2>
-                            @endif
-                                <div class="p-3">
-                                    @foreach ($bahan->supplier as $supplier)
-                                        <p class="data-label">Nama Supplier :</p>
-                                        <p>{{ $supplier['nama'] }}</p>
 
-                                        <p class="data-label">Alamat Supplier :</p>
-                                        <p>{{ $supplier['alamat'] }}</p>
-
-                                        <p class="data-label">Kontak Supplier :</p>
-                                        <p>{{ $supplier['kontak'] }}</p>
-
-                                        <p class="data-label">Tempo Pengambilan Barang :</p>
-                                        <p>{{ $supplier['tempo_barang'] }}</p>
-
-                                        <p class="data-label">Volume Beli Barang :</p>
-                                        <p>{{ $supplier['vol_beli'] }}</p>
-
-                                        <p class="data-label">Jenis Supplier :</p>
-                                        <p>{{ $supplier['jenis_supplier'] }}</p>
-
-                                        <p class="data-label">Lama Langganan :</p>
-                                        <p>{{ $supplier['lama_langganan'] }}</p>
-
-                                        <p class="data-label">Alasan Berlangganan :</p>
-                                        <p>{{ $supplier['alasan'] }}</p>
-
-                                        <p class="data-label">Catatan :</p>
-                                        <p>{{ $supplier['catatan'] }}</p>
-                                    @endforeach
-                                </div>
-                        </div>
                     </div>
                 </div>
             </div>
