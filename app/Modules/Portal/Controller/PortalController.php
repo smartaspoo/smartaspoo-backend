@@ -139,7 +139,7 @@ class PortalController extends Controller
     }
     public function checkout(Request $request){
         $user = Auth::user();
-        $data = Keranjang::where('user_id',$user->id)->with(['barang','barang.user'])->first();
+        $data = Keranjang::where('user_id',$user->id)->with(['barang','barang.user'])->get();
         $userdata = UserDetail::where('user_id',$user->id)->first();
         $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user];
         // dd($data->barang->user);
