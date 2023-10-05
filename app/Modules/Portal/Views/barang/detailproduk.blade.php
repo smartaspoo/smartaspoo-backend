@@ -352,14 +352,10 @@
                                             <div class="description-section">Info Penting</div>
                                         </div>
                                         <div class="description-content" id="detailContent">
-                                            <p>
-                                                {{ $data->keterangan }}
-                                            </p>
+                                                {!! $data->keterangan !!}
                                         </div>
                                         <div class="description-content" id="infoPentingContent">
-                                            <p>
-                                                {{ $data->info_penting }}
-                                            </p>
+                                                {!! $data->info_penting !!}
                                         </div>
                                     </div>
                                 </div>
