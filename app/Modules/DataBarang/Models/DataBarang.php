@@ -21,7 +21,7 @@ class DataBarang extends Model
     protected $appends = ['harga_user','harga_user_asli','thumbnail_readable'];
 
     public function getThumbnailReadableAttribute(){
-        if(isNull($this->thumbnail)){
+        if($this->thumbnail == null){
             return url("/img/portal/produk.png");
         }else{
             return url($this->thumbnail);
