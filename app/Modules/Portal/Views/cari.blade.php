@@ -21,6 +21,7 @@
         margin-top: 20px;
         border-radius: 5px;
         position: relative;
+        margin-left: 20px;
     }
     .product-card img {
         max-width: 100%;

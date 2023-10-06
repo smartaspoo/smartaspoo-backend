@@ -1,6 +1,18 @@
 @extends('dashboard_layout.index')
-
 @section('content')
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+    
+     .card {
+        border-radius: 8px;
+        height: 130px;
+    }
+</style>
+
 <div class="panel-header bg-primary-gradient">
     <div class="page-inner py-5">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
@@ -14,35 +26,59 @@
 
 <div class="container mt-4">
     <div class="row">
-        <div class="col-md-3">
-            <div class="card bg-primary text-white">
+    <div class="col-md-3">
+        <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
                 <div class="card-body">
-                    <h5 class="card-title">Total Stok Barang</h5>
-                    <p class="card-text">1000</p>
+                    <h5 class="card-text">Total Stok Barang</h5>
+                    <h1 class="card-text fw-bold" >1000</h1>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-success text-white">
+            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
                 <div class="card-body">
-                    <h5 class="card-title">Total Barang</h5>
-                    <p class="card-text">500</p>
+                    <h5 class="card-text">Total Barang</h5>
+                    <h1 class="card-text fw-bold">500</h1>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-info text-white">
+            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
                 <div class="card-body">
-                    <h5 class="card-title">Total Barang Dikirim</h5>
-                    <p class="card-text">300</p>
+                    <h5 class="card-text">Total Barang Dikirim</h5>
+                    <h1 class="card-text fw-bold">300</h1>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card bg-danger text-white">
+            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
                 <div class="card-body">
-                    <h5 class="card-title">Total Barang Ditolak</h5>
-                    <p class="card-text">50</p>
+                    <h5 class="card-text">Total Barang Ditolak</h5>
+                    <h1 class="card-text fw-bold">50</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
+                <div class="card-body">
+                    <h5 class="card-text">Total Transaksi</h5>
+                    <h1 class="card-text fw-bold">500</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
+                <div class="card-body">
+                    <h5 class="card-text">Total Transaksi Gagaal</h5>
+                    <h1 class="card-text fw-bold">300</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
+                <div class="card-body">
+                    <h5 class="card-text">Total Transaksi Berhasil</h5>
+                    <h1 class="card-text fw-bold">50</h1>
                 </div>
             </div>
         </div>
