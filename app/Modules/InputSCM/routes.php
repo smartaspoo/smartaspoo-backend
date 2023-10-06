@@ -53,6 +53,9 @@ Route::prefix('/input-scm')->group(function() {
             Route::post('/create', [BahanController::class, 'store'])->middleware('authorize:create-input_scm');
             Route::get('/{id_bahan}', [BahanController::class, 'show'])->middleware('authorize:read-input_scm');
             Route::get('/{id_bahan}/edit', [BahanController::class, 'edit'])->middleware('authorize:update-input_scm');
+            Route::post('/{id_bahan}/edit', [BahanController::class, 'getEdit'])->middleware('authorize:update-input_scm');
+            Route::post('/{id_bahan}/editsave', [BahanController::class, 'saveEdit'])->middleware('authorize:update-input_scm');
+            
             Route::put('/{id_bahan}', [BahanController::class, 'update'])->middleware('authorize:update-input_scm');
             Route::delete('/{id_bahan}', [BahanController::class, 'destroy'])->middleware('authorize:delete-input_scm');
         });
