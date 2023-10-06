@@ -168,6 +168,7 @@
             <div class="product-details">
                 <div class="product-name">Nama Produk: {{ $transaksi['namaBarang'] }}</div>
                 <p>Kode Transaksi : {{ $transaksi['kodeTransaksi'] }}</p>
+                <p>Tanggal Transaksi : {{ $transaksi['createdDate'] }}</p>
                 <div class="product-quantity">x {{ $transaksi['jumlah'] }}</div>
             </div>
             <div class="caption-total">

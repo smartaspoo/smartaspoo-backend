@@ -17,6 +17,7 @@ use App\Modules\Slider\Models\Slider;
 use App\Modules\TransaksiBarang\Models\TransaksiBarang;
 use App\Modules\TransaksiBarang\Models\TransaksiBarangChildren;
 use App\Modules\User\Model\UserModel;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -167,6 +168,7 @@ class PortalController extends Controller
                 $jumlah = $transaksiChildren->jumlah;
                 $totalHarga = $transaksi->biaya_pengiriman + $transaksi->total_biaya;
                 $totalHargaFormatted = number_format($totalHarga, 0, ',', '.');
+                $createdDate = Carbon::parse($transaksi->created_at)->format('d-m-Y');
 
                 $transaksiId = $transaksi->id;
                 $kodeTransaksi = $transaksi->kode_transaksi;
@@ -184,6 +186,7 @@ class PortalController extends Controller
                 $data_transaksi[] = [
                     'transaksiId' => $transaksiId,
                     'kodeTransaksi' => $kodeTransaksi,
+                    'createdDate' => $createdDate,
                     'alamat' => $alamat,
                     'biayaPengiriman' => $biayaPengiriman,
                     'kurirPengiriman' => $kurirPengiriman,
