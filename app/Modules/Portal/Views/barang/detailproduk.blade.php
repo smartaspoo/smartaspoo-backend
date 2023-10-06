@@ -303,7 +303,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="product-image">
-                                                <img src="{{ URL::asset('/img/portal/produk.png') }}" alt="Product Image">
+                                                <img src="{{ $data->thumbnail_readable }}" alt="Product Image">
                                             </div>
 
                                         </div>
@@ -352,14 +352,10 @@
                                             <div class="description-section">Info Penting</div>
                                         </div>
                                         <div class="description-content" id="detailContent">
-                                            <p>
-                                                {{ $data->keterangan }}
-                                            </p>
+                                                {!! $data->keterangan !!}
                                         </div>
                                         <div class="description-content" id="infoPentingContent">
-                                            <p>
-                                                {{ $data->info_penting }}
-                                            </p>
+                                                {!! $data->info_penting !!}
                                         </div>
                                     </div>
                                 </div>

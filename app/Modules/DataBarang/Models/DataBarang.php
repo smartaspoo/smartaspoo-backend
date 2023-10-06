@@ -3,6 +3,7 @@
 namespace App\Modules\DataBarang\Models;
 
 use App\Models\User;
+use App\Modules\Keranjang\Models\Keranjang;
 use App\Modules\PortalUser\Models\TokoUser;
 use App\Modules\Satuan\Models\Satuan;
 use App\Modules\User\Model\UserRoleModel;
@@ -21,7 +22,7 @@ class DataBarang extends Model
     protected $appends = ['harga_user','harga_user_asli','thumbnail_readable'];
 
     public function getThumbnailReadableAttribute(){
-        if(isNull($this->thumbnail)){
+        if($this->thumbnail == null){
             return url("/img/portal/produk.png");
         }else{
             return url($this->thumbnail);
@@ -39,6 +40,10 @@ class DataBarang extends Model
         }else{
             return $this->harga_umum;
         }
+    }
+
+    public function keranjang(){
+        return $this->hasMany(Keranjang::class,"barang_id");
     }
 
     public function getHargaUserAttribute(){

@@ -61,6 +61,27 @@ class InputSCMController extends Controller
         $payload = $request->all();
         $data->nama = $payload['nama'];
         $data->tahun_berdiri = $payload['tahun_berdiri'];
+        $data->provinsi = $payload['provinsi'];
+        $data->kota = $payload['kecamatan'];
+        $data->kecamatan = $payload['kecamatan'];
+        $data->kelurahan = $payload['kelurahan'];
+        $data->alamat = $payload['alamat'];
+        $data->koordinat = $payload['koordinat'];
+        $data->jumlah_karyawan = $payload['jumlah_karyawan'];
+        $data->jenis_ijin_usaha = $payload['jenis_ijin_usaha'];
+        $data->ket_jenis_usaha = $payload['ket_jenis_usaha'];
+        $data->omset_per_bulan = $payload['omset_per_bulan'];
+        $data->permodalan = $payload['permodalan'];
+        $data->ket_permodelan = $payload['ket_permodelan'];
+        $data->legalitas = $payload['legalitas'];
+        $data->kategori_usaha = $payload['kategori_usaha'];
+        $data->ket_kategori_usaha = $payload['ket_kategori_usaha'];
+        $data->transaksi_lokal = $payload['transaksi_lokal'];
+        $data->transaksi_titipan = $payload['transaksi_titipan'];
+        $data->area_penjualan = $payload['area_penjualan'];
+        $data->jumlah_gerai = $payload['jumlah_gerai'];
+        $data->voice_file = $payload['voice_file'];
+        $data->voice_text = $payload['voice_text'];
         $data->save();
         return JsonResponseHandler::setResult($data)->send();
     }
