@@ -37,6 +37,8 @@ class ModuleViewServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../Modules/TransaksiBarang/Views', 'TransaksiBarang');
         $this->loadViewsFrom(__DIR__.'/../Modules/ApproveUser/Views', 'ApproveUser');
         $this->loadViewsFrom(__DIR__.'/../Modules/ApproveTransaksi/Views', 'ApproveTransaksi');
+        $this->loadViewsFrom(__DIR__.'/../Modules/ValidasiTransaksi/Views', 'ValidasiTransaksi');
+        $this->loadViewsFrom(__DIR__.'/../Modules/KirimBarang/Views', 'KirimBarang');
         
         // VIEW_MARKER
         // Add view in the line below (DONT REMOVE THIS SECTION !!!!!!, because this line is LINE_MARKER used by Module Generator)

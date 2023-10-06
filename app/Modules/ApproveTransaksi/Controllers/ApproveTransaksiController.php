@@ -7,9 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Modules\ApproveTransaksi\Models\Pengiriman;
 use App\Modules\ApproveTransaksi\Repositories\ApproveTransaksiRepository;
 use App\Modules\ApproveTransaksi\Requests\ApproveTransaksiCreateRequest;
+use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\Permission\Repositories\PermissionRepository;
 use App\Modules\TransaksiBarang\Models\TransaksiBarang;
+use App\Modules\TransaksiBarang\Models\TransaksiBarangChildren;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApproveTransaksiController extends Controller
 {
@@ -24,16 +28,31 @@ class ApproveTransaksiController extends Controller
     }
 
     public function postPreview(Request $request){
-        $kode = $request->kode;
-        $data = TransaksiBarang::where("kode_transaksi",$kode)->first();
-        $data->status = 1;
-        $data->save();
-        $approve_transaksi = Pengiriman::create([
-            'transaksi_id' => $data->id,
-            'status' => 1,
-            'keterangan' => 'Telah di Approve Oleh ASPOO'
-        ]);
-        return JsonResponseHandler::setResult($approve_transaksi)->send();
+        DB::beginTransaction();
+        try{
+            $kode = $request->kode;
+            $data = TransaksiBarang::where("kode_transaksi",$kode)->first();
+            $data->status = 1;
+            $data->save();
+            $approve_transaksi = Pengiriman::create([
+                'transaksi_id' => $data->id,
+                'status' => 1,
+                'keterangan' => 'Telah di Approve Oleh Seller'
+            ]);
+
+            $transaksi_childrens = TransaksiBarangChildren::where('transaksi_id',$data->id)->get();
+            foreach($transaksi_childrens as $transaksi_children){
+                $barang = DataBarang::where('id',$transaksi_children->barang_id)->first();
+                $barang->stock_global = intval($barang->stock_global) - intval($transaksi_children->jumlah);
+                $barang->save();
+            }
+            DB::commit();
+            return JsonResponseHandler::setResult($approve_transaksi)->send();
+
+        }catch(Exception $e){
+            DB::rollBack();
+            return JsonResponseHandler::setResult($e->getMessage())->send();
+        }
 
     }
 
@@ -42,6 +61,19 @@ class ApproveTransaksiController extends Controller
         $per_page = $request->input('per_page') != null ? $request->input('per_page') : 15;
         $data = ApproveTransaksiRepository::datatable($per_page);
         return JsonResponseHandler::setResult($data)->send();
+    }
+    public function tolak(Request $request,$kode){
+        $transaksi = TransaksiBarang::where('kode_transaksi',$kode)->first();
+        $transaksi->status = 11;
+        $transaksi->save();
+        
+        $pengiriman = Pengiriman::create([
+            'transaksi_id' => $transaksi->id,
+            'keterangan' =>  $request->pesan,
+            'status' => 11,
+        ]);
+        
+        return JsonResponseHandler::setResult($pengiriman)->send();
     }
 
     public function create()
