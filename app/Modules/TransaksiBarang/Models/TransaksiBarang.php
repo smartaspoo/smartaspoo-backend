@@ -12,6 +12,8 @@ class TransaksiBarang extends Model
     protected $table = 'transaksi';
     protected $guarded = [];
     
+    protected $appends = ['status_readable'];
+    
     public function dataChildren(){
         return $this->hasMany(TransaksiBarangChildren::class,"transaksi_id");
     }
@@ -21,4 +23,37 @@ class TransaksiBarang extends Model
     public function penjual(){
         return $this->hasOne(User::class,"id","toko_id");
     }
-}
+    
+    public function getStatusReadableAttribute(){
+        switch($this->status){
+            case null:
+                return "Menunggu Persetujuan";
+                break;
+            case 1:
+                return " Disetujui Penjual";
+                break;
+            case 2:
+                return "Uang Telah Diterima";
+                break;
+            case 3:
+                return "Dikirim";
+                break;
+            case 4:
+                return "Diterima";
+                break;
+            case 44:
+                return "Barang Gagal Diterima";
+                break;
+            case 33:
+                return "Barang Gagal Dikirim";
+                break;
+            case 22:
+                return "Uang Gagal Diterima";
+                break;
+            case 4:
+                return "Gagal Disetujui Penjual";
+                break;
+            }
+        }
+    }
+            
