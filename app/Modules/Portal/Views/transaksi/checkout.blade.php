@@ -29,19 +29,24 @@
             $iteration = 0;
             ?>
             @foreach ($data as $data_group_seller_id)
-                <div class="col-md-12">
-                    <span class="badge badge-danger"> <span class="badge badge-danger">Penjual
-                            {{ @$data_group_seller_id[0]->user->nama }}</span>
-                    </span>
-                </div>
+                @if ($data_group_seller_id[0]->harga_user != null)
+                    <div class="col-md-12">
+                        <span class="badge badge-danger"> <span class="badge badge-danger">Penjual
+                                {{ @$data_group_seller_id[0]->user->nama }}</span>
+                        </span>
+                    </div>
+                @endif
                 @foreach ($data_group_seller_id as $barang)
+                    <?php
+                    $totalHargaPerSeller = 0;
+                    ?>
                     @foreach ($barang->keranjang as $keranjang)
                         <div class="col-md-12">
                             <div class="card bg-light">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <img src="{{ URL::asset('/img/portal/produk.png') }}" alt="Product Image"
+                                            <img src="{{ $barang->thumbnail_readable }}" alt="Product Image"
                                                 class="product-image" height="100">
                                         </div>
                                         <div class="col-md-10">
@@ -54,6 +59,7 @@
                                                     @php
                                                         $satuanTotalHarga = $barang->harga_user * $keranjang->jumlah;
                                                         $totalHarga += $satuanTotalHarga;
+                                                        $totalHargaPerSeller += $satuanTotalHarga;
                                                     @endphp
                                                     <br>
                                                     <p style="text-align: right">X {{ $keranjang->jumlah }}</p>
@@ -69,22 +75,24 @@
                         </div>
                     @endforeach
                 @endforeach
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Ongkir</label>
-                        <input type="number" v-model="transaksi.ongkir[{{ $iteration }}]"
-                            @input="countTotalPembayaran()" value="0" name="ongkir[]" min="0"
-                            class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Pesan</label>
-                        <input type="text" v-model="transaksi.pesan[{{ $iteration }}]" value=" " name="pesan[]"
-                            class="form-control">
-                    </div>
-                    <hr class="border border-danger border-2 opacity-50">
+                @if ($data_group_seller_id[0]->harga_user != null)
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Ongkir</label>
+                            <input type="number" v-model="transaksi.ongkir[{{ $iteration }}]"
+                                @input="countTotalPembayaran()" value="0" name="ongkir[]" min="0"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Pesan</label>
+                            <input type="text" v-model="transaksi.pesan[{{ $iteration }}]" value=" "
+                                name="pesan[]" class="form-control">
+                        </div>
+                        <hr class="border border-danger border-2 opacity-50">
 
-                </div>
-                <?php $iteration++; ?>
+                    </div>
+                    <?php $iteration++; ?>
+                @endif
             @endforeach
             <div class="col-md-12">
                 <h2>Rincian Pembayaran</h2>
@@ -140,7 +148,7 @@
                     },
                     transaksi: {
                         ongkir: [],
-                        pesan: []
+                        pesan: [],
                     },
                     totalPengiriman: 0,
                     totalPembayaran: "{{ $totalHarga }}"
@@ -158,15 +166,31 @@
                     const rupiahFormat = "Rp " + amount.toLocaleString("id-ID");
                     return rupiahFormat;
                 },
-                saveCheckout() {
-                    var data = {
-                        "checkout" : this.checkout,
-                        "transaksi" : this.transaksi,
-                        "totalPengiriman" : this.totalPengiriman,
-                        "totalPembayaran" : this.totalPembayaran,
+                async saveCheckout() {
+                    try {
+                        showLoading()
+                        var data = {
+                            "checkout": this.checkout,
+                            "transaksi": this.transaksi,
+                            "totalPengiriman": this.totalPengiriman,
+                            "totalPembayaran": this.totalPembayaran,
+                        }
+
+                         const response = await httpClient.post("{{ url()->current() }}", data)
+                        console.log(response)
+                        hideLoading()
+                        showToast({
+                            message: "Data berhasil ditambahkan"
+                        })
+                        window.location.href = "{{url("/")}}/p/checkout/success"
+
+                    } catch (err) {
+                        hideLoading()
+                        showToast({
+                            message: err.message,
+                            type: 'error'
+                        })
                     }
-                    const response = httpClient.post("{{ url()->current() }}", data)
-                    console.log(response)
                 }
             }
         }).mount("#container")

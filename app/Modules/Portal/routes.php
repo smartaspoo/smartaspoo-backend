@@ -20,7 +20,6 @@ Route::prefix('/p')->group(function () {
     Route::get("/daftartransaksi",[PortalController::class,"daftartransaksi"]);
     Route::get("/detailproduk",[PortalController::class,"detailproduk"]);
     Route::get("/infotoko",[PortalController::class,"infotoko"]);
-    Route::get("/setelahcheckout",[PortalController::class,"setelahcheckout"]);
     Route::get("/ratingdanulasan",[PortalController::class,"ratingdanulasan"]);
     Route::get("/pencarianbarangumkm",[PortalController::class,"pencarianbarangumkm"]);
     Route::get("/pencarianbarangtoko",[PortalController::class,"pencarianbarangtoko"]);
@@ -39,6 +38,7 @@ Route::prefix('/p')->group(function () {
     Route::prefix("checkout")->group(function(){
         Route::get("/",[PortalController::class,"checkout"]);
         Route::post("/",[PortalController::class,"postCheckout"]);
+        Route::get('/success',[PortalController::class,'setelahcheckout']);
 
     });
     Route::prefix("keranjang")->group(function(){

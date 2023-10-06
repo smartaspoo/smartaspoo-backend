@@ -6,7 +6,7 @@
         body {
             font-family: 'Poppins', sans-serif;
         }
-        
+
         .space {
             width: 150px;
         }
@@ -15,8 +15,9 @@
             font-size: 18px;
             margin-top: 20px;
         }
+
         .product-card h5 {
-        text-align: center; 
+            text-align: center;
         }
 
         .product-card {
@@ -29,7 +30,7 @@
 
         .product-card img {
             max-width: 100%;
-            display: block; 
+            display: block;
             margin: 0 auto;
         }
 
@@ -116,7 +117,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item" v-for="(slider, index) in this.slider_list" :key="slider.id"
                     :class="{ active: index === 0 }">
-                    <img :src="slider.url_foto" class="d-block w-100" height="200">
+                    <img :src="slider.url_foto" class="d-block w-100" height="250">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselIklan" role="button" data-bs-slide="prev">
@@ -130,7 +131,7 @@
         </div>
         </br>
 
-        <div class="section-heading">Kategori Toko</div>
+        {{-- <div class="section-heading">Kategori Toko</div>
         <div id="carouselKategori" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item " v-for="(chunk, index) in chunckKategoriProduk" :key="index"
@@ -196,29 +197,59 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </a>
-        </div>
+        </div> --}}
 
         <div class="section-divider"></div>
 
         <!-- Section Rekomendasi -->
-        <div class="section-heading">Rekomendasi </div>
+        <div class="section-heading mb-3">Produk </div>
         <div id="carouselRekomendasi" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item " v-for="(chunk, index) in chunckRekomendasi" :key="index"
                     :class="{ active: index === 0 }">
                     <div class="row">
                         <div class="col-md-3" v-for="rekomendasi in chunk" :key="rekomendasi.id">
-                            <a :href="`{{url("/p/")}}/barang/${rekomendasi.id}`">
-                                <div class="product-card">
-                                    <img :src="rekomendasi.thumbnail_readable" alt="Produk 1" height="200">
+                            <div class="card">
+                                <div class="card-img-top">
+                                    <img :src="rekomendasi.thumbnail_readable" class="card-img-top" alt="Produk 1"
+                                        height="250">
+                                    <div class="card-body">
+                                        <div class="card-title">@{{ rekomendasi.nama_barang }}
+                                            <br></div>
+                                        <div class="card-text">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <span >@{{ rupiah(parseInt(rekomendasi.harga_user)) }}</span> <br>
+                                                    <div class="mt-1"><span class="badge badge-danger">@{{ rekomendasi.diskon }}%</span>
+                                                        <s>@{{ rupiah(rekomendasi.harga_user_asli) }}</s>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="row justify-content-between">
+                                                        <div class="col-md-9">
+                                                            <p class="lokasi">Seller ID: @{{ rekomendasi.created_by_user_id }}</p>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <a :href="`{{ url('/p/') }}/barang/${rekomendasi.id}`">
+                                                                <i class="fas fa-shopping-cart cart-icon"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div class="product-card">
+                                    <img :src="rekomendasi.thumbnail_readable" alt="Produk 1" height="250">
                                     <h4>@{{ rekomendasi.nama_barang }}</h4>
                                     <p class="harga">Harga: @{{ rekomendasi.harga_umum }}</p>
                                     <p><span class="badge bg-danger">-10%</span><s class="diskon">Harga:
-                                            @{{ rekomendasi.harga_umum }}/s></p>
-                                    <p class="lokasi">Lokasi: @{{ rekomendasi.created_by_user_id }}</p>
-                                    <i class="fas fa-shopping-cart cart-icon"></i>
-                                </div>
-                            </a>
+                                            @{{ rekomendasi.harga_umum }}</s></p>
+                                    <p class="lokasi">Seller ID: @{{ rekomendasi.created_by_user_id }}</p>
+                                </div> --}}
                         </div>
                     </div>
                 </div>
@@ -296,6 +327,10 @@
                         console.log(this.slider_list)
                     }
 
+                },
+                rupiah(amount) {
+                    const rupiahFormat = "Rp " + amount.toLocaleString("id-ID");
+                    return rupiahFormat;
                 },
             },
 
