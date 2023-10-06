@@ -51,8 +51,7 @@
                                 @foreach ($data->dataChildren as $child)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td> <img src="{{ url('') . $child->barang->thumbnail }}" width="30px"
-                                                height="30px">
+                                        <td> <img src="{{ url('') . $child->barang->thumbnail_readable }}" height="50">
                                         </td>
                                         <td>{{ $child->barang->nama_barang }}</td>
                                         <td>{{ rupiah($child->harga) }}</td>
@@ -97,20 +96,57 @@
             </div>
             <div class="card-footer">
                 <div class="float-right">
-                    <button @click="approve('{{ $data->kode_transaksi }}')" class="btn btn-primary btn-sm">Simpan</button>
+                    <button class="btn btn-primary btn-sm" @click="approve('{{ $data->kode_transaksi }}')">Simpan</button>
+                    <button class="btn btn-danger btn-sm" @click="tolak('{{ $data->kode_transaksi }}')">Tolak</button>
                 </div>
             </div>
         </section>
     </div>
 
+
     <script>
         Vue.createApp({
             methods: {
+                async tolak(kode) {
+                    Swal.fire({
+                        title: 'Anda yakin ingin menolak?',
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: 'Yakin',
+                        showLoaderOnConfirm: true,
+                        preConfirm: (login) => {
+                            return fetch(`//api.github.com/users/${login}`)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(response.statusText)
+                                    }
+                                    return response.json()
+                                })
+                                .catch(error => {
+                                    Swal.showValidationMessage(
+                                        `Request failed: ${error}`
+                                    )
+                                })
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: `${result.value.login}'s avatar`,
+                                imageUrl: result.value.avatar_url
+                            })
+                        }
+                    })
+                },
                 async approve(kode) {
-                    console.log(kode)
                     try {
                         showLoading()
-                        const response = await httpClient.post("{!! url('approve-transaksi/preview/') !!}",{kode})
+                        const response = await httpClient.post("{!! url('approve-transaksi/preview/') !!}", {
+                            kode
+                        })
                         hideLoading()
                         showToast({
                             message: "Data berhasil di Approve!"
