@@ -231,9 +231,10 @@
                         <a href="#" role="button" id="userDropdown" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" class="user-dropdown-link">
                             <div class="user-info">
-                                <img src="{{ URL::asset('/img/portal/user-icon.png') }}" alt="">
+                                <img src="{{ URL::asset('/img/portal/user-icon.png') }}" class="user-profile-img" alt="">
 
                             </div>
+
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-width"
                             aria-labelledby="userDropdown">
@@ -246,7 +247,7 @@
                         <a href="#" role="button" id="userDropdown" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" class="user-dropdown-link">
                             <div class="user-info">
-                                <img src="{{ URL::asset('/img/portal/user-icon.png') }}" alt="">
+                                <img :src="userData.fotodata" class="user-profile-img" alt="">
                                 <div class="box-user ml-3">
                                     <div class="user-name">@{{ this.userData.name }} </div>
                                     <div class="user-role">@{{ this.userData.roleName }}</div>
@@ -302,8 +303,13 @@
                         this.userData.roles.forEach(element => {
                             this.userData.roleName = element.name
                         });
+                        if(this.userData.detail != undefined){
+                            this.userData.fotodata = this.userData.detail.foto_readable
+                        }else{
+                            this.userData.fotodata = "{{ URL::asset('/img/portal/user-icon.png')}}"
+                        }
                     }
-                    console.log("profile", response)
+                    console.log("profile", this.userData)
                 },
 
             }
