@@ -210,7 +210,7 @@
                         <div class="col-md-3" v-for="rekomendasi in chunk" :key="rekomendasi.id">
                             <a :href="`{{url("/p/")}}/barang/${rekomendasi.id}`">
                                 <div class="product-card">
-                                    <img src="{{ URL::asset('/img/portal/produk.png') }}" alt="Produk 1">
+                                    <img :src="rekomendasi.thumbnail_readable" alt="Produk 1" height="200">
                                     <h4>@{{ rekomendasi.nama_barang }}</h4>
                                     <p class="harga">Harga: @{{ rekomendasi.harga_umum }}</p>
                                     <p><span class="badge bg-danger">-10%</span><s class="diskon">Harga:
