@@ -155,10 +155,7 @@
                 <input class="form-control search-input"  name="cari" type="search" placeholder="Cari Kode Transaksi" aria-label="Search">
                 <button type="submit" class="fa-solid fa-magnifying-glass search-icon"></button>
             </form>
-            <div class="date-input">
-                <i class="far fa-calendar-alt icon-calendar"></i>
-                <input type="date" class="date-picker" placeholder="Pilih Tanggal Transaksi">
-            </div>
+           
         </div>
     </div>
     <div class="container">
@@ -168,7 +165,9 @@
             <div class="product-details">
                 <div class="product-name">Nama Produk: {{ $transaksi['namaBarang'] }}</div>
                 <p>Kode Transaksi : {{ $transaksi['kodeTransaksi'] }}</p>
-                <p>Tanggal Transaksi : {{ $transaksi['createdDate'] }}</p>
+                <p>Tanggal  : {{ $transaksi['createdDate'] }} <br>
+                    Status  : {{$transaksi['statusReadable']}}
+                </p>
                 <div class="product-quantity">x {{ $transaksi['jumlah'] }}</div>
             </div>
             <div class="caption-total">

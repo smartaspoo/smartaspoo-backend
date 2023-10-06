@@ -199,6 +199,7 @@ class PortalController extends Controller
                     'jumlah' => $jumlah,
                     'totalHarga' => $totalHarga,
                     'totalHargaFormatted' => 'Rp. ' . $totalHargaFormatted,
+                    'statusReadable' =>$transaksi->status_readable,
                 ];
     
 

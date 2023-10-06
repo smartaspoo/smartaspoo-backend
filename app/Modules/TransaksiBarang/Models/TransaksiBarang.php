@@ -26,7 +26,7 @@ class TransaksiBarang extends Model
     
     public function getStatusReadableAttribute(){
         switch($this->status){
-            case null:
+            case "":
                 return "Menunggu Persetujuan";
                 break;
             case 1:
@@ -50,9 +50,12 @@ class TransaksiBarang extends Model
             case 22:
                 return "Uang Gagal Diterima";
                 break;
-            case 4:
+            case 44:
                 return "Gagal Disetujui Penjual";
                 break;
+                default:
+                    return "Menunggu Persetujuan";
+                    break;
             }
         }
     }
