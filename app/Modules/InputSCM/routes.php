@@ -38,6 +38,9 @@ Route::prefix('/input-scm')->group(function() {
             Route::post('/create', [BarangController::class, 'store'])->middleware('authorize:create-input_scm');
             Route::get('/{id_barang}', [BarangController::class, 'show'])->middleware('authorize:read-input_scm');
             Route::get('/{id_barang}/edit', [BarangController::class, 'edit'])->middleware('authorize:update-input_scm');
+            Route::post('/{id_barang}/edit', [BarangController::class, 'getEdit'])->middleware('authorize:update-input_scm');
+            Route::post('/{id_barang}/editsave', [BarangController::class, 'saveEdit'])->middleware('authorize:update-input_scm');
+            
             Route::put('/{id_barang}', [BarangController::class, 'update'])->middleware('authorize:update-input_scm');
             Route::delete('/{id_barang}', [BarangController::class, 'destroy'])->middleware('authorize:delete-input_scm');
         });
@@ -50,11 +53,11 @@ Route::prefix('/input-scm')->group(function() {
             Route::get('/datatable', [BahanController::class, 'datatable'])->middleware('authorize:read-input_scm');
             Route::get('/create', [BahanController::class, 'create'])->middleware('authorize:create-input_scm');
             Route::get('/create/datatable', [BahanController::class,'datatableSupplier'])->middleware('authorize:read-input_scm');
-            Route::post('/create', [BahanController::class, 'store'])->middleware('authorize:create-input_scm');
+            Route::post('/create', [BahanController::class, 'store'])->middleware('authoriz e:create-input_scm');
             Route::get('/{id_bahan}', [BahanController::class, 'show'])->middleware('authorize:read-input_scm');
             Route::get('/{id_bahan}/edit', [BahanController::class, 'edit'])->middleware('authorize:update-input_scm');
             Route::post('/{id_bahan}/edit', [BahanController::class, 'getEdit'])->middleware('authorize:update-input_scm');
-            Route::post('/{id_bahan}/editsave', [BahanController::class, 'saveEdit'])->middleware('authorize:update-input_scm');
+            Route::post('/{id_bahan}/edit/save', [BahanController::class, 'saveEdit'])->middleware('authorize:update-input_scm');
             
             Route::put('/{id_bahan}', [BahanController::class, 'update'])->middleware('authorize:update-input_scm');
             Route::delete('/{id_bahan}', [BahanController::class, 'destroy'])->middleware('authorize:delete-input_scm');

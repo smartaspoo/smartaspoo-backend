@@ -16,6 +16,7 @@ use App\Modules\TransaksiBarang\Models\TransaksiBarang;
 use App\Modules\User\Model\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
@@ -148,12 +149,20 @@ class PortalController extends Controller
         return view('Portal::infotoko');
     }
     public function checkout(Request $request){
-        $user = Auth::user();
-        $data = Keranjang::where('user_id',$user->id)->with(['barang','barang.user'])->get();
+        $user = User::find(Auth::id())->with('detail')->first();
+        $userid = $user->id;
+
+        $data = DataBarang::with(['keranjang' => function($query) use ($userid){
+            $query->where("user_id",$userid);
+        },"user"])->has('keranjang')->get()->groupBy("created_by_user_id");
+
         $userdata = UserDetail::where('user_id',$user->id)->first();
         $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user];
-        // dd($data->barang->user);
         return view('Portal::checkout', $ret);
+    }
+    public function postCheckout(Request $request){
+        dd($request->all());
+        
     }
     public function pencarianbarangtoko(Request $request){
         return view('Portal::pencarianbarangtoko');
