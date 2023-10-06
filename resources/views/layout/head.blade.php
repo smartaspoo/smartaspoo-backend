@@ -48,6 +48,10 @@
   <script src="//cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <!-- chartjs --->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
   <!-- viewer js --->
   <script src="{!! asset('js/libraries/viewerjs/viewer.min.js') !!}"></script>
   <link href="{!! asset('css/libraries/viewerjs/viewer.min.css') !!}" rel="stylesheet" />
