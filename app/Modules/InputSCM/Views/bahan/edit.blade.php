@@ -10,14 +10,15 @@
             <div class="card-body">
                 <form ref="barang_scm_form">
                     <div class="row">
-                        <div class="col-md-54">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-control-label">Nama Barang</label>
                                 <input v-model="barang_scm.nama" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="col-md-4">
-mm                                <label class="form-control-label">Nama Merk</label>
+                            <div class="form-group">
+                                <label class="form-control-label">Nama Merk</label>
                                 <input v-model="barang_scm.merk" class="form-control" type="text">
                             </div>
                         </div>
@@ -44,16 +45,12 @@ mm                                <label class="form-control-label">Nama Merk</l
             </div>
         </div>
     </div>
-   
+
     <script>
         Vue.createApp({
             data() {
                 return {
-                
-
-                    barang_scm: {
-
-                    },
+                    barang_scm: {},
                     sifat_bahan_list: [{
                             value: "MENTAH",
                             label: "Mentah"
@@ -76,8 +73,16 @@ mm                                <label class="form-control-label">Nama Merk</l
 
                 }
             },
-
+            created() {
+                this.fetchData();
+            },
             methods: {
+                async fetchData() {
+                    console.log("sadtas")
+                    const response = await httpClient.post("{!! url()->current() !!}/")
+                    this.input_scm = response.data.result
+                    console.log(this.input_scm)
+                },
                 back() {
                     history.back()
                 },
