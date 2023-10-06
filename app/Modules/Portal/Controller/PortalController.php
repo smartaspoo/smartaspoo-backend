@@ -153,7 +153,53 @@ class PortalController extends Controller
     }
     public function daftartransaksi(Request $request)
     {
-        return view('Portal::daftartransaksi');
+        $user = Auth::user()->id;
+        $transaksi_barang = TransaksiBarang::where('user_id',$user)->get();
+        $data_transaksi = [];
+        foreach ($transaksi_barang as $transaksi) {
+            $transaksiChildren = TransaksiBarangChildren::where('transaksi_id', $transaksi->id)->first();
+            if ($transaksiChildren) {
+                $barang = DataBarang::find($transaksiChildren->barang_id);
+                $jumlah = $transaksiChildren->jumlah;
+                $totalHarga = $transaksi->biaya_pengiriman + $transaksi->total_biaya;
+                $totalHargaFormatted = number_format($totalHarga, 0, ',', '.');
+
+                $transaksiId = $transaksi->id;
+                $kodeTransaksi = $transaksi->kode_transaksi;
+                $alamat = $transaksi->alamat;
+                $biayaPengiriman = $transaksi->biaya_pengiriman;
+                $kurirPengiriman = $transaksi->kurir_pengiriman;
+                $pesan = $transaksi->pesan;
+                $totalBiaya = $transaksi->total_biaya;
+                $userId = $transaksi->user_id;
+                $tokoId = $transaksi->toko_id;
+                $namaBarang = $barang->nama_barang;
+                $thumbnail = $barang->thumbnail;
+                
+
+                $data_transaksi[] = [
+                    'transaksiId' => $transaksiId,
+                    'kodeTransaksi' => $kodeTransaksi,
+                    'alamat' => $alamat,
+                    'biayaPengiriman' => $biayaPengiriman,
+                    'kurirPengiriman' => $kurirPengiriman,
+                    'pesan' => $pesan,
+                    'totalBiaya' => $totalBiaya,
+                    'userId' => $userId,
+                    'tokoId' => $tokoId,
+                    'namaBarang' => $namaBarang,
+                    'thumbnail' => $thumbnail,
+                    'jumlah' => $jumlah,
+                    'totalHarga' => $totalHarga,
+                    'totalHargaFormatted' => 'Rp. ' . $totalHargaFormatted,
+                ];
+    
+
+            }
+        }
+        return view('Portal::transaksi.daftartransaksi', ['data'=>$data_transaksi]);
+        // return view('Portal::transaksi.error');
+        
     }
     public function profile(Request $request)
     {
@@ -204,7 +250,7 @@ class PortalController extends Controller
     }
     public function keranjang(Request $request)
     {
-        return view('Portal::dashboard.keranjang');
+        return view('Portal::transaksi.keranjang');
     }
     public function infotoko(Request $request)
     {
@@ -282,7 +328,7 @@ class PortalController extends Controller
     }
     public function setelahcheckout(Request $request)
     {
-        return view('Portal::setelahcheckout');
+        return view('Portal::transaksi.setelahcheckout');
     }
     public function ratingdanulasan(Request $request)
     {
