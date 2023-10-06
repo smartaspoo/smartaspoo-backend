@@ -17,6 +17,7 @@ Route::prefix('/approve-transaksi')->group(function() {
     Route::get('/create', [ApproveTransaksiController::class, 'create'])->middleware('authorize:create-approve_transaksi');
     Route::post('/', [ApproveTransaksiController::class, 'store'])->middleware('authorize:create-approve_transaksi');
     Route::get('/preview/{id}',[ApproveTransaksiController::class,'preview'])->middleware('authorize:read-approve_transaksi');
+    Route::post('/preview/{id}/tolak',[ApproveTransaksiController::class,'tolak'])->middleware('authorize:read-approve_transaksi');
     Route::post('/preview',[ApproveTransaksiController::class,'postPreview'])->middleware('authorize:read-approve_transaksi');
     Route::get('/{approve_transaksi_id}', [ApproveTransaksiController::class, 'show'])->middleware('authorize:read-approve_transaksi');
     Route::get('/{approve_transaksi_id}/edit', [ApproveTransaksiController::class, 'edit'])->middleware('authorize:update-approve_transaksi');

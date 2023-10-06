@@ -26,7 +26,7 @@
                                 <p><b>Pesan : </b> {{ $data->pesan }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p><b>Pembeli : </b> {{ $data->pembeli->name }}</p>
+                                <p><b>Pembeli : </b> {{ @$data->pembeli->name }}</p>
                             </div>
                         </section>
                     </section>
@@ -74,7 +74,7 @@
                     <section class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
-                                <p><b>Penjual : </b> {{ $data->penjual->name }}</p>
+                                <p><b>Penjual : </b> {{ @$data->penjual->name }}</p>
                             </div>
                             <div class="col-md-6">
                                 <p><b>Tanggal Transaksi : </b> {{ $data->created_at }}</p>
@@ -109,7 +109,7 @@
             methods: {
                 async tolak(kode) {
                     Swal.fire({
-                        title: 'Anda yakin ingin menolak?',
+                        title: 'Tuliskan Alasan Anda Menolak',
                         input: 'text',
                         inputAttributes: {
                             autocapitalize: 'off'
@@ -117,27 +117,28 @@
                         showCancelButton: true,
                         confirmButtonText: 'Yakin',
                         showLoaderOnConfirm: true,
-                        preConfirm: (login) => {
-                            return fetch(`//api.github.com/users/${login}`)
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error(response.statusText)
-                                    }
-                                    return response.json()
+                        preConfirm: (data) => {
+                            try {
+                                var response = httpClient.post(`{{ url()->current() }}/tolak`, {
+                                    pesan: data
                                 })
-                                .catch(error => {
-                                    Swal.showValidationMessage(
-                                        `Request failed: ${error}`
-                                    )
-                                })
+                                return response
+                            } catch (error) {
+                                Swal.showValidationMessage(
+                                    `Request failed: ${error}`
+                                )
+                            }
+
                         },
-                        allowOutsideClick: () => !Swal.isLoading()
+                        allowOutsideClick: () => Swal.isLoading()
                     }).then((result) => {
+                        console.log(result)
+
                         if (result.isConfirmed) {
                             Swal.fire({
-                                title: `${result.value.login}'s avatar`,
-                                imageUrl: result.value.avatar_url
+                                title: `Data berhasil ditolak!`,
                             })
+                            window.location.href = `{{url('approve-transaksi')}}`
                         }
                     })
                 },
