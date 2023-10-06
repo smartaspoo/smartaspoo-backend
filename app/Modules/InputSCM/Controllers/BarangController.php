@@ -58,13 +58,30 @@ class BarangController extends Controller
 
     public function show(Request $request, $id)
     {
-        $input_scm = InputSCMRepository::get($id);
+        $input_scm = BarangSCMRepository::get($id);
         return JsonResponseHandler::setResult($input_scm)->send();
     }
+    public function getEdit($id){
+        $data = BarangSCM::where("id_barang",$id)->first();
+        return JsonResponseHandler::setResult($data)->send();
+    }
+    
+    public function saveEdit(Request $request,$id){
+        $data = BarangSCM::where("id_barang",$id)->first();
+        $payload = $request->all();
+        $data->nama = $payload['nama'];
+        $data->tipe_barang = $payload['tipe_barang'];
 
-    public function edit($id)
+        $data->save();
+        return JsonResponseHandler::setResult($data)->send();
+
+    }
+
+    public function edit(Request $request, $id)
     {
-        return view('InputSCM::edit', ['input_scm_id' => $id]);
+        $umkm = UMKM::find($id);
+  
+        return view('InputSCM::barang.edit',["umkm" => $umkm, 'urlnow' => $request->path()]);
     }
 
     public function update(Request $request, $id)
@@ -72,7 +89,7 @@ class BarangController extends Controller
         $payload = $request->all();
         unset($payload['created_at']);
         unset($payload['updated_at']);
-        $input_scm = InputSCMRepository::update($id, $payload);
+        $input_scm = BarangSCMRepository::update($id, $payload);
         return JsonResponseHandler::setResult($input_scm)->send();
     }
 
