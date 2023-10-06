@@ -3,6 +3,7 @@
 namespace App\Modules\DataBarang\Models;
 
 use App\Models\User;
+use App\Modules\Keranjang\Models\Keranjang;
 use App\Modules\PortalUser\Models\TokoUser;
 use App\Modules\Satuan\Models\Satuan;
 use App\Modules\User\Model\UserRoleModel;
@@ -39,6 +40,10 @@ class DataBarang extends Model
         }else{
             return $this->harga_umum;
         }
+    }
+
+    public function keranjang(){
+        return $this->hasMany(Keranjang::class,"barang_id");
     }
 
     public function getHargaUserAttribute(){
