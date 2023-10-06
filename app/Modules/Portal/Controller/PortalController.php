@@ -154,7 +154,11 @@ class PortalController extends Controller
     public function daftartransaksi(Request $request)
     {
         $user = Auth::user()->id;
-        $transaksi_barang = TransaksiBarang::where('user_id',$user)->get();
+        if($request->has('cari')){
+            $transaksi_barang = TransaksiBarang::where('user_id',$user)->where('kode_transaksi',$request->cari)->get();
+        }else{
+            $transaksi_barang = TransaksiBarang::where('user_id',$user)->get();
+        }
         $data_transaksi = [];
         foreach ($transaksi_barang as $transaksi) {
             $transaksiChildren = TransaksiBarangChildren::where('transaksi_id', $transaksi->id)->first();

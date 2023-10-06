@@ -152,8 +152,8 @@
     <div class="container">
         <div class="search-container">
             <form class="search-bar" role="search">
-                <input class="form-control search-input" type="search" placeholder="Search" aria-label="Search">
-                <button type="submit" name="cari" class="fa-solid fa-magnifying-glass search-icon"></button>
+                <input class="form-control search-input"  name="cari" type="search" placeholder="Cari Kode Transaksi" aria-label="Search">
+                <button type="submit" class="fa-solid fa-magnifying-glass search-icon"></button>
             </form>
             <div class="date-input">
                 <i class="far fa-calendar-alt icon-calendar"></i>
