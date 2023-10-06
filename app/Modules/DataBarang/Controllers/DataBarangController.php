@@ -61,7 +61,11 @@ class DataBarangController extends Controller
         $data_barang = DataBarangRepository::get($id);
         return JsonResponseHandler::setResult($data_barang)->send();
     }
-
+    public function getEdit($data)
+    {
+        $data = DataBarang::where("id_barang, $id")->fisrt();
+        return JsonResponseHandler::setResult($data)->send();
+    }
     public function edit($id)
     {
         return view('DataBarang::edit', ['barang_id' => $id]);

@@ -49,21 +49,33 @@ class BahanController extends Controller
 
     public function show(Request $request, $id)
     {
-        $input_scm = InputSCMRepository::get($id);
+        $input_scm = BahanRepository::get($id);
         return JsonResponseHandler::setResult($input_scm)->send();
     }
 
-    public function edit($id)
-    {
-        return view('InputSCM::edit', ['input_scm_id' => $id]);
+    public function getEdit($idbarang,$idbahan){
+        $data = Bahan::where("id_bahan_baku",$idbahan)->first();
+        return JsonResponseHandler::setResult($data)->send();
     }
+
+    public function saveEdit(Request $request,$id) {
+        $data = UMKM::where("id_umkm",$id)->first();
+        $payload = $request->all(); 
+    }
+
+    public function edit(Request $request,$id)
+    {
+        $barang = Bahan::where("id_bahan_baku",$id)->first();
+        return view('InputSCM::bahan.edit',["barang" => $barang, 'urlnow' => $request->path()]);
+    }
+    
 
     public function update(Request $request, $id)
     {
         $payload = $request->all();
         unset($payload['created_at']);
         unset($payload['updated_at']);
-        $input_scm = InputSCMRepository::update($id, $payload);
+        $input_scm = BahanRepository::update($id, $payload);
         return JsonResponseHandler::setResult($input_scm)->send();
     }
 

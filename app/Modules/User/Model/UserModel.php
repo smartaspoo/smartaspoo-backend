@@ -3,6 +3,7 @@
 namespace App\Modules\User\Model;
 
 use App\Handler\ModelSearchHandler;
+use App\Modules\Portal\Model\UserDetail;
 use App\Modules\Role\Model\RoleModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -30,6 +31,9 @@ class UserModel extends Authenticatable
         return $this->belongsToMany(RoleModel::class, 'user_roles', 'user_id', 'role_id')->withPivot('deleted_at')->wherePivot('deleted_at', NULL);
     }
 
+    public function detail(){
+        return $this->hasOne(UserDetail::class,"user_id");
+    }
     // Function
     protected function getRoles() {
         return $this->roles();

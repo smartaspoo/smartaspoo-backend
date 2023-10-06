@@ -50,6 +50,7 @@ Route::prefix('/p')->group(function () {
 
     Route::prefix("profile")->group(function(){
         Route::get("/",[PortalController::class,"profile"]);
+        Route::post("/",[PortalController::class,"updateProfile"]);
         Route::get("/data",[PortalController::class,"getDataProfile"]);
     });
  
