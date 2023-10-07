@@ -24,7 +24,6 @@
         </div>
     </div>
 </div>
-
 <div class="container">
     <div class="row">
         <!-- Kolom Kiri -->
@@ -46,31 +45,64 @@
                         </div>
                     </div>
                 </div>
-                
-                {{-- <div class="col-md-6">
-                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                        <div class="card-body">
-                            <h5 class="card-text">Total Transaksi Berhasil</h5>
-                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['transaksi_berhasil'] }}</h1>
-                        </div>
-                    </div>
+                <!-- Tabel Data Barang -->
+                <div class="col-md-12 mt-4">
+                    <h4>Data Barang</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                            <th>Nama Barang</th>
+                            <th style="width: 100px;">Terjual</th>
+                            <th>Foto</th>
+                            <th style="width: 100px;">Stok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sambal Petai</td>
+                                <td>10</td>
+                                <td><img src="path_to_image_1.jpg" alt="Foto Barang 1"></td>
+                                <td>40</td>
+                            </tr>
+                            <tr>
+                                <td>Jenang Mubarok</td>
+                                <td>5</td>
+                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
+                                <td>30</td>
+                            </tr>
+                            <tr>
+                                <td>Abon Lele</td>
+                                <td>20</td>
+                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>Sirup Parijoto</td>
+                                <td>50</td>
+                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
+                                <td>211</td>
+                            </tr>
+                            <tr>
+                                <td>Carica Podang Mas</td>
+                                <td>100</td>
+                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
+                                <td>324</td>
+                            </tr>
+                            <tr>
+                                <td>Bawang Goreng</td>
+                                <td>80</td>
+                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Teh Jawa Celup Black Tea</td>
+                                <td>120</td>
+                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
+                                <td>2</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="col-md-6">
-                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                        <div class="card-body">
-                            <h5 class="card-text">Total Transaksi Gagal</h5>
-                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['transaksi_gagal'] }}</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                        <div class="card-body">
-                            <h5 class="card-text">Total Transaksi</h5>
-                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['total_transaksi'] }}</h1>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
         <!-- Kolom Kanan -->
@@ -99,13 +131,13 @@
             backgroundColor: [
                 '#FF6384', 
                 '#36A2EB',
-                '#FFCE56',
+                '#FFA500',
                 '#00000',
                 '#FFD700',
                 '#D6BD68',
-                '#C0C0C0',
-                '#000080',
-                '##b5b31f'
+                '#FF0000',
+                '#D3D3D3',
+                '#800080'
             ],
             borderColor : "#BBBBBB",
             hoverOffset: 4
