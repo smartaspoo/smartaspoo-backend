@@ -34,3 +34,7 @@
 
 <!-- Atlantis JS -->
 <script src="{!! asset('js/atlantis.min.js') !!}"></script>
+
+</body>
+
+</html>

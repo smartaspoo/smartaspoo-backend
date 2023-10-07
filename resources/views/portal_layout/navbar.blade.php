@@ -1,7 +1,16 @@
 @include('layout.head')
-
-<body id="root-content" class="content">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+@if (request()->header('X-Partial-Content') == true)
+@else
+<script src="{!! asset('js/toast.js') !!}"></script>
+<script src="{!! asset('js/loading.js') !!}"></script>
+<script src="{!! asset('js/httpClient.js') !!}"></script>
+<script>
+    initializeHttpClient("{!! csrf_token() !!}");
+</script>
+<script src="{!! asset('js/navigator.js') !!}"></script>
+<script src="{!! asset('js/vue_initial.js') !!}"></script>
+<script src="{!! asset('js/ckeditor_initial.js') !!}"></script>
+@endif
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
@@ -163,7 +172,7 @@
     </style>
     <nav class="navbar custom-navbar navbar-expand-lg navbar-light" id="navbar">
         <div class="container">
-            <a class="navbar-logo navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-logo navbar-brand" href="{{ url('/p') }}">
                 <img style="width: 110px" src="{{ URL::asset('/img/portal/logo.png') }}" alt="Logo" width="65">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -228,7 +237,7 @@
                     href="{{ url('/p/login') }}">Jadi Mitra</a>
                 <div class="user-profile" v-if="this.isLoggedin == false">
                     <div class="dropdown">
-                        <a href="#" role="button" id="userDropdown" data-bs-toggle="dropdown"
+                        <a href="#" role="button" id="userNavbarDropdown" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" class="user-dropdown-link">
                             <div class="user-info">
                                 <img src="{{ URL::asset('/img/portal/user-icon.png') }}" class="user-profile-img" alt="">
@@ -237,14 +246,14 @@
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-width"
-                            aria-labelledby="userDropdown">
+                            aria-labelledby="userNavbarDropdown">
                             <a class="dropdown-item" :href="`{{ url('/p/login') }}`">Login</a>
                         </div>
                     </div>
                 </div>
                 <div class="user-profile" v-if="this.isLoggedin == true">
                     <div class="dropdown">
-                        <a href="#" role="button" id="userDropdown" data-bs-toggle="dropdown"
+                        <a href="#" role="button" id="userNavbarDropdown" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" class="user-dropdown-link">
                             <div class="user-info">
                                 <img :src="userData.fotodata" class="user-profile-img" alt="">
@@ -255,11 +264,11 @@
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-width"
-                            aria-labelledby="userDropdown">
+                            aria-labelledby="userNavbarDropdown">
                             <div class="dropdown-user">
                                 <div class="user-name">@{{ this.userData.email }}</div>
                             </div>
-                            <a class="dropdown-item" href="{{ url('/p/daftartransaksi') }}">Daftar Transaksi</a>
+                            <a class="dropdown-item" href="{{ url('/p/daftartransaksi') }}">Daftar Tra  nsaksi</a>
                             <a class="dropdown-item" href="{{ url('/p/status') }}">Status Pembelian</a>
                             <div class="bottom-dropdown">
                                 <a class="dropdown-item" href="{{ url('/p/profile') }}">Pengaturan</a>
@@ -274,13 +283,8 @@
     </nav>
 
     <script>
-        const userDropdown = document.getElementById('userDropdown');
+        const userNavbarDropdown = document.getElementById('userNavbarDropdown');
 
-        userDropdown.addEventListener('mouseenter', function() {
-            if (!this.classList.contains('show')) {
-                this.click();
-            }
-        });
 
         Vue.createApp({
             data() {
@@ -316,4 +320,3 @@
 
         }).mount("#navbar")
     </script>
-</body>

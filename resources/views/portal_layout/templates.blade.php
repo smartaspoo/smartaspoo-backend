@@ -8,30 +8,13 @@
     @endif
 
     <body>
-        <script src="{!! asset('js/toast.js') !!}"></script>
-        <script src="{!! asset('js/loading.js') !!}"></script>
-        <script src="{!! asset('js/httpClient.js') !!}"></script>
-        <script>
-            initializeHttpClient("{!! csrf_token() !!}");
-        </script>
-        <script src="{!! asset('js/navigator.js') !!}"></script>
-        <script src="{!! asset('js/vue_initial.js') !!}"></script>
-        <script src="{!! asset('js/ckeditor_initial.js') !!}"></script>
-        <div class="wrapper">
-            {!! View::make('dashboard_layout.header') !!}
-            {!! View::make('dashboard_layout.sidebar') !!}
-            <div class="main-panel">
-                <div id="root-content" class="content">
-                    @yield('content')
-                </div>
-                {!! View::make('dashboard_layout.footer') !!}
-            </div>
-
+        <div id="root-content" style="min-height: 100vh; padding-top:50px; margin-bottom:100px">
+            @yield('content')
         </div>
         @if (!isset($hideHeaderFooter))
             @include('portal_layout.footer')
-        @else
-            @include('layout.foot')
         @endif
+
     </body>
+    @include('layout.foot')
 @endif

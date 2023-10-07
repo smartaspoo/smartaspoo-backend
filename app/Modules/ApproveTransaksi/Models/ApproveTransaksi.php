@@ -13,10 +13,6 @@ class ApproveTransaksi extends Model
     protected $guarded = [];
     protected $appends = ['total_biaya_readable'];
 
-    public function getTotalBiayaReadableAttribute(){
-        $rupiah = "Rp. " . number_format($this->total_biaya, 0, ',', '.');
-        return $rupiah;
-    }
 
 
     public function pembeli(){

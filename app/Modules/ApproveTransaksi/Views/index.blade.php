@@ -1,7 +1,7 @@
 @extends('dashboard_layout.index')
 @section('content')
     <div class="page-inner" id="approve-transaksi">
-        <default-datatable title="Approve Transaksi" url="{!! url('approve-transaksi') !!}" :headers="headers"
+        <default-datatable title="Approve Transaksi" url="{!! url('transaksi') !!}" :headers="headers"
             :can-add="false" :can-edit="false" :can-delete="false">
             <template #left-action="{ content }">
                 <button @click="approveTransaksi(content.kode_transaksi)" class="btn btn-xs btn-primary mr-1">
