@@ -11,6 +11,15 @@ use Midtrans\Transaction;
 
 class DashboardController extends Controller
 {
+    public function dummypost(Request $request){
+        echo "Input data berikut <br>";
+        print_r($request->all());
+        echo "Sedang training";
+    }
+    public function dummyget(Request $request){
+        echo "mencari barang";
+        echo "<br>barang ditemukan: prediksi barang harganya 15000";
+    }
     public function index(Request $request)
     {
         $user = Auth::user();

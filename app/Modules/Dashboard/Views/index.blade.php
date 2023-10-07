@@ -18,7 +18,7 @@
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
             <div>
                 <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
-                <h5 class="text-white op-7 mb-2">Smartaspoo</h5>
+                <h5 class="text-white op-7 mb-2">SmartAspoo Admin Panel</h5>
             </div>
         </div>
     </div>
@@ -45,6 +45,7 @@
                         </div>
                     </div>
                 </div>
+                
                 {{-- <div class="col-md-6">
                     <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
                         <div class="card-body">
@@ -105,6 +106,7 @@
                 '#000080',
                 '##b5b31f'
             ],
+            borderColor : "#BBBBBB",
             hoverOffset: 4
         }]
     };
@@ -113,6 +115,19 @@
     const config = {
         type: 'pie',
         data: data,
+        options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Chart Status Transaksi',
+                color : "#3621c2"
+                
+            },
+            legend :{
+                position : "bottom"
+            }
+        }
+    }
     };
 
     const myPieChart = new Chart(ctx, config);
