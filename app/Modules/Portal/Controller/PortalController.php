@@ -2,9 +2,11 @@
 
 namespace App\Modules\Portal\Controller;
 
+use App\Handler\FileHandler;
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Modules\ApproveTransaksi\Models\Pengiriman;
 use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\KategoriProduk\Models\KategoriProduk;
 use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
@@ -13,7 +15,11 @@ use App\Modules\Portal\Model\UserDetail;
 use App\Modules\Portal\Model\UserPortal;
 use App\Modules\Slider\Models\Slider;
 use App\Modules\TransaksiBarang\Models\TransaksiBarang;
+use App\Modules\TransaksiBarang\Models\TransaksiBarangChildren;
 use App\Modules\User\Model\UserModel;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,81 +29,89 @@ use Illuminate\Support\Facades\Session;
 class PortalController extends Controller
 {
 
-    public function deleteKeranjang(Request $request,$id){
-        $delete = Keranjang::where("id",$id)->where('user_id',Auth::user()->id);
-        if($delete){
+    public function deleteKeranjang(Request $request, $id)
+    {
+        $delete = Keranjang::where("id", $id)->where('user_id', Auth::user()->id);
+        if ($delete) {
             $delete->delete();
-        }else{
+        } else {
             $delete = "Barang di keranjang tidak ditemukan";
         }
         return JsonResponseHandler::setResult($delete)->send();
-
     }
-    public function postKeranjangToCheckout(Request $request){
+    public function postKeranjangToCheckout(Request $request)
+    {
         $datas = json_decode($request->data);
-        foreach($datas->data_keranjang as $data){
-            $keranjang = Keranjang::where('id',$data->id)->first();
+        foreach ($datas->data_keranjang as $data) {
+            $keranjang = Keranjang::where('id', $data->id)->first();
             $keranjang->jumlah = $data->jumlah;
             $keranjang->save();
         }
         return JsonResponseHandler::setResult($keranjang)->send();
     }
-    public function getKeranjangData(){
+    public function getKeranjangData()
+    {
         $user = Auth::user();
-        $keranjang = Keranjang::where("user_id",$user->id)->with("barang")->get();
+        $keranjang = Keranjang::where("user_id", $user->id)->with("barang")->get();
         return JsonResponseHandler::setResult($keranjang)->send();
     }
 
-    public function getRolesUser(){
+    public function getRolesUser()
+    {
         return JsonResponseHandler::setResult(2)->send();
-        
     }
-    public function detailBarang($id){
-        $data = DataBarang::where('id',$id)->with(['satuan','foto'])->get();
+    public function detailBarang($id)
+    {
+        $data = DataBarang::where('id', $id)->with(['satuan', 'foto'])->get();
         return JsonResponseHandler::setResult($data)->send();
     }
 
-    public function postKeranjang(Request $request){
+    public function postKeranjang(Request $request)
+    {
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
-
+        
         $keranjang = Keranjang::create($data);
 
-        if($keranjang){
+        if ($keranjang) {
             return JsonResponseHandler::setMessage("SUCCESS")->setResult($keranjang)->send();
-        }else{
+        } else {
             return JsonResponseHandler::setMessage("ERROR")->send();
         }
-
+        
         dd($request->all());
     }
 
-    public function searchBarang(Request $request){
+    public function searchBarang(Request $request)
+    {
         $payload = $request->input('nama');
-        $data = DataBarang::where('nama_barang','LIKE',"%".$payload."%")->with(['satuan','foto'])->get();
-        return JsonResponseHandler::setResult($data)->send();
-
-    }
-    public function listByKategoriProduk($id){
-        $data = PivotKategoriProduk::where('kategori_produk_id',$id)->with(['barang'])->get();
+        $data = DataBarang::where('nama_barang', 'LIKE', "%" . $payload . "%")->with(['satuan', 'foto'])->get();
         return JsonResponseHandler::setResult($data)->send();
     }
+    public function listByKategoriProduk($id)
+    {
+        $data = PivotKategoriProduk::where('kategori_produk_id', $id)->with(['barang'])->get();
+        return JsonResponseHandler::setResult($data)->send();
+    }
 
-    public function getCari(Request $request){
+    public function getCari(Request $request)
+    {
         return view('Portal::cari');
-
     }
-    public function getDataProfile(Request $request){
+    public function getDataProfile(Request $request)
+    {
         $auth = Auth::user();
         $user = UserPortal::find($auth->id)->with(['details'])->first();
         return JsonResponseHandler::setResult($user)->send();
     }
 
-    public function getBarang(Request $request, $id){
-        $data = DataBarang::where('id',$id)->with(['satuan','foto','user','user.detail'])->first();
-        return view('Portal::barang.detailproduk',compact("data"));
+    public function getBarang(Request $request, $id)
+    {
+        $data = DataBarang::where('id', $id)->with(['satuan', 'foto', 'user', 'user.detail'])->first();
+        return view('Portal::barang.detailproduk', compact("data"));
     }
-    public function dashboard(){
+    public function dashboard()
+    {
         $slider = Slider::all();
         $barang = DataBarang::all();
         $kategori = KategoriProduk::get();
@@ -107,95 +121,254 @@ class PortalController extends Controller
             'rekomendasi' => $barang,
         ];
         return JsonResponseHandler::setResult($data)->send();
-
     }
-    public function fetchLogin(Request $request){
+    public function fetchLogin(Request $request)
+    {
         $data = Auth::user();
-        if($data){
-            $user = UserModel::with("roles")->find($data->id);
+        if ($data) {
+            $user = UserModel::with(["roles", 'detail'])->find($data->id);
             return JsonResponseHandler::setResult($user)->send();
-        }else{
+        } else {
             return JsonResponseHandler::setCode(400)->send();
         }
     }
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         return view('Portal::dashboard.dashboard');
     }
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         return view('Portal::auth.login');
     }
-    public function registrasi(Request $request){
+    public function registrasi(Request $request)
+    {
         return view('Portal::auth.registrasi');
     }
-    public function statuspengiriman(Request $request){
+    public function statuspengiriman(Request $request)
+    {
         return view('Portal::statuspengiriman');
     }
-    public function detailbarangpenjualan(Request $request){
+    public function detailbarangpenjualan(Request $request)
+    {
         return view('Portal::detailbarangpenjualan');
     }
-    public function daftartransaksi(Request $request){
-        return view('Portal::daftartransaksi');
+    public function daftartransaksi(Request $request)
+    {
+        $user = Auth::user()->id;
+        if($request->has('cari')){
+            $transaksi_barang = TransaksiBarang::where('user_id',$user)->where('kode_transaksi',$request->cari)->get();
+        }else{
+            $transaksi_barang = TransaksiBarang::where('user_id',$user)->get();
+        }
+        $data_transaksi = [];
+        foreach ($transaksi_barang as $transaksi) {
+            $transaksiChildren = TransaksiBarangChildren::where('transaksi_id', $transaksi->id)->first();
+            if ($transaksiChildren) {
+                $barang = DataBarang::find($transaksiChildren->barang_id);
+                $jumlah = $transaksiChildren->jumlah;
+                $totalHarga = $transaksi->biaya_pengiriman + $transaksi->total_biaya;
+                $totalHargaFormatted = number_format($totalHarga, 0, ',', '.');
+                $createdDate = Carbon::parse($transaksi->created_at)->format('d-m-Y');
+
+                $transaksiId = $transaksi->id;
+                $kodeTransaksi = $transaksi->kode_transaksi;
+                $alamat = $transaksi->alamat;
+                $biayaPengiriman = $transaksi->biaya_pengiriman;
+                $kurirPengiriman = $transaksi->kurir_pengiriman;
+                $pesan = $transaksi->pesan;
+                $totalBiaya = $transaksi->total_biaya;
+                $userId = $transaksi->user_id;
+                $tokoId = $transaksi->toko_id;
+                $namaBarang = $barang->nama_barang;
+                $thumbnail = $barang->thumbnail;
+                
+
+                $data_transaksi[] = [
+                    'transaksiId' => $transaksiId,
+                    'kodeTransaksi' => $kodeTransaksi,
+                    'createdDate' => $createdDate,
+                    'alamat' => $alamat,
+                    'biayaPengiriman' => $biayaPengiriman,
+                    'kurirPengiriman' => $kurirPengiriman,
+                    'pesan' => $pesan,
+                    'totalBiaya' => $totalBiaya,
+                    'userId' => $userId,
+                    'tokoId' => $tokoId,
+                    'namaBarang' => $namaBarang,
+                    'thumbnail' => $thumbnail,
+                    'jumlah' => $jumlah,
+                    'totalHarga' => $totalHarga,
+                    'totalHargaFormatted' => 'Rp. ' . $totalHargaFormatted,
+                    'statusReadable' =>$transaksi->status_readable,
+                ];
+    
+
+            }
+        }
+        return view('Portal::transaksi.daftartransaksi', ['data'=>$data_transaksi]);
+        // return view('Portal::transaksi.error');
+        
     }
-    public function profile(Request $request){
-        return view('Portal::profile');
+    public function profile(Request $request)
+    {
+
+        $data = UserDetail::where('user_id', Auth::id())->with('userMaster')->first();
+        $userMaster = UserModel::where('id',Auth::id())->first();
+        return view('Portal::auth.profile', ['data' => $data,'user'=>$userMaster]);
     }
-    public function detailproduk(Request $request){
+    public function updateProfile(Request $request)
+    {
+        $userDetail = [
+            'user_id' => $request->input('user_id'),
+            'alamat' => $request->input('alamat'),
+            'telepon' => $request->input('telepon'),
+            'tanggal_lahir' => $request->input('tanggal_lahir'),
+            'provinsi' => $request->input('provinsi'),
+            'kota' => $request->input('kota'),
+            'kecamatan' => $request->input('kecamatan'),
+            'kelurahan' => $request->input('kelurahan'),
+            'jenis_kelamin' => $request->input('jenis_kelamin'),
+        ];
+        if ($request->has('foto')) {
+
+            $foto = FileHandler::store(file: $request->file('foto'), targetDir: "uploads/profile");
+            $userDetail['foto'] = $foto;
+        }
+
+
+        $userid = $request->input('user_id');
+
+        $insert = UserDetail::updateOrInsert(['user_id' => $request->input('user_id')], $userDetail);
+
+        $userMaster = User::where('id', $userid)->first();
+        $userMaster->username = $request->input('username');
+        $userMaster->email = $request->input('email');
+        $userMaster->name = $request->input('nama');
+        $userMaster->save();
+
+        if ($insert) {
+            return redirect()->back()->with('success', 'Profil berhasil diperbarui');
+        } else {
+            return redirect()->back()->with('error', 'Profil gagal diperbarui');
+        }
+    }
+    public function detailproduk(Request $request)
+    {
         return view('Portal::detailproduk');
     }
-    public function keranjang(Request $request){
-        return view('Portal::dashboard.keranjang');
+    public function keranjang(Request $request)
+    {
+        return view('Portal::transaksi.keranjang');
     }
-    public function infotoko(Request $request){
+    public function infotoko(Request $request)
+    {
         return view('Portal::infotoko');
     }
-    public function checkout(Request $request){
+    public function checkout(Request $request)
+    {
         $user = User::find(Auth::id())->with('detail')->first();
         $userid = $user->id;
-
+        
         $data = DataBarang::with(['keranjang' => function($query) use ($userid){
             $query->where("user_id",$userid);
         },"user"])->has('keranjang')->get()->groupBy("created_by_user_id");
-
+        
         $userdata = UserDetail::where('user_id',$user->id)->first();
         $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user];
-        return view('Portal::checkout', $ret);
+        return view('Portal::transaksi.checkout', $ret);
     }
     public function postCheckout(Request $request){
-        dd($request->all());
+        $user = User::find(Auth::id())->with('detail')->first();
+        $userid = $user->id;
+        
+        $datas = DataBarang::with(['keranjang' => function($query) use ($userid){
+            $query->where("user_id",$userid);
+        },"user"])->has('keranjang')->get()->groupBy("created_by_user_id");
+        $input = $request->all();
+        DB::beginTransaction();
+        try{
+            $i = 0;
+            foreach($datas as $barangs){
+                $total = 0;
+                $transaksi = TransaksiBarang::create([
+                    'kode_transaksi' => "TR-". Str::random(8) ,
+                    'alamat' => $request->checkout['alamat'],
+                    'biaya_pengiriman' => intval($request->transaksi['ongkir'][$i]),
+                    'kurir_pengiriman' => "-",
+                    'total_biaya' => 0, //temp
+                    'user_id' => Auth::id(),
+                    'toko_id' => 0, // temp
+                    'pesan' => $request->transaksi['pesan'][$i],
+                ]);
+                $toko_id = 0;
+                foreach($barangs as $barang){
+                    foreach($barang->keranjang as $keranjang){
+                        $tr_child = TransaksiBarangChildren::create([
+                            'transaksi_id' => $transaksi->id,
+                            'barang_id' => $keranjang->barang_id,
+                            'harga' => $barang->harga_user,
+                            'jumlah' => $keranjang->jumlah,
+                        ]);
+                        $total += intval($tr_child->harga) * intval($tr_child->jumlah); 
+                        $toko_id = $barang->created_by_user_id;
+                        Keranjang::where('id',$keranjang->id)->delete();
+                    }
+                }
+                $transaksi->total_biaya = $total;
+                $transaksi->toko_id = $toko_id;
+                $transaksi->save();
+                $i++;
+                
+            }
+            DB::commit();
+            return JsonResponseHandler::setResult($transaksi)->send();
+
+        }catch(Exception $e){
+            DB::rollBack();
+            return JsonResponseHandler::setResult($e->getMessage())->send();
+            
+        }
         
     }
-    public function pencarianbarangtoko(Request $request){
+    public function pencarianbarangtoko(Request $request)
+    {
         return view('Portal::pencarianbarangtoko');
     }
-    public function setelahcheckout(Request $request){
-        return view('Portal::setelahcheckout');
+    public function setelahcheckout(Request $request)
+    {
+        return view('Portal::transaksi.setelahcheckout');
     }
-    public function ratingdanulasan(Request $request){
+    public function ratingdanulasan(Request $request)
+    {
         return view('Portal::ratingdanulasan');
     }
 
-    public function pusatbantuan(Request $request){
+    public function pusatbantuan(Request $request)
+    {
         return view('Portal::pusatbantuan');
     }
-    public function kebijakan(Request $request){
+    public function kebijakan(Request $request)
+    {
         return view('Portal::kebijakan');
     }
-    
-    public function cekongkir(Request $request){
-        $response = Http::withHeaders ([
+
+    public function cekongkir(Request $request)
+    {
+        $response = Http::withHeaders([
             'key' => 'f4f21baace88e503f1f1602d7c07a23a'
         ])->get('https://api.rajaongkir.com/starter/city');
-        
+
         $cities = $response['rajaongkir']['results'];
 
         return view('Portal::cekongkir', ['cities' => $cities, 'ongkir' => '']);
     }
-    public function cekHasil(Request $request){
-        $response = Http::withHeaders ([
+    public function cekHasil(Request $request)
+    {
+        $response = Http::withHeaders([
             'key' => 'f4f21baace88e503f1f1602d7c07a23a'
         ])->get('https://api.rajaongkir.com/starter/city');
-        
-        $responseCost = Http::withHeaders ([
+
+        $responseCost = Http::withHeaders([
             'key' => 'f4f21baace88e503f1f1602d7c07a23a'
         ])->post('https://api.rajaongkir.com/starter/cost', [
             'origin' => $request->origin,
@@ -206,8 +379,7 @@ class PortalController extends Controller
 
         $cities = $response['rajaongkir']['results'];
         $ongkir = $responseCost['rajaongkir'];
-        
+
         return view('Portal::cekongkir', ['cities' => $cities, 'ongkir' => $ongkir]);
     }
-
 }

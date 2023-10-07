@@ -26,7 +26,7 @@
                                 <p><b>Pesan : </b> {{ $data->pesan }}</p>
                             </div>
                             <div class="col-md-6">
-                                <p><b>Pembeli : </b> {{ $data->pembeli->name }}</p>
+                                <p><b>Pembeli : </b> {{ @$data->pembeli->name }}</p>
                             </div>
                         </section>
                     </section>
@@ -51,8 +51,7 @@
                                 @foreach ($data->dataChildren as $child)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td> <img src="{{ url('') . $child->barang->thumbnail }}" width="30px"
-                                                height="30px">
+                                        <td> <img src="{{ url('') . $child->barang->thumbnail_readable }}" height="50">
                                         </td>
                                         <td>{{ $child->barang->nama_barang }}</td>
                                         <td>{{ rupiah($child->harga) }}</td>
@@ -75,7 +74,7 @@
                     <section class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
-                                <p><b>Penjual : </b> {{ $data->penjual->name }}</p>
+                                <p><b>Penjual : </b> {{ @$data->penjual->name }}</p>
                             </div>
                             <div class="col-md-6">
                                 <p><b>Tanggal Transaksi : </b> {{ $data->created_at }}</p>
@@ -97,20 +96,58 @@
             </div>
             <div class="card-footer">
                 <div class="float-right">
-                    <button @click="approve('{{ $data->kode_transaksi }}')" class="btn btn-primary btn-sm">Simpan</button>
+                    <button class="btn btn-primary btn-sm" @click="approve('{{ $data->kode_transaksi }}')">Simpan</button>
+                    <button class="btn btn-danger btn-sm" @click="tolak('{{ $data->kode_transaksi }}')">Tolak</button>
                 </div>
             </div>
         </section>
     </div>
 
+
     <script>
         Vue.createApp({
             methods: {
+                async tolak(kode) {
+                    Swal.fire({
+                        title: 'Tuliskan Alasan Anda Menolak',
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: 'Yakin',
+                        showLoaderOnConfirm: true,
+                        preConfirm: (data) => {
+                            try {
+                                var response = httpClient.post(`{{ url()->current() }}/tolak`, {
+                                    pesan: data
+                                })
+                                return response
+                            } catch (error) {
+                                Swal.showValidationMessage(
+                                    `Request failed: ${error}`
+                                )
+                            }
+
+                        },
+                        allowOutsideClick: () => Swal.isLoading()
+                    }).then((result) => {
+                        console.log(result)
+
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: `Data berhasil ditolak!`,
+                            })
+                            window.location.href = `{{url('approve-transaksi')}}`
+                        }
+                    })
+                },
                 async approve(kode) {
-                    console.log(kode)
                     try {
                         showLoading()
-                        const response = await httpClient.post("{!! url('approve-transaksi/preview/') !!}",{kode})
+                        const response = await httpClient.post("{!! url('approve-transaksi/preview/') !!}", {
+                            kode
+                        })
                         hideLoading()
                         showToast({
                             message: "Data berhasil di Approve!"

@@ -19,117 +19,121 @@
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
             <div>
                 <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
-                <h5 class="text-white op-7 mb-2">Dnt Software Core</h5>
+                <h5 class="text-white op-7 mb-2">SmartAspoo Admin Panel</h5>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container mt-4">
+<div class="container">
     <div class="row">
-    <div class="col-md-3">
-        <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                <div class="card-body">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div style="margin-bottom: 40px;"> 
-                    <h5 class="card-text">Total Stok Barang</h5>
-                    <h1 class="card-text fw-bold">1000</h1>
+        <!-- Kolom Kiri -->
+        <div class="col-md-6 mt-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
+                        <div class="card-body">
+                            <h5 class="card-text">Total Stok Barang</h5>
+                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['total_stock'] }}</h1>
+                        </div>
+                    </div>
                 </div>
-                <div style="color: #3621C2;">
-                    <i class="bi bi-box-seam" style="font-size: 57px; width: 57px; height: 57px;"></i>
+                <div class="col-md-6">
+                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
+                        <div class="card-body">
+                            <h5 class="card-text">Total Barang</h5>
+                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['total_barang'] }}</h1>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                
+                {{-- <div class="col-md-6">
+                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
+                        <div class="card-body">
+                            <h5 class="card-text">Total Transaksi Berhasil</h5>
+                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['transaksi_berhasil'] }}</h1>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                <div class="card-body">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div style="margin-bottom: 40px;"> 
-                    <h5 class="card-text">Total Barang</h5>
-                    <h1 class="card-text fw-bold">500</h1>
+                <div class="col-md-6">
+                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
+                        <div class="card-body">
+                            <h5 class="card-text">Total Transaksi Gagal</h5>
+                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['transaksi_gagal'] }}</h1>
+                        </div>
+                    </div>
                 </div>
-                <div style="color: #3621C2;">
-                    <i class="bi bi-folder" style="font-size: 57px; width: 57px; height: 57px;"></i>
-                </div>
-            </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                <div class="card-body">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div style="margin-bottom: 40px;"> 
-                    <h5 class="card-text">Total Barang Dikirim</h5>
-                    <h1 class="card-text fw-bold">300</h1>
-                </div>
-                <div style="color: #3621C2;">
-                    <i class="bi bi-truck" style="font-size: 57px; width: 57px; height: 57px;"></i>
-                </div>
-            </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                <div class="card-body">
-                    <h5 class="card-text">Total Barang Ditolak</h5>
-                    <h1 class="card-text fw-bold">50</h1>
-                </div>
-                <div style="color: #3621C2;">
-                    <i class="bi bi-database-x" style="font-size: 57px; width: 57px; height: 57px;"></i>
-                </div>
-            </div>
-                </div>
+                <div class="col-md-6">
+                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
+                        <div class="card-body">
+                            <h5 class="card-text">Total Transaksi</h5>
+                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['total_transaksi'] }}</h1>
+                        </div>
+                    </div>
+                </div> --}}
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                <div class="card-body">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div style="margin-bottom: 40px;"> 
-                    <h5 class="card-text">Total Transaksi</h5>
-                    <h1 class="card-text fw-bold">500</h1>
-                </div>
-                <div style="color: #3621C2;">
-                    <i class="bi bi-calculator" style="font-size: 57px; width: 57px; height: 57px;"></i>
-                </div>
-            </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                <div class="card-body">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div style="margin-bottom: 40px;"> 
-                    <h5 class="card-text">Total Transaksi Gagal</h5>
-                    <h1 class="card-text fw-bold">300</h1>
-                </div>
-                <div style="color: #3621C2;">
-                    <i class="bi bi-clipboard2-x" style="font-size: 57px; width: 57px; height: 57px;"></i>
-                </div>
-            </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                <div class="card-body">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-                <div style="margin-bottom: 40px;"> 
-                    <h5 class="card-text">Total Transaksi Berhasil</h5>
-                    <h1 class="card-text fw-bold">50</h1>
-                </div>
-                <div style="color: #3621C2;">
-                    <i class="bi bi-clipboard2-check" style="font-size: 57px; width: 57px; height: 57px;"></i>
-                </div>
-            </div>
-                </div>
-            </div>
+        <!-- Kolom Kanan -->
+        <div class="col-md-6 mt-4">
+            <canvas id="myPieChart" style="background-color: #E1EFFA;"></canvas>
         </div>
     </div>
 </div>
+
+<script>
+    const data = {
+        labels: [
+            'Transaksi Diterima Penjual',
+            'Transaksi Ditolak Penjual',
+            'Uang Diterima ASPOO',
+            'Uang Ditolak ASPOO',
+            'Barang Dikirim Oleh Penjual',
+            'Barang Tidak Jadi Dikirim Oleh Penjual',
+            'barang Diterima Oleh Pembeli',
+            'barang Tidak Diterima',
+            'Transaksi Dibuat Oleh Pembeli'
+        ],
+        datasets: [{
+            label: 'Transaksi',
+            data: [{{$data['transaksi_berhasil']}}, {{$data['transaksi_gagal']}}, {{ $data['uang_diterima'] }}, {{ $data['uang_ditolak'] }}, {{ $data['barang_dikirim'] }}, {{ $data['barang_tidak_dikirim']}}, {{$data['barang_diterima']}}, {{ $data['barang_tidak_diterima'] }}, {{ $data['transaksi_dibuat'] }}],
+            backgroundColor: [
+                '#FF6384', 
+                '#36A2EB',
+                '#FFCE56',
+                '#00000',
+                '#FFD700',
+                '#D6BD68',
+                '#C0C0C0',
+                '#000080',
+                '##b5b31f'
+            ],
+            borderColor : "#BBBBBB",
+            hoverOffset: 4
+        }]
+    };
+
+    const ctx = document.getElementById('myPieChart');
+    const config = {
+        type: 'pie',
+        data: data,
+        options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Chart Status Transaksi',
+                color : "#3621c2"
+                
+            },
+            legend :{
+                position : "bottom"
+            }
+        }
+    }
+    };
+
+    const myPieChart = new Chart(ctx, config);
+</script>
+
+
+
 @endsection

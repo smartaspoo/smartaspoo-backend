@@ -48,6 +48,10 @@
   <script src="//cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <!-- chartjs --->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
   <!-- viewer js --->
   <script src="{!! asset('js/libraries/viewerjs/viewer.min.js') !!}"></script>
   <link href="{!! asset('css/libraries/viewerjs/viewer.min.css') !!}" rel="stylesheet" />
@@ -56,15 +60,7 @@
   <script src="{!! asset('js/libraries/multiselect/multiselect.global.js') !!}"></script>
   <link href="{!! asset('css/libraries/multiselect/multiselect.css') !!}" rel="stylesheet" />
   <link id="pagestyle" href="{!! asset('css/app.css') !!}" rel="stylesheet" />
-  <script src="{!! asset('js/toast.js') !!}"></script>
-<script src="{!! asset('js/loading.js') !!}"></script>
-<script src="{!! asset('js/httpClient.js') !!}"></script>
-<script>
-    initializeHttpClient("{!! csrf_token() !!}");
-</script>
-<script src="{!! asset('js/navigator.js') !!}"></script>
-<script src="{!! asset('js/vue_initial.js') !!}"></script>
-<script src="{!! asset('js/ckeditor_initial.js') !!}"></script>
+
 
 </head>
   

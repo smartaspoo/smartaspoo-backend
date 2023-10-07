@@ -31,7 +31,8 @@
     }
 </style>
     <div class="setelahcheckout">
-        <h1>PESANANMU SEDANG DALAM PROSES</h1>
-        <button class="btn-kembali">Kembali ke Toko</button>
+        <h1>Pesanan Anda Sedang Diproses, Silahkan cek di Status Pembayaran</h1>
+
+        <a class="btn btn-danger" href="{{url("")}}/p/">Kembali ke Portal</a>
     </div>
 @endsection

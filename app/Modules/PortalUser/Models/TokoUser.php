@@ -18,7 +18,7 @@ class TokoUser extends Model
     }
 
     public function getFotoReadableAttribute(){
-        if(isNull($this->foto)){
+        if($this->foto == null){
             return url("/img/portal/produk.png");
         }else{
             return url($this->foto);

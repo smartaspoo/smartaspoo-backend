@@ -152,39 +152,39 @@
     <div class="container">
         <div class="search-container">
             <form class="search-bar" role="search">
-                <input class="form-control search-input" type="search" placeholder="Search" aria-label="Search">
-                <button type="submit" name="cari" class="fa-solid fa-magnifying-glass search-icon"></button>
+                <input class="form-control search-input"  name="cari" type="search" placeholder="Cari Kode Transaksi" aria-label="Search">
+                <button type="submit" class="fa-solid fa-magnifying-glass search-icon"></button>
             </form>
-            <select class="product-dropdown">
-                <option value="" disabled selected>Semua Produk</option>
-                <option value="" >Produk A</option>
-                <option value="" >Produk B</option>
-                <option value="" >Produk C</option>
-            </select>
-            <div class="date-input">
-                <i class="far fa-calendar-alt icon-calendar"></i>
-                <input type="date" class="date-picker" placeholder="Pilih Tanggal Transaksi">
-            </div>
+           
         </div>
     </div>
     <div class="container">
+        @foreach($data as $transaksi)
         <div class="content-container">
             <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Product Image" class="product-image">
             <div class="product-details">
-                <div class="product-name">Nama Produk</div>
-                <div class="product-quantity">x1</div>
+                <div class="product-name">Nama Produk: {{ $transaksi['namaBarang'] }}</div>
+                <p>Kode Transaksi : {{ $transaksi['kodeTransaksi'] }}</p>
+                <p>Tanggal  : {{ $transaksi['createdDate'] }} <br>
+                    Status  : {{$transaksi['statusReadable']}}
+                </p>
+                <div class="product-quantity">x {{ $transaksi['jumlah'] }}</div>
             </div>
             <div class="caption-total">
-                <a href="#" class="caption-link">Lihat Daftar Transaksi</a>
+                <a href="{{url('p/status/').'/'.$transaksi['kodeTransaksi']}}" class="caption-link">Lihat Daftar Transaksi</a>
             </div>
             <div class="vertical-line"></div>
             <div class="caption-total">
                 <a>Total Harga</a><br>
-                <a>Rp. 10.000</a>
+                <a>{{ $transaksi['totalHargaFormatted'] }}</a>
             </div>
         </div>
+        @endforeach
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+    </script>
 </body>
 </html>
