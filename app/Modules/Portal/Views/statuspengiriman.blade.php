@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartASPOO</title>
-    <link rel="icon" href="{{URL::asset('/img/portal/android-chrome-512x512.png')}}" type="image/png">
+    <link rel="icon" href="{{ URL::asset('/img/portal/android-chrome-512x512.png') }}" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
@@ -22,16 +24,24 @@
             align-items: center;
             justify-content: flex-start;
         }
-        .navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+
+        .navbar>.container,
+        .navbar>.container-fluid,
+        .navbar>.container-lg,
+        .navbar>.container-md,
+        .navbar>.container-sm,
+        .navbar>.container-xl,
+        .navbar>.container-xxl {
             display: flex;
             flex-wrap: inherit;
             align-items: center;
             justify-content: flex-start;
             font-weight: bolder;
         }
+
         .arrow-icon {
             font-size: 28px;
-            color: #000; /* Ganti dengan warna yang diinginkan */
+            color: #000;
             background: none;
             border: none;
             padding: 0;
@@ -45,9 +55,11 @@
         .container {
             margin-top: 20px;
         }
-        .imageproduk{
+
+        .imageproduk {
             max-width: 200px;
         }
+
         .product-detail {
             width: auto;
             background: #F0F0F0;
@@ -86,6 +98,7 @@
             justify-content: flex-end;
             padding-left: 20px;
         }
+
         .btn-text-primary {
             color: #196CE9;
             border: none;
@@ -94,11 +107,13 @@
             font-weight: bold;
             text-decoration: none;
         }
+
         .section-divider {
             border-top: 2px solid #000000;
             margin-top: 50px;
             margin-bottom: 60px;
         }
+
         .timeline {
             position: relative;
         }
@@ -146,17 +161,18 @@
             position: absolute;
             left: 10px;
             top: 20px;
-            height: calc(100% - 20px);
+            height: calc(100%);
             border-left: 2px solid #000000;
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar">
         <div class="container">
             <a href="/p/" class="btn ">
                 <i class="fas fa-arrow-left arrow-icon"></i>
-            </a>            
+            </a>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Status Pengiriman</a>
@@ -167,11 +183,11 @@
 
     <div class="container">
         <div class="product-detail">
-            <img class="imageproduk" src="{{URL::asset('/img/portal/produk.png')}}" alt="Product Image">
+            <img class="imageproduk" src="{{ $data['image_product'] }}" alt="Product Image">
             <div class="shipment-info">
-                <div>Diterima pada hari Sabtu 17 Juni 2023</div>
+                <div>{{ $data['keterangan'] }}</div>
                 <br>
-                <div>Dikirim dengan reguler - J&T Express</div>
+                <div>Dikirim menggunakan &emsp;: &emsp;{{ $data['kurir'] }}</div>
             </div>
         </div>
     </div>
@@ -179,39 +195,57 @@
         <div class="shipment-info2">
             <div class="resi">Nomor Resi</div>
             <div class="rigth-info">
-                <div>123456789</div>
-                <button class="btn btn-text-primary">Salin</button>
+                <div>{{ $data['resi'] }}</div>
+                <button id="salinResi" class="btn btn-text-primary">Salin</button>
             </div>
         </div>
         <div class="section-divider"></div>
-        <div class="shipment-details">
+        @foreach ($data['pengiriman'] as $timeline)
+            <?php
+            if (intval($timeline['status']) > 10) {
+                $teks = 'color:red;';
+            } else {
+                $teks = 'color: black;';
+            }
+            $mysqlTimestamp = $timeline['created_at'];
+            $date = new DateTime($mysqlTimestamp, new DateTimeZone('UTC'));
+            
+            // Set the timezone to Indonesia
+            $date->setTimezone(new DateTimeZone('Asia/Jakarta'));
+            
+            // Format the date as per your requirements
+            $dateInIndonesia = $date->format('d M Y ');
+            ?>
             <div class="shipment-details">
-                <div class="timeline">
-                    <div class="timeline-divider"></div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">17 Juni 2023<br>17:00</div>
-                        <div class="timeline-content">
-                            <div class="timeline-number">Terkirim</div>
-                            <div class="timeline-description">Pesanan Diproses</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">19 Juni 2023<br>17:00</div>
-                        <div class="timeline-content">
-                            <div class="timeline-number">Pesanan dalam pengiriman</div>
-                            <div class="timeline-description">Pesanan Dikirim</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">18 Juni 2023<br>17:00</div>
-                        <div class="timeline-content">
-                            <div class="timeline-description">Pesanan telah sampai di lokasi transit Hub SEMARANG</div>
+                <div class="shipment-details">
+                    <div class="timeline">
+                        <div class="timeline-divider"></div>
+                        <div class="timeline-item">
+                            <div class="timeline-time" style="{{ $teks }}">{{ $dateInIndonesia }}</div>
+                            <div class="timeline-content">
+                                <div class="timeline-number" style="{{ $teks }}">{{ $timeline['status'] }}</div>
+                                <div class="timeline-description" style="{{ $teks }}">
+                                    {{ $timeline['keterangan'] }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+        @endforeach
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+        <script>
+            new ClipboardJS('#salinResi', {
+                text: function() {
+                    return "{{ $data['resi'] }}";
+                }
+            });
+            document.getElementById('salinResi').addEventListener('click', function() {
+                alert('Nomor Resi telah disalin ke clipboard.');
+            });
+        </script>
+
+
 </body>
+
 </html>

@@ -57,6 +57,7 @@ Route::prefix('/p')->group(function () {
         Route::post("/",[PortalController::class,"updateProfile"]);
         Route::get("/data",[PortalController::class,"getDataProfile"]);
     });
+    Route::get("/status/{kode}",[PortalController::class,"statuspengiriman"]);
  
     Route::post("/user-role",[PortalController::class,"getRolesUser"]);
 

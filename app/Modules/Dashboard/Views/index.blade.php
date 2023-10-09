@@ -12,6 +12,7 @@
         border-radius: 8px;
         height: 130px;
     }
+    
 </style>
 
 <div class="panel-header bg-primary-gradient">
@@ -46,65 +47,52 @@
                     </div>
                 </div>
                 <!-- Tabel Data Barang -->
-                <div class="col-md-12 mt-4">
-                    <h4>Data Barang</h4>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                            <th>Nama Barang</th>
-                            <th style="width: 100px;">Terjual</th>
-                            <th>Foto</th>
-                            <th style="width: 100px;">Stok</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Sambal Petai</td>
-                                <td>10</td>
-                                <td><img src="path_to_image_1.jpg" alt="Foto Barang 1"></td>
-                                <td>40</td>
-                            </tr>
-                            <tr>
-                                <td>Jenang Mubarok</td>
-                                <td>5</td>
-                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
-                                <td>30</td>
-                            </tr>
-                            <tr>
-                                <td>Abon Lele</td>
-                                <td>20</td>
-                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>Sirup Parijoto</td>
-                                <td>50</td>
-                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
-                                <td>211</td>
-                            </tr>
-                            <tr>
-                                <td>Carica Podang Mas</td>
-                                <td>100</td>
-                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
-                                <td>324</td>
-                            </tr>
-                            <tr>
-                                <td>Bawang Goreng</td>
-                                <td>80</td>
-                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
-                                <td>2</td>
-                            </tr>
-                            <tr>
-                                <td>Teh Jawa Celup Black Tea</td>
-                                <td>120</td>
-                                <td><img src="path_to_image_2.jpg" alt="Foto Barang 2"></td>
-                                <td>2</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-md-12 mt-4" mb-4>
+                    <div class="table-responsive" style="background-color: #E1EFFA; color: #3621c2;" >
+                        <div class="card-header align-items-center">
+                            <div class="card-head-row align-items-center">
+                                <h4 class="card-title text-center" style="color: #3621c2"><strong>Data Barang</strong></h4>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table class="table table-responsive align-items-center mb-0 table-hover" style="background-color: #E1EFFA;">
+                                    <thead >
+                                        <tr class="font-weight-bold" style="color: black">
+                                            <th>No</th>
+                                            <th>Nama Barang</th>
+                                            <th>Harga Supplier</th>
+                                            <th>Harga Umum</th>
+                                            <th>Stok</th>
+                                            <th>Satuan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $nomor=1;
+                                        @endphp
+                                        @foreach ($data['get_data'] as $barang) 
+                                        <tr>                                                                                      
+                                           <td>{{ $nomor++ }}</td>
+                                            <td> {{$barang->nama_barang }}</td>
+                                            <td>{{$barang->harga_supplier}}</td>                                            
+                                            <td>{{$barang->harga_umum}}</td>                                            
+                                            <td>{{$barang->stock_global }}</td>
+                                            <td>{{$barang->satuan_id }}</td>
+                                            @endforeach
+                                        </tr>
+                                        <!-- Tambahkan baris data sesuai kebutuhan -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
+                
             </div>
         </div>
+        
         <!-- Kolom Kanan -->
         <div class="col-md-6 mt-4">
             <canvas id="myPieChart" style="background-color: #E1EFFA;"></canvas>
