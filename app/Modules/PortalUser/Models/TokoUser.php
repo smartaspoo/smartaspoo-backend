@@ -3,6 +3,7 @@
 namespace App\Modules\PortalUser\Models;
 
 use App\Modules\Portal\Model\UserDetail;
+use App\Modules\User\Model\UserModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,5 +24,8 @@ class TokoUser extends Model
         }else{
             return url($this->foto);
         }
+    }
+    public function user(){
+        return $this->hasOne(UserDetail::class, 'user_id','user_id');
     }
 }

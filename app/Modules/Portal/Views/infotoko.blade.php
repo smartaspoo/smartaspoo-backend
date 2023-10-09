@@ -159,7 +159,7 @@
                 <div class="store-info">
                     <img class="store-logo" src="{{URL::asset('/img/portal/storelogo.png')}}" alt="Store Logo" class="img-fluid" data-bs-toggle="modal" data-bs-target="#logoModal">
                     <div class="store-details">
-                        <div class="store-title">Nama Toko</div>
+                        <div class="store-title">Nama Toko </div>
                         <div class="store-activity">Toko telah aktif beberapa menit yang lalu</div>
                         <div class="store-follow">
                             1.2K Pengikut

@@ -13,6 +13,7 @@ use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
 use App\Modules\Keranjang\Models\Keranjang;
 use App\Modules\Portal\Model\UserDetail;
 use App\Modules\Portal\Model\UserPortal;
+use App\Modules\PortalUser\Models\TokoUser;
 use App\Modules\Slider\Models\Slider;
 use App\Modules\TransaksiBarang\Models\TransaksiBarang;
 use App\Modules\TransaksiBarang\Models\TransaksiBarangChildren;
@@ -96,8 +97,29 @@ class PortalController extends Controller
 
     public function getCari(Request $request)
     {
-        return view('Portal::cari');
+        $q = $request->input('q');
+        $tipe = $request->input('tipe');
+    
+        // Hanya jalankan pencarian jika nilai 'q' tidak kosong
+        if (!empty($q)) {
+            if ($tipe == 'barang') {        
+                $results = DataBarang::where("nama_barang", "LIKE", "%" . $q . "%")->get();
+                return view('Portal::cari.cari', compact('results', 'q', 'tipe'));
+            } elseif ($tipe == 'toko') {
+                $results = TokoUser::where("nama", "LIKE", "%" . $q . "%")->with(['user','user.kotaModel'])->get();
+                return view('Portal::cari.caritoko', compact('results', 'q', 'tipe'));
+            } else {
+                // Handle jenis pencarian yang tidak valid
+                return redirect()->back()->with('error', 'Jenis pencarian tidak valid.');
+            }
+        } else {
+            // Handle jika nilai 'q' kosong
+            return redirect()->back()->with('error', 'Kata kunci pencarian tidak boleh kosong.');
+        }
     }
+    
+    
+    
     public function getDataProfile(Request $request)
     {
         $auth = Auth::user();
@@ -148,9 +170,9 @@ class PortalController extends Controller
     {
         return view('Portal::statuspengiriman');
     }
-    public function detailbarangpenjualan(Request $request)
+    public function toko(Request $request)
     {
-        return view('Portal::detailbarangpenjualan');
+        return view('Portal::toko');
     }
     public function daftartransaksi(Request $request)
     {
@@ -333,6 +355,10 @@ class PortalController extends Controller
     public function pencarianbarangtoko(Request $request)
     {
         return view('Portal::pencarianbarangtoko');
+    }
+    public function pencarianbarangumkm(Request $request)
+    {
+        return view('Portal::pencarianbarangumkm');
     }
     public function setelahcheckout(Request $request)
     {

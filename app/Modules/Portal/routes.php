@@ -16,10 +16,10 @@ Route::prefix('/p')->group(function () {
     Route::get("/registrasi",[PortalController::class,"registrasi"]);
     Route::post("/registrasi",[PortalUserController::class, 'store']);
     Route::get("/status",[PortalController::class,"statuspengiriman"]);
-    Route::get("/penjualan",[PortalController::class,"detailbarangpenjualan"]);
+    Route::get("/infotoko",[PortalController::class,"infotoko"]);
     Route::get("/daftartransaksi",[PortalController::class,"daftartransaksi"]);
     Route::get("/detailproduk",[PortalController::class,"detailproduk"]);
-    Route::get("/infotoko",[PortalController::class,"infotoko"]);
+    Route::get("/toko",[PortalController::class,"toko"]);
     Route::get("/ratingdanulasan",[PortalController::class,"ratingdanulasan"]);
     Route::get("/pencarianbarangumkm",[PortalController::class,"pencarianbarangumkm"]);
     Route::get("/pencarianbarangtoko",[PortalController::class,"pencarianbarangtoko"]);
@@ -29,11 +29,15 @@ Route::prefix('/p')->group(function () {
     Route::post("/cekongkir",[PortalController::class,"cekHasil"]);
 
     // pencarianbarangumkm
-    Route::get("/cari",[PortalController::class,"getCari"]);
+    Route::get("/toko",[PortalController::class,"toko"]);
+    Route::prefix("toko")->group(function(){
+        Route::get('/{id}',[PortalController::class,'getToko']);
+    });
+
+    Route::get("/cari",[PortalController::class,'getCari']);
     Route::prefix("barang")->group(function(){
         Route::get('/{id}',[PortalController::class,'getBarang']);
         Route::post('/keranjang',[PortalController::class,'postKeranjang']);
-        
     });
     Route::prefix("checkout")->group(function(){
         Route::get("/",[PortalController::class,"checkout"]);
