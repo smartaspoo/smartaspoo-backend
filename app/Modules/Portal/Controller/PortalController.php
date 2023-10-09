@@ -70,7 +70,7 @@ class PortalController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
-        
+
         $keranjang = Keranjang::create($data);
 
         if ($keranjang) {
@@ -78,7 +78,7 @@ class PortalController extends Controller
         } else {
             return JsonResponseHandler::setMessage("ERROR")->send();
         }
-        
+
         dd($request->all());
     }
 
@@ -144,10 +144,33 @@ class PortalController extends Controller
     {
         return view('Portal::auth.registrasi');
     }
-    public function statuspengiriman(Request $request)
+
+    public function statuspengiriman(Request $request, $kode)
     {
-        return view('Portal::statuspengiriman');
+        $user = Auth::user()->id;
+        $transaksi_barang = TransaksiBarang::where('user_id', $user)->where('kode_transaksi', $kode)->first();
+        $transaksiChildren = TransaksiBarangChildren::where('transaksi_id', $transaksi_barang->id)->first();
+        $pengiriman = Pengiriman::where('transaksi_id', $transaksi_barang->id)->orderBy('created_at', 'desc')->get();
+        $barang = DataBarang::find($transaksiChildren->barang_id);
+
+        $keterangan_pengiriman = $pengiriman->first()->keterangan;
+        $kurir = $transaksi_barang->kurir_pengiriman;
+        $image_product = $barang->thumbnail;
+
+        $status_pengiriman = [
+            'transaksi' => $transaksi_barang,
+            'transaksi_child' => $transaksiChildren,
+            'pengiriman' => $pengiriman,
+            'keterangan' => $keterangan_pengiriman,
+            'kurir' => $kurir,
+            'resi' => $kode,
+            'image_product' => $image_product
+        ];
+        
+
+        return view('Portal::statuspengiriman', ['data' => $status_pengiriman]);
     }
+
     public function detailbarangpenjualan(Request $request)
     {
         return view('Portal::detailbarangpenjualan');
@@ -155,10 +178,10 @@ class PortalController extends Controller
     public function daftartransaksi(Request $request)
     {
         $user = Auth::user()->id;
-        if($request->has('cari')){
-            $transaksi_barang = TransaksiBarang::where('user_id',$user)->where('kode_transaksi',$request->cari)->get();
-        }else{
-            $transaksi_barang = TransaksiBarang::where('user_id',$user)->get();
+        if ($request->has('cari')) {
+            $transaksi_barang = TransaksiBarang::where('user_id', $user)->where('kode_transaksi', $request->cari)->get();
+        } else {
+            $transaksi_barang = TransaksiBarang::where('user_id', $user)->get();
         }
         $data_transaksi = [];
         foreach ($transaksi_barang as $transaksi) {
@@ -181,7 +204,7 @@ class PortalController extends Controller
                 $tokoId = $transaksi->toko_id;
                 $namaBarang = $barang->nama_barang;
                 $thumbnail = $barang->thumbnail;
-                
+
 
                 $data_transaksi[] = [
                     'transaksiId' => $transaksiId,
@@ -199,22 +222,19 @@ class PortalController extends Controller
                     'jumlah' => $jumlah,
                     'totalHarga' => $totalHarga,
                     'totalHargaFormatted' => 'Rp. ' . $totalHargaFormatted,
-                    'statusReadable' =>$transaksi->status_readable,
+                    'statusReadable' => $transaksi->status_readable,
                 ];
-    
-
             }
         }
-        return view('Portal::transaksi.daftartransaksi', ['data'=>$data_transaksi]);
-        // return view('Portal::transaksi.error');
-        
+        return view('Portal::transaksi.daftartransaksi', ['data' => $data_transaksi]);
+
     }
     public function profile(Request $request)
     {
 
         $data = UserDetail::where('user_id', Auth::id())->with('userMaster')->first();
-        $userMaster = UserModel::where('id',Auth::id())->first();
-        return view('Portal::auth.profile', ['data' => $data,'user'=>$userMaster]);
+        $userMaster = UserModel::where('id', Auth::id())->first();
+        return view('Portal::auth.profile', ['data' => $data, 'user' => $userMaster]);
     }
     public function updateProfile(Request $request)
     {
@@ -268,30 +288,31 @@ class PortalController extends Controller
     {
         $user = User::find(Auth::id())->with('detail')->first();
         $userid = $user->id;
-        
-        $data = DataBarang::with(['keranjang' => function($query) use ($userid){
-            $query->where("user_id",$userid);
-        },"user"])->has('keranjang')->get()->groupBy("created_by_user_id");
-        
-        $userdata = UserDetail::where('user_id',$user->id)->first();
-        $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user];
+
+        $data = DataBarang::with(['keranjang' => function ($query) use ($userid) {
+            $query->where("user_id", $userid);
+        }, "user"])->has('keranjang')->get()->groupBy("created_by_user_id");
+
+        $userdata = UserDetail::where('user_id', $user->id)->first();
+        $ret = ['data' => $data, 'userdetail' => $userdata, 'user' => $user];
         return view('Portal::transaksi.checkout', $ret);
     }
-    public function postCheckout(Request $request){
+    public function postCheckout(Request $request)
+    {
         $user = User::find(Auth::id())->with('detail')->first();
         $userid = $user->id;
-        
-        $datas = DataBarang::with(['keranjang' => function($query) use ($userid){
-            $query->where("user_id",$userid);
-        },"user"])->has('keranjang')->get()->groupBy("created_by_user_id");
+
+        $datas = DataBarang::with(['keranjang' => function ($query) use ($userid) {
+            $query->where("user_id", $userid);
+        }, "user"])->has('keranjang')->get()->groupBy("created_by_user_id");
         $input = $request->all();
         DB::beginTransaction();
-        try{
+        try {
             $i = 0;
-            foreach($datas as $barangs){
+            foreach ($datas as $barangs) {
                 $total = 0;
                 $transaksi = TransaksiBarang::create([
-                    'kode_transaksi' => "TR-". Str::random(8) ,
+                    'kode_transaksi' => "TR-" . Str::random(8),
                     'alamat' => $request->checkout['alamat'],
                     'biaya_pengiriman' => intval($request->transaksi['ongkir'][$i]),
                     'kurir_pengiriman' => "-",
@@ -301,34 +322,30 @@ class PortalController extends Controller
                     'pesan' => $request->transaksi['pesan'][$i],
                 ]);
                 $toko_id = 0;
-                foreach($barangs as $barang){
-                    foreach($barang->keranjang as $keranjang){
+                foreach ($barangs as $barang) {
+                    foreach ($barang->keranjang as $keranjang) {
                         $tr_child = TransaksiBarangChildren::create([
                             'transaksi_id' => $transaksi->id,
                             'barang_id' => $keranjang->barang_id,
                             'harga' => $barang->harga_user,
                             'jumlah' => $keranjang->jumlah,
                         ]);
-                        $total += intval($tr_child->harga) * intval($tr_child->jumlah); 
+                        $total += intval($tr_child->harga) * intval($tr_child->jumlah);
                         $toko_id = $barang->created_by_user_id;
-                        Keranjang::where('id',$keranjang->id)->delete();
+                        Keranjang::where('id', $keranjang->id)->delete();
                     }
                 }
                 $transaksi->total_biaya = $total;
                 $transaksi->toko_id = $toko_id;
                 $transaksi->save();
                 $i++;
-                
             }
             DB::commit();
             return JsonResponseHandler::setResult($transaksi)->send();
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             return JsonResponseHandler::setResult($e->getMessage())->send();
-            
         }
-        
     }
     public function pencarianbarangtoko(Request $request)
     {
