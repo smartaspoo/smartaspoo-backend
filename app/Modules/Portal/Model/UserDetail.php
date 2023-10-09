@@ -3,6 +3,7 @@
 namespace App\Modules\Portal\Model;
 
 use App\Models\User;
+use App\Modules\InputSCM\Models\Alamat\Kota;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\URL;
@@ -27,5 +28,8 @@ class UserDetail extends Model
     }
     public function userMaster(){
         return $this->belongsTo(User::class,"user_id");
+    }
+    public function kotaModel(){
+        return $this->hasOne(Kota::class, 'id','kota');
     }
 }

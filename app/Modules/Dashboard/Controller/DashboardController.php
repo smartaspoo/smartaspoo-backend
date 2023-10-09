@@ -3,6 +3,7 @@
 namespace App\Modules\Dashboard\Controller;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\TransaksiBarang\Models\TransaksiBarang;
 use Illuminate\Http\Request;
@@ -44,6 +45,8 @@ class DashboardController extends Controller
         ->where('status','=',44)->get();
         $transaksi_dibuat = TransaksiBarang::where('toko_id', $userid)
         ->where('status','')->get();
+        $get_data = DataBarang::select('*')->where('created_by_user_id', $userid)->limit(5)->get();
+
 
         $total_transaksi = TransaksiBarang::where('toko_id', $userid)->get();
 
@@ -60,7 +63,8 @@ class DashboardController extends Controller
             'barang_tidak_dikirim' => count($barang_tidak_dikirim),
             'barang_diterima' => count($barang_diterima),
             'barang_tidak_diterima' => count($barang_tidak_diterima),           
-            'transaksi_dibuat' => count($transaksi_dibuat)           
+            'transaksi_dibuat' => count($transaksi_dibuat),
+            'get_data' => $get_data         
 
         ];
 

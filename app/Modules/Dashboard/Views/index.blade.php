@@ -12,6 +12,7 @@
         border-radius: 8px;
         height: 130px;
     }
+    
 </style>
 
 <div class="panel-header bg-primary-gradient">
@@ -24,7 +25,6 @@
         </div>
     </div>
 </div>
-
 <div class="container">
     <div class="row">
         <!-- Kolom Kiri -->
@@ -46,33 +46,53 @@
                         </div>
                     </div>
                 </div>
+                <!-- Tabel Data Barang -->
+                <div class="col-md-12 mt-4" mb-4>
+                    <div class="table-responsive" style="background-color: #E1EFFA; color: #3621c2;" >
+                        <div class="card-header align-items-center">
+                            <div class="card-head-row align-items-center">
+                                <h4 class="card-title text-center" style="color: #3621c2"><strong>Data Barang</strong></h4>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table class="table table-responsive align-items-center mb-0 table-hover" style="background-color: #E1EFFA;">
+                                    <thead >
+                                        <tr class="font-weight-bold" style="color: black">
+                                            <th>No</th>
+                                            <th>Nama Barang</th>
+                                            <th>Harga Supplier</th>
+                                            <th>Harga Umum</th>
+                                            <th>Stok</th>
+                                            <th>Satuan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $nomor=1;
+                                        @endphp
+                                        @foreach ($data['get_data'] as $barang) 
+                                        <tr>                                                                                      
+                                           <td>{{ $nomor++ }}</td>
+                                            <td> {{$barang->nama_barang }}</td>
+                                            <td>{{$barang->harga_supplier}}</td>                                            
+                                            <td>{{$barang->harga_umum}}</td>                                            
+                                            <td>{{$barang->stock_global }}</td>
+                                            <td>{{$barang->satuan_id }}</td>
+                                            @endforeach
+                                        </tr>
+                                        <!-- Tambahkan baris data sesuai kebutuhan -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
                 
-                {{-- <div class="col-md-6">
-                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                        <div class="card-body">
-                            <h5 class="card-text">Total Transaksi Berhasil</h5>
-                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['transaksi_berhasil'] }}</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                        <div class="card-body">
-                            <h5 class="card-text">Total Transaksi Gagal</h5>
-                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['transaksi_gagal'] }}</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card" style="background-color: #E1EFFA; color: #3621c2;">
-                        <div class="card-body">
-                            <h5 class="card-text">Total Transaksi</h5>
-                            <h1 class="card-text fw-bold" id="total-stok">{{ $data['total_transaksi'] }}</h1>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
+        
         <!-- Kolom Kanan -->
         <div class="col-md-6 mt-4">
             <canvas id="myPieChart" style="background-color: #E1EFFA;"></canvas>
@@ -99,13 +119,13 @@
             backgroundColor: [
                 '#FF6384', 
                 '#36A2EB',
-                '#FFCE56',
+                '#FFA500',
                 '#00000',
                 '#FFD700',
                 '#D6BD68',
-                '#C0C0C0',
-                '#000080',
-                '##b5b31f'
+                '#FF0000',
+                '#D3D3D3',
+                '#800080'
             ],
             borderColor : "#BBBBBB",
             hoverOffset: 4
