@@ -137,7 +137,7 @@ class PortalController extends Controller
     public function dashboard()
     {
         $slider = Slider::all();
-        $barang = DataBarang::all();
+        $barang = DataBarang::limit(10)->get();
         $kategori = KategoriProduk::get();
         $data = [
             'slider' => $slider,
@@ -349,7 +349,7 @@ class PortalController extends Controller
                     'toko_id' => 0, // temp
                     'kode_transaksi_master' =>$kode_master,
                     'pesan' => $request->transaksi['pesan'][$i],
-                ]);
+            ]);
                 $toko_id = 0;
                 foreach($barangs as $keranjang){
                     $barang = $keranjang->barang;
@@ -361,7 +361,7 @@ class PortalController extends Controller
                         ]);
                         $total += intval($tr_child->harga) * intval($tr_child->jumlah);
                         $toko_id = $barang->created_by_user_id;
-                        // Keranjang::where('id',$keranjang->id)->delete();
+                        Keranjang::where('id',$keranjang->id)->delete();
                 }
                 $transaksi->total_biaya = $total;
                 $transaksi->toko_id = $toko_id;

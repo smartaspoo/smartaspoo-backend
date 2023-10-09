@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_verified_at',
+        'email_verifier_id',
+        'username',
+        'password',
+        'remember_token'
     ];
     public function detail(){
         return $this->hasOne(UserDetail::class,"user_id");

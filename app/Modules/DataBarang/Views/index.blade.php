@@ -10,33 +10,30 @@
             return {
                 headers: [
                     {
-                        text: 'Kode Barang',
-                        value: 'kode_barang',
-                    },    
-                    {
                         text: 'Nama Barang',
                         value: 'nama_barang',
                     },    
                     {
-                        text: 'Harga Jual',
-                        value: 'harga_barang_jual',
+                        text: 'Harga Umum',
+                        value: 'harga_umum',
                     },    
                     {
-                        text: 'Harga Beli',
-                        value: 'harga_barang_beli',
+                        text: 'Harga Supplier',
+                        value: 'harga_supplier',
                     },  
                     {
                         text: 'Stok',
                         value: 'stock_global',
                     },  
                     {
+                        text: 'Terjual',
+                        value: 'terjual',
+                    }, 
+                    {
                         text: 'Satuan',
                         value: 'satuan.satuan_nama',
                     },  
-                    {
-                        text: 'Pemilik',
-                        value: 'user.name',
-                    },  
+                  
 					],
             }
         },
