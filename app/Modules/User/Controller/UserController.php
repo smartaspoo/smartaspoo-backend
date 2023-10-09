@@ -20,6 +20,11 @@ class UserController extends Controller
     {
         return view('User::login');
     }
+    public function me()
+    {
+        $user = UserModel::where('id', Auth::user()->id)->first();
+        return JsonResponseHandler::setResult($user)->send();
+    }
     public function login(UserLoginRequest $request)
     {
         $username = $request->input('username');
