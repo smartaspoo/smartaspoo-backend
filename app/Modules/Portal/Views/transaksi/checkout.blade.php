@@ -29,18 +29,18 @@
             $iteration = 0;
             ?>
             @foreach ($data as $data_group_seller_id)
-                @if ($data_group_seller_id[0]->harga_user != null)
+                @if ($data_group_seller_id[0]->barang->harga_user != null)
                     <div class="col-md-12">
                         <span class="badge badge-danger"> <span class="badge badge-danger">Penjual
-                                {{ @$data_group_seller_id[0]->user->nama }}</span>
+                                {{ @$data_group_seller_id[0]->barang->user->nama }}</span>
                         </span>
                     </div>
                 @endif
-                @foreach ($data_group_seller_id as $barang)
-                    <?php
-                    $totalHargaPerSeller = 0;
-                    ?>
-                    @foreach ($barang->keranjang as $keranjang)
+                <?php
+                $totalHargaPerSeller = 0;
+                ?>
+                @foreach ($data_group_seller_id as $keranjang)
+                        <?php $barang = $keranjang->barang?>
                         <div class="col-md-12">
                             <div class="card bg-light">
                                 <div class="card-body">
@@ -73,9 +73,8 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
                 @endforeach
-                @if ($data_group_seller_id[0]->harga_user != null)
+                @if ($data_group_seller_id[0]->barang->harga_user != null)
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Ongkir</label>
@@ -118,13 +117,24 @@
                             </div>
                         </div>
                     </div>
+               
+                    <div class="col-md-12">
+                        <div class="row justify-content-between">
+                            <div class="col-md-3">
+                                <p>Kode Unik</p>
+                            </div>
+                            <div class="col-md-9">
+                                {{ rupiah($kodeUnik)}}
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="row justify-content-between">
                             <div class="col-md-3">
                                 <p>Total Pembayaran</p>
                             </div>
                             <div class="col-md-9">
-                                @{{ rupiah(parseInt(totalPembayaran) + totalPengiriman) }}
+                                @{{ rupiah(parseInt(totalPembayaran) + totalPengiriman + parseInt(kodeUnik)) }}
                             </div>
                         </div>
                     </div>
@@ -151,7 +161,8 @@
                         pesan: [],
                     },
                     totalPengiriman: 0,
-                    totalPembayaran: "{{ $totalHarga }}"
+                    totalPembayaran: "{{ $totalHarga }}",
+                    kodeUnik : "{{$kodeUnik}}"
                 }
             },
             methods: {
@@ -174,15 +185,19 @@
                             "transaksi": this.transaksi,
                             "totalPengiriman": this.totalPengiriman,
                             "totalPembayaran": this.totalPembayaran,
+                            'kodeUnik' : this.kodeUnik
                         }
 
-                         const response = await httpClient.post("{{ url()->current() }}", data)
+                        const response = await httpClient.post("{{ url()->current() }}", data)
                         console.log(response)
+                        
                         hideLoading()
                         showToast({
                             message: "Data berhasil ditambahkan"
                         })
-                        window.location.href = "{{url("/")}}/p/checkout/success"
+
+                        var data =  response.data.result
+                        window.location.href = `{{url("/")}}/p/checkout/success?kode=${data.kode_transaksi}`
 
                     } catch (err) {
                         hideLoading()

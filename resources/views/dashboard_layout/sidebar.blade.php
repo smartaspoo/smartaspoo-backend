@@ -27,6 +27,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="{{url("/user/logout-web")}}">
+                                    <span class="link-collapse">Logout</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#settings">
                                     <span class="link-collapse">Settings</span>
                                 </a>

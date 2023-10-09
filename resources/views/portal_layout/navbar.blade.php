@@ -1,16 +1,5 @@
 @include('layout.head')
-@if (request()->header('X-Partial-Content') == true)
-@else
-<script src="{!! asset('js/toast.js') !!}"></script>
-<script src="{!! asset('js/loading.js') !!}"></script>
-<script src="{!! asset('js/httpClient.js') !!}"></script>
-<script>
-    initializeHttpClient("{!! csrf_token() !!}");
-</script>
-<script src="{!! asset('js/navigator.js') !!}"></script>
-<script src="{!! asset('js/vue_initial.js') !!}"></script>
-<script src="{!! asset('js/ckeditor_initial.js') !!}"></script>
-@endif
+
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
@@ -281,42 +270,3 @@
             </div>
         </div>
     </nav>
-
-    <script>
-        const userNavbarDropdown = document.getElementById('userNavbarDropdown');
-
-
-        Vue.createApp({
-            data() {
-                return {
-                    userData: {},
-                    isLoggedin: false,
-                }
-            },
-            async created() {
-                await this.fetchProfile();
-            },
-            methods: {
-                async fetchProfile() {
-                    const response = await httpClient.post("{!! url('p/fetch-login') !!}/")
-                    if (response.data.code == "400") {
-                        this.isLoggedin = false
-                    } else {
-                        this.isLoggedin = true
-                        this.userData = response.data.result
-                        this.userData.roles.forEach(element => {
-                            this.userData.roleName = element.name
-                        });
-                        if(this.userData.detail != undefined){
-                            this.userData.fotodata = this.userData.detail.foto_readable
-                        }else{
-                            this.userData.fotodata = "{{ URL::asset('/img/portal/user-icon.png')}}"
-                        }
-                    }
-                    console.log("profile", this.userData)
-                },
-
-            }
-
-        }).mount("#navbar")
-    </script>

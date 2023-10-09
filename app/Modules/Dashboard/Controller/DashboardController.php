@@ -18,7 +18,7 @@ class DashboardController extends Controller
     }
     public function dummyget(Request $request){
         echo "mencari barang";
-        echo "<br>barang ditemukan: prediksi barang harganya 15000";
+        echo "barang ditemukan: prediksi barang harganya 15000";
     }
     public function index(Request $request)
     {

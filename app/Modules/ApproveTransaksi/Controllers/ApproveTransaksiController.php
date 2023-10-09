@@ -27,6 +27,7 @@ class ApproveTransaksiController extends Controller
         return view('ApproveTransaksi::preview',compact("data"));
     }
 
+  
     public function postPreview(Request $request){
         DB::beginTransaction();
         try{
@@ -53,7 +54,6 @@ class ApproveTransaksiController extends Controller
             DB::rollBack();
             return JsonResponseHandler::setResult($e->getMessage())->send();
         }
-
     }
 
     public function datatable(Request $request)
