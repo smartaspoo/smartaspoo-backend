@@ -192,10 +192,20 @@ class PortalController extends Controller
 
         return view('Portal::statuspengiriman', ['data' => $status_pengiriman]);
     }
-    public function toko(Request $request)
-    {
-        return view('Portal::toko');
-    }
+        public function toko(Request $request, $id)
+        {
+            // Ambil data toko dari database berdasarkan ID
+            $toko =TokoUser::find($id);
+    
+            if (!$toko) {
+                return abort(404);
+            }
+            $barang = DataBarang::with('user')->where('created_by_user_id', $toko->user_id)->get();
+            return view('Portal::toko', [
+                'toko' => $toko,
+                'barang' => $barang,
+            ]);
+        }
     public function daftartransaksi(Request $request)
     {
         $user = Auth::user()->id;

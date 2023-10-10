@@ -132,56 +132,62 @@
                 @if($tipe == 'barang')
                 @foreach($results as $barang)
                 <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="{{URL::asset($barang->thumbnail)}}" alt="{{ $barang->nama_barang }}">
-                        <h4 href="{{ url('/p/barang/' . $barang->id) }}">{{ $barang->nama_barang }}</h4>
-                        <p class="harga">Rp. {{ number_format($barang->harga_umum - ($barang->harga_umum * ($barang->diskon / 100)), 2) }}</p>
-                        @if($barang->diskon > 0)
-                        <p><span class="badge bg-danger">-{{ $barang->diskon }}%</span></p>
-                        <p class="diskon text muted"><del>Harga: Rp.
-                            {{ number_format($barang->harga_umum, 2) }}</del></p>
-                        <p class="stock">Stock: {{ $barang->stock_global}}</p @endif @if($barang->toko)
-                        <p class="lokasi">Lokasi: {{ $barang->toko }}</p>
-                        <a href="">Lihat Detail</a>
-                        @endif
+                    <div class="card">
+                        <img src="{{ URL::asset($barang->thumbnail) }}" alt="{{ $barang->nama_barang }}">
+                        <div class="card-body">
+                            <h5 class="card-title"><a
+                                    href="{{ url('/p/barang/' . $barang->id) }}">{{ $barang->nama_barang }}</a></h5>
+                            <p class="card-text harga">Rp.
+                                {{ number_format($barang->harga_umum - ($barang->harga_umum * ($barang->diskon / 100)), 2) }}
+                            </p>
+                            @if($barang->diskon > 0)
+                            <p><span class="badge bg-danger">-{{ $barang->diskon }}%</span></p>
+                            <p class="card-text diskon text-muted"><del>Harga: Rp.
+                                    {{ number_format($barang->harga_umum, 2) }}</del></p>
+                            @endif
+                            <p class="card-text stock">Stock: {{ $barang->stock_global }}</p>
+                            @if($barang->toko)
+                            <p class="card-text lokasi">Lokasi: {{ $barang->toko }}</p>
+                            <a href="{{ url('/p/barang/' . $barang->id) }}" class="btn btn-primary">Lihat Detail</a>
+                            @endif
+                        </div>
                     </div>
-                </div>
-                @endforeach
-                @elseif($tipe == 'toko')
-                @foreach($results as $users_toko)
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="{{URL::asset($users_toko->foto)}}" alt="{{ $users_toko->nama }}">
-                        <h4>{{ $users_toko->nama }}</h4>
-                        <!-- Tampilkan informasi toko lainnya -->
+                    @endforeach
+                    @elseif($tipe == 'toko')
+                    @foreach($results as $users_toko)
+                    <div class="col-md-3">
+                        <div class="product-card">
+                            <img src="{{URL::asset($users_toko->foto)}}" alt="{{ $users_toko->nama }}">
+                            <h4>{{ $users_toko->nama }}</h4>
+                            <!-- Tampilkan informasi toko lainnya -->
+                        </div>
                     </div>
+                    @endforeach
+                    @endif
                 </div>
-                @endforeach
-                @endif
             </div>
         </div>
-    </div>
 
 
-    <script>
-        Vue.createApp({
-            data() {
-                return {
-                    barang: {}
-                }
+        <script>
+            Vue.createApp({
+                data() {
+                    return {
+                        barang: {}
+                    }
 
-            },
+                },
 
-            methods: {
-                async tambahKeranjang() {
-                    const response = await httpClient.post("{!! url('p/barang/keranjang') !!}/", {
-                        id_barang: this.barang.id
-                    })
-                    console.log(response)
-                }
-            },
+                methods: {
+                    async tambahKeranjang() {
+                        const response = await httpClient.post("{!! url('p/barang/keranjang') !!}/", {
+                            id_barang: this.barang.id
+                        })
+                        console.log(response)
+                    }
+                },
 
-        }).mount("#container")
-    </script>
+            }).mount("#container")
+        </script>
 
-    @endsection
+        @endsection
