@@ -24,7 +24,8 @@
                     Status  : {{$transaksi['statusReadable']}}
                 </p>
                 @if($transaksi['status'] == '3')
-                <button type="submit" class="btn btn-primary ubah-status" data-transaksi-id="{{ $transaksi['transaksiId'] }}">Barang Diterima</button>
+                <button type="button" class="btn btn-primary ubah-status" data-transaksi-id="{{ $transaksi['transaksiId'] }}">Barang Diterima</button>
+                <button type="button" class="btn btn-warning ubah-status-gagal" data-transaksi-id="{{ $transaksi['transaksiId'] }}">Barang Tidak Diterima</button>
                 @endif
                 <div class="product-quantity">x {{ $transaksi['jumlah'] }}</div>
             </div>
@@ -40,6 +41,77 @@
         @endforeach
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $(".ubah-status").click(function() {
+        var transaksiId = $(this).data("transaksi-id");
+        
+        // Send an AJAX request to update the status
+        $.ajax({
+            type: "POST",
+            url: "{{ route('update.status') }}", // Replace with the actual route name
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "transaksiId": transaksiId,
+                "newStatus": "4"
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert("status diupdate.");
+                    // Update the button text and disable the button
+                    $(".ubah-status[data-transaksi-id='" + transaksiId + "']").text("Status Updated").prop("disabled", true);
+                } else {
+                    alert("gagal mengupdate status.");
+                }
+            },
+            error: function() {
+                alert("mbuh ra ketemu error e");
+            }
+        });
+    });
+});
+</script>
+
+<script>
+    $(document).ready(function() {
+    $(".ubah-status-gagal").click(function() {
+        var transaksiId = $(this).data("transaksi-id");
+
+        // Menggunakan prompt untuk meminta nama dari pengguna
+        var barangtidakditerima = prompt("Masukkan alasan barang tidak diterima:");
+
+        if (barangtidakditerima === null || barangtidakditerima === "") {
+            alert("Silakan masukkan pesan disini");
+            return;
+        }
+        
+        // Send an AJAX request to update the status
+        $.ajax({
+            type: "POST",
+            url: "{{ route('update.status.gagal') }}", // Replace with the actual route name
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "transaksiId": transaksiId,
+                "newStatus": "44",
+                "barangtidakditerima" : barangtidakditerima
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert("status diupdate.");
+                    // Update the button text and disable the button
+                    $(".ubah-status[data-transaksi-id='" + transaksiId + "']").text("Status Updated").prop("disabled", true);
+                } else {
+                    alert("gagal mengupdate status.");
+                }
+            },
+            error: function() {
+                alert("mbuh ra ketemu error e");
+            }
+        });
+    });
+});
+</script>
 
 
 

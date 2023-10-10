@@ -18,6 +18,8 @@ Route::prefix('/p')->group(function () {
     Route::get("/status",[PortalController::class,"statuspengiriman"]);
     Route::get("/infotoko",[PortalController::class,"infotoko"]);
     Route::get("/daftartransaksi",[PortalController::class,"daftartransaksi"]);
+    Route::post('/updatestatus', [PortalController::class,"updatestatus"])->name('update.status');
+    Route::post('/updatestatusgagal', [PortalController::class,"updatestatusgagal"])->name('update.status.gagal');
     Route::get("/detailproduk",[PortalController::class,"detailproduk"]);
     Route::get("/toko",[PortalController::class,"toko"]);
     Route::get("/ratingdanulasan",[PortalController::class,"ratingdanulasan"]);

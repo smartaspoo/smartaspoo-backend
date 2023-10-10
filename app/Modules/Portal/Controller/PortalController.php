@@ -27,6 +27,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class PortalController extends Controller
@@ -254,6 +255,70 @@ class PortalController extends Controller
         return view('Portal::transaksi.daftartransaksi', ['data' => $data_transaksi]);
 
     }
+
+    public function updateStatus(Request $request)
+    {
+        try {
+            $transaksiId = $request->input('transaksiId');
+            $newStatus = $request->input('newStatus');
+            
+            // Cari transaksi berdasarkan ID
+            $transaksi = TransaksiBarang::find($transaksiId);
+            
+            if (!$transaksi) {
+                // Transaksi tidak ditemukan, maka return response error
+                return response()->json(['success' => false, 'message' => 'Transaksi not found.']);
+            }
+    
+            // Update status transaksi
+            $transaksi->status = $newStatus;
+            $transaksi->save();
+    
+            // Assuming the update was successful
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            Log::error('Error updating status: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Failed to update status.']);
+        }
+    }
+    public function updateStatusgagal(Request $request)
+    {
+        try {
+            $transaksiId = $request->input('transaksiId');
+            $newStatus = $request->input('newStatus');
+            $barangtidakditerima = $request->input('barangtidakditerima');
+            
+            // Cari transaksi berdasarkan ID
+            $transaksi = TransaksiBarang::find($transaksiId);
+            
+            if (!$transaksi) {
+                // Transaksi tidak ditemukan, maka return response error
+                return response()->json(['success' => false, 'message' => 'Transaksi not found.']);
+            }
+    
+            // Update status transaksi
+            $transaksi->status = $newStatus;
+            $transaksi->save();
+
+            // Cari entri pengiriman yang sesuai dengan transaksi_id
+            $pengiriman = Pengiriman::where('transaksi_id', $transaksiId)->first();
+
+            if ($pengiriman) {
+                // Jika pengiriman sudah ada, maka perbarui keterangan
+                $pengiriman->keterangan = $barangtidakditerima;
+                $pengiriman->save();
+            }
+    
+            // Assuming the update was successful
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            Log::error('Error updating status: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Failed to update status.']);
+        }
+    }
+    
 
     public function profile(Request $request)
     {
