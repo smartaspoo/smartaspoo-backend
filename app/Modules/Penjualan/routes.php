@@ -10,7 +10,8 @@ Route::prefix('/penjualan')->group(function() {
 
     // SUB MENU MARKER (DONT DELETE THIS LINE)
 
-    Route::get('/', [PenjualanController::class, 'index'])->middleware('authorize:read-penjualan');
+
+    Route::get('/', [PenjualanController::class, 'redirectPos'])->middleware('authorize:read-penjualan');
     Route::get('/datatable', [PenjualanController::class, 'datatable'])->middleware('authorize:read-penjualan');
     Route::get('/create', [PenjualanController::class, 'create'])->middleware('authorize:create-penjualan');
     Route::post('/', [PenjualanController::class, 'store'])->middleware('authorize:create-penjualan');

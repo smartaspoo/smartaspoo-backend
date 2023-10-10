@@ -161,7 +161,7 @@
                                                         <p class="lokasi">Terjual: {{ $barang->terjual }}</p>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <a :href="`{{ url('/p/') }}/barang/{{ $barang->id }}`">
+                                                        <a href="{{ url('/p/') }}/barang/{{ $barang->id }}">
                                                             <i class="fas fa-shopping-cart cart-icon"></i>
                                                         </a>
                                                     </div>

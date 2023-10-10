@@ -30,6 +30,9 @@ class PenjualanController extends Controller
         $data = PenjualanRepository::datatable($per_page);
         return JsonResponseHandler::setResult($data)->send();
     }
+    public function redirectPos(){
+        
+    }
 
     public function create()
     {
