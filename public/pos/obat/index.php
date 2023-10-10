@@ -21,7 +21,7 @@ if (isset($_POST['nama'])) {
 $i = 1;
 $s = $conn->query("SELECT * FROM obat ORDER BY obat_nama ASC");
 $satuan2 = $conn->query("SELECT * FROM satuan");
-$title = "Obat";
+$title = "Barang";
 ?>
 <?php $active[1] = 'active' ?>
 <?php include('../templates/sidebar.php') ?>
@@ -30,7 +30,7 @@ $title = "Obat";
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <span class="navbar-brand title-layout">Obat</span>
+                <span class="navbar-brand title-layout">Barang</span>
             </div>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,14 +58,14 @@ $title = "Obat";
 
             <div class="card">
                 <div class="card-header card-header-primary card-header-bg">
-                    <h4 class="card-title">Input Data Obat Baru</h4>
+                    <h4 class="card-title">Input Data Barang Baru</h4>
                 </div>
                 <div class="card-body">
                     <form action="" method="POST">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-2 mt-3">
-                                    Kode Obat
+                                    Kode Barang
                                 </div>
                                 <div class="col-md-10">
                                     <input type="text" class="form-control" name="kode">
@@ -75,7 +75,7 @@ $title = "Obat";
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-2 mt-3">
-                                    Nama Obat
+                                    Nama Barang
                                 </div>
                                 <div class="col-md-10">
                                     <input type="text" class="form-control" name="nama">
@@ -107,15 +107,15 @@ $title = "Obat";
 
             <div class="card mt-5">
                 <div class="card-header card-header-primary card-header-bg">
-                    <h4 class="card-title">Data Stok Obat</h4>
+                    <h4 class="card-title">Data Stok Barang</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="table_id" class="table">
                             <thead class="text-primary">
                                 <th>No</th>
-                                <th>Kode Obat</th>
-                                <th>Nama Obat</th>
+                                <th>Kode Barang</th>
+                                <th>Nama Barang</th>
                                 <th>Satuan</th>
                                 <th>Harga Jual</th>
                                 <th>Harga Beli</th>

@@ -18,9 +18,38 @@
     }
 
     .card {
-        height: 90%;
-        width: 250px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+    }
 
+    .card-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    a.btn {
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.2s;
+    }
+
+    a.btn:hover {
+        background-color: #0056b3;
     }
 </style>
 </head>

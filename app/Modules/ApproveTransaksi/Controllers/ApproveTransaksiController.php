@@ -106,6 +106,7 @@ class ApproveTransaksiController extends Controller
         unset($payload['updated_at']);
         $approve_transaksi = ApproveTransaksiRepository::update($id, $payload);
         return JsonResponseHandler::setResult($approve_transaksi)->send();
+    }
     public function destroy(Request $request, $id)
     {
         $delete = ApproveTransaksiRepository::delete($id);

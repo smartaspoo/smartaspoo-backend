@@ -134,81 +134,68 @@
     <br>
     <div class="container">
 
-        <div class="row">
-            @if ($tipe == 'barang')
-                @foreach ($results as $barang)
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-img-top">
-                                <img src="{{ URL::asset($barang->thumbnail) }}" class="card-img-top"
-                                    alt="{{ $barang->nama_barang }}" height="250">
-                                <div class="card-body">
-                                    <div class="card-title">{{ $barang->nama_barang }}
-                                        <br>
-                                    </div>
-                                    <div class="card-text">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <span>{{ rupiah(intval($barang->harga_user)) }}</span> <br>
-                                                <div class="mt-1"><span
-                                                        class="badge badge-danger">{{ $barang->diskon }}%</span>
-                                                    <s>{{ $barang->harga_user_asli }}</s>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="row justify-content-between">
-                                                    <div class="col-md-9">
-                                                        <p class="lokasi">Terjual: {{ $barang->terjual }}</p>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <a :href="`{{ url('/p/') }}/barang/{{ $barang->id }}`">
-                                                            <i class="fas fa-shopping-cart cart-icon"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="row">
+                @if($tipe == 'barang')
+                @foreach($results as $barang)
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="{{ URL::asset($barang->thumbnail) }}" alt="{{ $barang->nama_barang }}">
+                        <div class="card-body">
+                            <h5 class="card-title"><a
+                                    href="{{ url('/p/barang/' . $barang->id) }}">{{ $barang->nama_barang }}</a></h5>
+                            <p class="card-text harga">Rp.
+                                {{ number_format($barang->harga_umum - ($barang->harga_umum * ($barang->diskon / 100)), 2) }}
+                            </p>
+                            @if($barang->diskon > 0)
+                            <p><span class="badge bg-danger">-{{ $barang->diskon }}%</span></p>
+                            <p class="card-text diskon text-muted"><del>Harga: Rp.
+                                    {{ number_format($barang->harga_umum, 2) }}</del></p>
+                            @endif
+                            <p class="card-text stock">Stock: {{ $barang->stock_global }}</p>
+                            @if($barang->toko)
+                            <p class="card-text lokasi">Lokasi: {{ $barang->toko }}</p>
+                            <a href="{{ url('/p/barang/' . $barang->id) }}" class="btn btn-primary">Lihat Detail</a>
+                            @endif
                         </div>
                     </div>
-                @endforeach
-            @elseif($tipe == 'toko')
-                @foreach ($results as $users_toko)
+                    @endforeach
+                    @elseif($tipe == 'toko')
+                    @foreach($results as $users_toko)
                     <div class="col-md-3">
                         <div class="product-card">
-                            <img src="{{ URL::asset($users_toko->foto) }}" alt="{{ $users_toko->nama }}">
+                            <img src="{{URL::asset($users_toko->foto)}}" alt="{{ $users_toko->nama }}">
                             <h4>{{ $users_toko->nama }}</h4>
                             <!-- Tampilkan informasi toko lainnya -->
                         </div>
                     </div>
-                @endforeach
-            @endif
+                    @endforeach
+                    @endif
+                </div>
+            </div>
         </div>
-    </div>
 
 
-    <script>
-        Vue.createApp({
-            data() {
-                return {
-                    barang: {}
-                }
+        <script>
+            Vue.createApp({
+                data() {
+                    return {
+                        barang: {}
+                    }
 
-            },
+                },
 
-            methods: {
-                async tambahKeranjang() {
-                    const response = await httpClient.post("{!! url('p/barang/keranjang') !!}/", {
-                        id_barang: this.barang.id
-                    })
-                    console.log(response)
-                }
-            },
+                methods: {
+                    async tambahKeranjang() {
+                        const response = await httpClient.post("{!! url('p/barang/keranjang') !!}/", {
+                            id_barang: this.barang.id
+                        })
+                        console.log(response)
+                    }
+                },
 
-        }).mount("#container")
-    </script>
+            }).mount("#container")
+        </script>
 
-@endsection
+        @endsection

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title><?= $title ?> - Apotek Banyu Aji</title>
+  <title><?= $title ?> - ASPOO POS</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -38,7 +38,7 @@
     -->
       <div class="logo">
         <a href="index.php" class="simple-text logo-normal">
-          Apotek Banyu Aji
+          ASPOO POS
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -54,7 +54,7 @@
             <li class="nav-item <?php if (isset($active[1])) echo $active[1] ?>">
               <a href="obat" class="nav-link">
                 <i class="material-icons">business</i>
-                <p>Obat</p>
+                <p>Barang</p>
               </a>
             </li>
             </li>

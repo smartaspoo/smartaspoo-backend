@@ -2,11 +2,11 @@
 session_start();
 
 $user = 'root';
-$pass = '';
-$host = 'localhost';
-$db = 'apotek';
+$pass = 'rootmysql';
+$host = '103.30.1.54';
+$db = 'pos';
 $cookie_name = 'APOTEK_COOKIES';
-$url = 'http://localhost:4141/apotek/';
+$url = 'http://localhost:8000/pos/';
 $this_url = $_SERVER['REQUEST_URI'];
 $conn = new mysqli($host, $user, $pass, $db);
 if (mysqli_connect_errno()) {
