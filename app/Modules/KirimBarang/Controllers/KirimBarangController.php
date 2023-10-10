@@ -4,10 +4,16 @@ namespace App\Modules\KirimBarang\Controllers;
 
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
+use App\Modules\ApproveTransaksi\Models\Pengiriman;
+use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\KirimBarang\Repositories\KirimBarangRepository;
 use App\Modules\KirimBarang\Requests\KirimBarangCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
+use App\Modules\TransaksiBarang\Models\TransaksiBarang;
+use App\Modules\TransaksiBarang\Models\TransaksiBarangChildren;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class KirimBarangController extends Controller
 {
@@ -19,9 +25,55 @@ class KirimBarangController extends Controller
 
     public function datatable(Request $request)
     {
+        $auth = Auth::id();
         $per_page = $request->input('per_page') != null ? $request->input('per_page') : 15;
-        $data = KirimBarangRepository::datatable($per_page);
-        return JsonResponseHandler::setResult($data)->send();
+        $kirim = TransaksiBarang::with("pembeli")->where('toko_id',$auth)->where('status',2)->paginate($per_page);
+
+        return JsonResponseHandler::setResult($kirim)->send();
+    }
+
+    public function preview(Request $request,$kode){
+        $data = TransaksiBarang::where('kode_transaksi',$kode)->with(['dataChildren','pembeli','penjual','dataChildren.barang'])->first();
+        return view('KirimBarang::preview',compact("data"));
+    }
+    public function postPreview(Request $request){
+        DB::beginTransaction();
+        try{
+            $kode = $request->kode;
+            $data = TransaksiBarang::where("kode_transaksi",$kode)->first();
+            $data->status = 3;
+            $data->save();
+            $approve_transaksi = Pengiriman::create([
+                'transaksi_id' => $data->id,
+                'status' => 3,
+                'keterangan' => 'Telah di Approve Oleh Seller'
+            ]);
+
+            $transaksi_childrens = TransaksiBarangChildren::where('transaksi_id',$data->id)->get();
+            foreach($transaksi_childrens as $transaksi_children){
+                $barang = DataBarang::where('id',$transaksi_children->barang_id)->first();
+                $barang->stock_global = intval($barang->stock_global) - intval($transaksi_children->jumlah);
+                $barang->save();
+            }
+            DB::commit();
+            return JsonResponseHandler::setResult($approve_transaksi)->send();
+
+        }catch(Exception $e){
+            DB::rollBack();
+            return JsonResponseHandler::setResult($e->getMessage())->send();
+        }
+    }
+    public function tolak(Request $request,$kode){
+        $transaksi = TransaksiBarang::where('kode_transaksi',$kode)->first();
+        $transaksi->status = 33;
+        $transaksi->save();
+        $pengiriman = Pengiriman::create([
+            'transaksi_id' => $transaksi->id,
+            'keterangan' =>  $request->pesan,
+            'status' => 33,
+        ]);
+        
+        return JsonResponseHandler::setResult($pengiriman)->send();
     }
 
     public function create()

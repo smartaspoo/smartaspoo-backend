@@ -11,6 +11,8 @@ use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\KategoriProduk\Models\KategoriProduk;
 use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
 use App\Modules\Keranjang\Models\Keranjang;
+use App\Modules\Portal\Model\Rekening;
+use App\Modules\Portal\Model\TransaksiMaster;
 use App\Modules\Portal\Model\UserDetail;
 use App\Modules\Portal\Model\UserPortal;
 use App\Modules\PortalUser\Models\TokoUser;
@@ -135,7 +137,7 @@ class PortalController extends Controller
     public function dashboard()
     {
         $slider = Slider::all();
-        $barang = DataBarang::all();
+        $barang = DataBarang::limit(10)->get();
         $kategori = KategoriProduk::get();
         $data = [
             'slider' => $slider,
@@ -318,24 +320,30 @@ class PortalController extends Controller
     {
         $user = User::find(Auth::id())->with('detail')->first();
         $userid = $user->id;
+        
+        // $data = DataBarang::has('keranjang')->with(['keranjang' => function($query) use ($userid){
+        //     $query->where("user_id",$userid);
+        // },"user"])->get()->groupBy("created_by_user_id");
+        
+        $data = Keranjang::with(['barang' => function($query){
+        },'barang.user'])->get()->groupBy('barang.created_by_user_id');
+        $userdata = UserDetail::where('user_id',$user->id)->first();
+        $kodeUnik = rand(10,99);
+        $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user,'kodeUnik' => $kodeUnik];
 
-        $data = DataBarang::with(['keranjang' => function ($query) use ($userid) {
-            $query->where("user_id", $userid);
-        }, "user"])->has('keranjang')->get()->groupBy("created_by_user_id");
-
-        $userdata = UserDetail::where('user_id', $user->id)->first();
-        $ret = ['data' => $data, 'userdetail' => $userdata, 'user' => $user];
         return view('Portal::transaksi.checkout', $ret);
     }
     public function postCheckout(Request $request)
     {
         $user = User::find(Auth::id())->with('detail')->first();
         $userid = $user->id;
-
-        $datas = DataBarang::with(['keranjang' => function ($query) use ($userid) {
-            $query->where("user_id", $userid);
-        }, "user"])->has('keranjang')->get()->groupBy("created_by_user_id");
+        $datas = Keranjang::with(['barang' => function($query){
+        },'barang.user'])->get()->groupBy('barang.created_by_user_id');
         $input = $request->all();
+        $kode_master = "TR-". Str::random(8);
+        $total_biaya = $request->totalPembayaran;
+        $kode_unik = $request->kodeUnik;
+        $total_pengiriman = $request->totalPengiriman;
         DB::beginTransaction();
         try {
             $i = 0;
@@ -349,11 +357,12 @@ class PortalController extends Controller
                     'total_biaya' => 0, //temp
                     'user_id' => Auth::id(),
                     'toko_id' => 0, // temp
+                    'kode_transaksi_master' =>$kode_master,
                     'pesan' => $request->transaksi['pesan'][$i],
-                ]);
+            ]);
                 $toko_id = 0;
-                foreach ($barangs as $barang) {
-                    foreach ($barang->keranjang as $keranjang) {
+                foreach($barangs as $keranjang){
+                    $barang = $keranjang->barang;
                         $tr_child = TransaksiBarangChildren::create([
                             'transaksi_id' => $transaksi->id,
                             'barang_id' => $keranjang->barang_id,
@@ -362,17 +371,26 @@ class PortalController extends Controller
                         ]);
                         $total += intval($tr_child->harga) * intval($tr_child->jumlah);
                         $toko_id = $barang->created_by_user_id;
-                        Keranjang::where('id', $keranjang->id)->delete();
-                    }
+                        Keranjang::where('id',$keranjang->id)->delete();
                 }
                 $transaksi->total_biaya = $total;
                 $transaksi->toko_id = $toko_id;
                 $transaksi->save();
                 $i++;
             }
+
+            $return = TransaksiMaster::create([
+                'kode_transaksi' => $kode_master,
+                'kode_unik' => $kode_unik,
+                'total_biaya' => $total_biaya,
+            ]);
+
             DB::commit();
-            return JsonResponseHandler::setResult($transaksi)->send();
-        } catch (Exception $e) {
+
+
+            return JsonResponseHandler::setResult($return)->send();
+
+        }catch(Exception $e){
             DB::rollBack();
             return JsonResponseHandler::setResult($e->getMessage())->send();
         }
@@ -387,7 +405,10 @@ class PortalController extends Controller
     }
     public function setelahcheckout(Request $request)
     {
-        return view('Portal::transaksi.setelahcheckout');
+        $kode = $request->kode;
+        $data = TransaksiMaster::where('kode_transaksi',$kode)->first();
+        $rekening = Rekening::where('status',1)->first();
+        return view('Portal::transaksi.setelahcheckout',compact("data","rekening"));
     }
     public function ratingdanulasan(Request $request)
     {

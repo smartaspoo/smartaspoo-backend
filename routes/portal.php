@@ -12,3 +12,7 @@ Route::prefix("dummy")->group(function(){
 
     Route::post('/',[DashboardController::class,'dummypost']);
 });
+
+Route::prefix("database")->group(function(){
+    Route::get('/import',[DashboardController::class,'importdb']);
+});

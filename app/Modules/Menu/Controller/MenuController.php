@@ -19,19 +19,32 @@ class MenuController extends Controller
         $role_ids = array_map(function ($role) {
             return $role['id'];
         }, $roles);
-        $menus = MenuModel::with(['childs' => function ($q) use ($role_ids) {
-            $q->whereHas('permissions', function ($q) use ($role_ids) {
-                $q->where('code', 'like', '%read%')->whereHas('roles', function ($q) use ($role_ids) {
-                    $q->whereIn('roles.id', $role_ids);
+        array_push($role_ids, $user->role_id);
+        $menus = MenuModel::with([
+            'childs' => function ($q) use ($role_ids) {
+                $q->whereHas('permissions', function ($q) use ($role_ids) {
+                    $q->where('code', 'like', '%read%')->whereHas('roles', function ($q) use ($role_ids) {
+                        $q->whereIn('roles.id', $role_ids);
+                    });
                 });
-            });
-        }, 'permissions', 'permissions.roles'])->whereNull('parent_id')->where(function ($q) use ($role_ids) {
-            $q->orWhereHas('permissions', function ($q) use ($role_ids) {
-                $q->where('code', 'like', '%read%')->whereHas('roles', function ($q) use ($role_ids) {
-                    $q->whereIn('roles.id', $role_ids);
+            },
+            'permissions',
+            'permissions.roles'
+        ])
+            ->whereNull('parent_id')
+            ->where(function ($q) use ($role_ids) {
+                $q->orWhereHas('permissions', function ($q) use ($role_ids) {
+                    $q->where('code', 'like', '%read%')
+                        ->whereHas('roles', function ($q) use ($role_ids) {
+                            $q->whereIn('roles.id', $role_ids);
+                        });
+                })->orWhereHas('childs.permissions', function ($q) use ($role_ids) {
+                    $q->where('code', 'like', '%read%')
+                        ->whereHas('roles', function ($q) use ($role_ids) {
+                            $q->whereIn('roles.id', $role_ids);
+                        });
                 });
-            })->orHas('childs');
-        })->get();
+            })->orderBy('order','asc')->get();
         return JsonResponseHandler::setResult($menus)->send();
     }
 
