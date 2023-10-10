@@ -323,6 +323,13 @@ class PortalController extends Controller
             // Update status transaksi
             $transaksi->status = $newStatus;
             $transaksi->save();
+
+            $pengiriman = Pengiriman::create([
+                'transaksi_id' => $transaksiId,
+                'status' => 4,
+                'keterangan' => "Barang berhasil diterima",
+
+            ]);
     
             // Assuming the update was successful
             return response()->json(['success' => true]);
@@ -351,14 +358,14 @@ class PortalController extends Controller
             $transaksi->status = $newStatus;
             $transaksi->save();
 
-            // Cari entri pengiriman yang sesuai dengan transaksi_id
-            $pengiriman = Pengiriman::where('transaksi_id', $transaksiId)->first();
+           
+            $pengiriman = Pengiriman::create([
+                'transaksi_id' => $transaksiId,
+                'status' => 44,
+                'keterangan' => $barangtidakditerima,
 
-            if ($pengiriman) {
-                // Jika pengiriman sudah ada, maka perbarui keterangan
-                $pengiriman->keterangan = $barangtidakditerima;
-                $pengiriman->save();
-            }
+            ]);
+
     
             // Assuming the update was successful
             return response()->json(['success' => true]);
@@ -367,7 +374,7 @@ class PortalController extends Controller
             Log::error('Error updating status: ' . $e->getMessage());
             return response()->json(['success' => false, 'message' => 'Failed to update status.']);
         }
-    }
+    } 
     
 
     public function profile(Request $request)
