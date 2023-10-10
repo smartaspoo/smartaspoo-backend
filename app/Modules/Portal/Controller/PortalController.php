@@ -277,6 +277,7 @@ class PortalController extends Controller
                 $tokoId = $transaksi->toko_id;
                 $namaBarang = $barang->nama_barang;
                 $thumbnail = $barang->thumbnail;
+                $status = $transaksi->status;
 
 
                 $data_transaksi[] = [
@@ -296,12 +297,14 @@ class PortalController extends Controller
                     'totalHarga' => $totalHarga,
                     'totalHargaFormatted' => 'Rp. ' . $totalHargaFormatted,
                     'statusReadable' => $transaksi->status_readable,
+                    'status' => $status,
                 ];
             }
         }
         return view('Portal::transaksi.daftartransaksi', ['data' => $data_transaksi]);
 
     }
+
     public function profile(Request $request)
     {
 

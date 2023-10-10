@@ -23,6 +23,9 @@
                 <p>Tanggal  : {{ $transaksi['createdDate'] }} <br>
                     Status  : {{$transaksi['statusReadable']}}
                 </p>
+                @if($transaksi['status'] == '3')
+                <button type="submit" class="btn btn-primary ubah-status" data-transaksi-id="{{ $transaksi['transaksiId'] }}">Barang Diterima</button>
+                @endif
                 <div class="product-quantity">x {{ $transaksi['jumlah'] }}</div>
             </div>
             <div class="caption-total">
@@ -36,5 +39,8 @@
         </div>
         @endforeach
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 
 @endsection
