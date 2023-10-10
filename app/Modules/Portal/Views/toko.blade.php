@@ -199,47 +199,63 @@
 </head>
 
 <body>
-    <div class="container margin-up">
-        <div class="store-info">
-            <a href="{{ url('/p/infotoko') }}">
-                <img class="store-logo" src="{{URL::asset('/img/portal/storelogo.png')}}" alt="Store Logo"
-                    data-bs-toggle="modal" data-bs-target="#logoModal">
-            </a>
-            <div class="store-details">
-                <div class="store-title">{{$toko->nama}}</div>
-                <div class="store-activity">Toko telah aktif beberapa menit yang lalu</div>
-                <div class="store-follow">
-                    1.2K Pengikut
-                    <span class="store-follow-divider"></span>
-                    200 Mengikuti
+<div class="container margin-up">
+    <div class="store-info">
+        <a href="{{ url('/p/infotoko') }}">
+            <img class="store-logo" src="{{ URL::asset('/img/portal/storelogo.png') }}" alt="Store Logo"
+                data-bs-toggle="modal" data-bs-target="#logoModal">
+        </a>
+        <div class="store-details">
+            <div class="store-title">{{ $toko->nama }}</div>
+            <div class="store-activity">Toko telah aktif beberapa menit yang lalu</div>
+            <div class="store-follow">
+                {{ $toko->pengikut }} Pengikut
+            </div>
+        </div>
+    </div>
+    <div class="action-buttons mt-3">
+        <div class="custom-initial">
+            @if(Auth::check())
+                @if(Auth::user()->isFollowing($toko->id))
+                    <form action="{{ route('follow-toko', ['tokoId' => $toko->id]) }}" method="post">
+                        @csrf
+                        <button type="submit" class="action-button unfollow-button mr-2">Unfollow</button>
+                    </form>
+                @else
+                    <form action="{{ route('follow-toko', ['tokoId' => $toko->id]) }}" method="post">
+                        @csrf
+                        <button type="submit" class="action-button follow-button mr-2">Follow</button>
+                    </form>
+                @endif
+            @else
+                <div class="action-button follow-button mr-2">
+                    Follow
+                </div>
+            @endif
+            <div class="action-button chat-button mr-2">Chat Penjual</div>
+            <div class="action-button share-button mr-2"><i class="fa-solid fa-share-nodes"></i></div>
+            <div class="action-button info-button"><i class="fas fa-store"></i></div>
+        </div>
+    </div>
+</div>
+
+
+        <div class="container">
+            <div class="tab-list">
+                <div id="tab-beranda" class="tab active-tab">Produk</div>
+            </div>
+            <div class="right-filter">
+                <p class="urutkan">
+                    Urutkan
+                </p>
+                <div class="filter-dropdown">
+                    <select class="form-select" aria-label="Sort by">
+                        <option selected>Terbaru</option>
+                        <option value="1">Terpopuler</option>
+                    </select>
                 </div>
             </div>
         </div>
-        <div class="action-buttons mt-3">
-            <div class="custom-initial">
-                <div class="action-button follow-button mr-2">Follow</div>
-                <div class="action-button chat-button mr-2">Chat Penjual</div>
-                <div class="action-button share-button mr-2"><i class="fa-solid fa-share-nodes"></i></div>
-                <div class="action-button info-button"><i class="fas fa-store"></i></div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="tab-list">
-            <div id="tab-beranda" class="tab active-tab">Produk</div>
-        </div>
-        <div class="right-filter">
-            <p class="urutkan">
-                Urutkan
-            </p>
-            <div class="filter-dropdown">
-                <select class="form-select" aria-label="Sort by">
-                    <option selected>Terbaru</option>
-                    <option value="1">Terpopuler</option>
-                </select>
-            </div>  
-        </div>
-    </div>
     <div class="container">
         <!-- Produk yang dijual oleh toko -->
         @foreach ($barang as $item)
@@ -284,6 +300,74 @@
             tabBeranda.classList.remove('active-tab');
             tabProduk.classList.add('active-tab');
         });
+            // Mendapatkan tombol "Follow" atau "Unfollow"
+    var followButton = document.querySelector('.follow-button');
+    var unfollowButton = document.querySelector('.unfollow-button');
+
+    // Mendapatkan jumlah pengikut dari HTML
+    var pengikutElement = document.querySelector('.store-follow');
+    var pengikutCount = parseInt(pengikutElement.innerText);
+
+    // Mengecek apakah pengguna telah mengikuti toko atau belum
+    var isFollowing = @json(Auth::check() && Auth::user()->isFollowing($toko->id)); // Menggantikan dengan status yang sesuai
+
+    // Mengatur tampilan awal berdasarkan status pengikut
+    if (isFollowing) {
+        unfollowButton.style.display = 'block';
+        followButton.style.display = 'none';
+    } else {
+        unfollowButton.style.display = 'none';
+        followButton.style.display = 'block';
+    }
+
+    // Mengatur event listener untuk tombol "Follow"
+    followButton.addEventListener('click', function () {
+        // Kirim permintaan AJAX ke server untuk mengikuti toko
+        fetch("{{ route('follow-toko', ['tokoId' => $toko->id]) }}", {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === 'Anda mengikuti toko ini') {
+                // Jika pengikutan berhasil, lakukan hal berikut:
+                isFollowing = true;
+                followButton.style.display = 'none';
+                unfollowButton.style.display = 'block';
+                pengikutCount++; // Tambah 1 pada jumlah pengikut
+                pengikutElement.innerText = pengikutCount + ' Pengikut'; // Update tampilan jumlah pengikut
+                window.location.href = "{{url()->current()}}"   
+            }
+        });
+    });
+
+    // Mengatur event listener untuk tombol "Unfollow"
+    unfollowButton.addEventListener('click', function () {
+        // Kirim permintaan AJAX ke server untuk berhenti mengikuti toko
+        fetch("{{ route('follow-toko', ['tokoId' => $toko->id]) }}", {
+            method: 'POST',
+            headers: { 
+                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === 'Anda berhenti mengikuti toko ini') {
+                // Jika berhenti mengikuti berhasil, lakukan hal berikut:
+                isFollowing = false;
+                unfollowButton.style.display = 'none';
+                followButton.style.display = 'block';
+                pengikutCount--; // Kurangi 1 dari jumlah pengikut
+                pengikutElement.innerText = pengikutCount + ' Pengikut'; // Update tampilan jumlah pengikut
+                window.location.href = "{{url()->current()}}"   
+
+            }
+        });
+    });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @endsection

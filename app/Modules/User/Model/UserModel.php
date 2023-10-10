@@ -45,4 +45,15 @@ class UserModel extends Authenticatable
             return $role['id'];
         }, $roles);
     }
+
+    public function isFollowing($tokoId)
+    {
+        return $this->pengikut()->where('toko_id', $tokoId)->exists();
+    }
+
+    public function pengikut()
+    {
+        return $this->hasMany('App\Modules\Penjualan\Models\Pengikut', 'user_id');
+    }
+
 }

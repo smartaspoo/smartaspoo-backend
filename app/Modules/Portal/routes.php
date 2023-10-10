@@ -30,7 +30,8 @@ Route::prefix('/p')->group(function () {
 
     Route::prefix("toko")->group(function(){
         Route::get("/", [PortalController::class, "toko"]);
-        Route::get('/{id}',[PortalController::class,'toko']);
+        Route::get('/{id}', [PortalController::class, 'toko']); 
+        Route::post('/follow-toko/{tokoId}', [PortalController::class, 'followToko'])->name('follow-toko');
     });
 
     Route::get("/cari",[PortalController::class,'getCari']);
