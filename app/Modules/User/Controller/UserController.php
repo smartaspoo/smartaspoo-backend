@@ -5,6 +5,7 @@ namespace App\Modules\User\Controller;
 use App\Handler\JsonResponseHandler;
 use App\Type\JsonResponseType;
 use App\Http\Controllers\Controller;
+use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\User\Model\UserModel;
 use App\Modules\User\Model\UserRoleModel;
 use App\Modules\User\Request\UserLoginRequest;
@@ -18,6 +19,11 @@ class UserController extends Controller
     public function loginPage(Request $request)
     {
         return view('User::login');
+    }
+    public function me()
+    {
+        $user = UserModel::where('id', Auth::user()->id)->first();
+        return JsonResponseHandler::setResult($user)->send();
     }
     public function login(UserLoginRequest $request)
     {
@@ -45,6 +51,7 @@ class UserController extends Controller
             ->setResult($user)
             ->send();
     }
+
     public function logout(Request $request)
     {
         Auth::logout();
@@ -52,16 +59,19 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return JsonResponseHandler::setMessage("Logout Berhasil")->send();
     }
+
     public function logoutWeb(Request $request){
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return Redirect::to("/p");
+        return Redirect::to("/user/login");
     }
+    
     public function index()
     {
         return view('User::index');
     }
+
     public function datatable(Request $request)
     {
         $per_page = $request->input('per_page') != null ? $request->input('per_page') : 15;

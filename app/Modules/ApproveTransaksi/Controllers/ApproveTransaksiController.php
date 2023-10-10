@@ -27,6 +27,7 @@ class ApproveTransaksiController extends Controller
         return view('ApproveTransaksi::preview',compact("data"));
     }
 
+  
     public function postPreview(Request $request){
         DB::beginTransaction();
         try{
@@ -53,7 +54,6 @@ class ApproveTransaksiController extends Controller
             DB::rollBack();
             return JsonResponseHandler::setResult($e->getMessage())->send();
         }
-
     }
 
     public function datatable(Request $request)
@@ -106,8 +106,6 @@ class ApproveTransaksiController extends Controller
         unset($payload['updated_at']);
         $approve_transaksi = ApproveTransaksiRepository::update($id, $payload);
         return JsonResponseHandler::setResult($approve_transaksi)->send();
-    }
-
     public function destroy(Request $request, $id)
     {
         $delete = ApproveTransaksiRepository::delete($id);

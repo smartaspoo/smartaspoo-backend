@@ -35,6 +35,41 @@
 <!-- Atlantis JS -->
 <script src="{!! asset('js/atlantis.min.js') !!}"></script>
 
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                userData: {},
+                isLoggedin: false,
+            }
+        },
+        async created() {
+            await this.fetchProfile();
+        },
+        methods: {
+            async fetchProfile() {
+                const response = await httpClient.post("{!! url('p/fetch-login') !!}/")
+                if (response.data.code == "400") {
+                    this.isLoggedin = false
+                } else {
+                    this.isLoggedin = true
+                    this.userData = response.data.result
+                    this.userData.roles.forEach(element => {
+                        this.userData.roleName = element.name
+                    });
+                    if (this.userData.detail != undefined) {
+                        this.userData.fotodata = this.userData.detail.foto_readable
+                    } else {
+                        this.userData.fotodata = "{{ URL::asset('/img/portal/user-icon.png') }}"
+                    }
+                }
+                console.log("profile", this.userData)
+            },
+
+        }
+
+    }).mount("#navbar")
+</script>
 </body>
 
 </html>

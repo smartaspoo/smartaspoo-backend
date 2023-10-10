@@ -12,7 +12,9 @@ Route::prefix('/user')->group(function () {
     });
 
     Route::get('/', [UserController::class, 'index']);
+    Route::get('/me', [UserController::class, 'me']);
     Route::get('/logout', [UserController::class, 'logout']);
+    Route::get('/logout-web', [UserController::class, 'logoutWeb']);
     Route::get('/datatable', [UserController::class, 'datatable']);
     Route::get('/create', [UserController::class, 'create']);
     Route::post('/', [UserController::class, 'store']);

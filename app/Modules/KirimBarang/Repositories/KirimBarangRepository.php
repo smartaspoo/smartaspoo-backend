@@ -8,8 +8,6 @@ class KirimBarangRepository
 {
     public static function datatable($per_page = 15)
     {
-        $data = KirimBarang::paginate($per_page);
-        return $data;
     }
     public static function get($kirim_barang_id)
     {

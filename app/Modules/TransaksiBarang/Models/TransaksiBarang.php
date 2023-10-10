@@ -12,7 +12,12 @@ class TransaksiBarang extends Model
     protected $table = 'transaksi';
     protected $guarded = [];
     
-    protected $appends = ['status_readable'];
+    protected $appends = ['status_readable','total_biaya_readable'];
+
+    public function getTotalBiayaReadableAttribute(){
+        $rupiah = "Rp. " . number_format(($this->total_biaya + $this->biaya_pengiriman), 0, ',', '.');
+        return $rupiah;
+    }
     
     public function dataChildren(){
         return $this->hasMany(TransaksiBarangChildren::class,"transaksi_id");

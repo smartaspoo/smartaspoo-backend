@@ -30,7 +30,9 @@ class DataBarangController extends Controller
     public function datatable(Request $request)
     {
         $per_page = $request->input('per_page') != null ? $request->input('per_page') : 15;
-        $data = DataBarangRepository::datatable($per_page);
+
+        $data = DataBarang::with(['user','satuan'])->where('created_by_user_id',Auth::id())->paginate($per_page);
+
         return JsonResponseHandler::setResult($data)->send();
     }
     public function all(Request $request){
@@ -61,7 +63,7 @@ class DataBarangController extends Controller
         $data_barang = DataBarangRepository::get($id);
         return JsonResponseHandler::setResult($data_barang)->send();
     }
-    public function getEdit($data)
+    public function getEdit($data,$id)
     {
         $data = DataBarang::where("id_barang, $id")->fisrt();
         return JsonResponseHandler::setResult($data)->send();

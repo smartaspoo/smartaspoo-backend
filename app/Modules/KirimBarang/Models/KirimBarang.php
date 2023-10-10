@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class KirimBarang extends Model
 {
     use SoftDeletes;
-    protected $table = 'kirim_barang';
+    protected $table = 'transaksi';
     protected $guarded = [];
 }
