@@ -124,8 +124,8 @@ $title = "Dashboard " ?>
             <div class="banner-2">
                 <div class="row h-100">
                     <div class="col-md-12 text pt-4 pb-5 px-5 text-center align-self-center">
-                        <h1>Apotek Banyu Aji</h1>
-                        <h3>Sahabat Keluarga Sehat</h3>
+                        <h1>ASPOO POS</h1>
+                        <h3>Point Of Sales</h3>
                     </div>
                 </div>
             </div>

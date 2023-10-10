@@ -151,10 +151,10 @@ $title = 'Pembelian';
                                 <div class="row">
                                     <div class="col-md-2 mt-2">
                                         <input type="hidden" id="obat" name="obat">
-                                        <span class="pilih-obat">Pilih Obat</span>
+                                        <span class="pilih-obat">Pilih Barang</span>
                                     </div>
                                     <div class="col-md-10">
-                                        <a class="btn btn-primary ml- btn-sm" data-toggle="modal" data-target="#pilihObat">Pilih Obat</a>
+                                        <a class="btn btn-primary ml- btn-sm" data-toggle="modal" data-target="#pilihObat">Pilih Barang</a>
                                         <span id="obat-selected" class="pl-3"></span>
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@ $title = 'Pembelian';
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Pilih Obat</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Pilih Barang</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -173,9 +173,9 @@ $title = 'Pembelian';
                                                     <table class="table" id="table_id">
                                                         <thead class="text-primary">
                                                             <th>No</th>
-                                                            <th>Kode Obat</th>
-                                                            <th>Nama Obat</th>
-                                                            <th>Satuan Obat</th>
+                                                            <th>Kode Barang</th>
+                                                            <th>Nama Barang</th>
+                                                            <th>Satuan Barang</th>
                                                             <th>Option</th>
                                                         </thead>
                                                         <tbody>
@@ -204,7 +204,7 @@ $title = 'Pembelian';
                             <div class="form-group ">
                                 <div class="row">
                                     <div class="col-md-2 mt-2">
-                                        Jumlah Obat
+                                        Jumlah Barang
                                     </div>
                                     <div class="col-md-10">
                                         <input type="number" value="0" id="jumlah" name="jumlah" class="form-control" required>

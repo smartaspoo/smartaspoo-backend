@@ -72,14 +72,14 @@ $title = 'Penjualan';
                             <div class="row">
                                 <div class="col-md-2">
                                     <input type="hidden" name="obat" id="obat">
-                                    <a class="btn btn-primary ml-4" data-toggle="modal" data-target="#pilihObat">Pilih Obat</a>
+                                    <a class="btn btn-primary ml-4" data-toggle="modal" data-target="#pilihObat">Pilih Barang</a>
 
                                     <!-- modal -->
                                     <div class="modal fade" id="pilihObat" tabindex="-1" role="dialog">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Pilih Obat</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Pilih Barang</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -89,9 +89,9 @@ $title = 'Penjualan';
                                                         <table id="table_id" class="table">
                                                             <thead class="text-primary">
                                                                 <th>No</th>
-                                                                <th>Kode Obat</th>
-                                                                <th>Nama Obat</th>
-                                                                <th>Satuan Obat</th>
+                                                                <th>Kode Barang</th>
+                                                                <th>Nama Barang</th>
+                                                                <th>Satuan Barang</th>
                                                                 <th>Harga</th>
                                                                 <th>Stok</th>
                                                                 <th>Option</th>
@@ -125,7 +125,7 @@ $title = 'Penjualan';
                                 </div>
                                 <div class="col-md-5">
                                     <div class="form-group text-center mt-3">
-                                        <span class="pilih-obat" id="obat-selected">Nama Obat</span>
+                                        <span class="pilih-obat" id="obat-selected">Nama Barang</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -197,7 +197,7 @@ $title = 'Penjualan';
                         <table class="table mt-3">
                             <thead class="text-primary">
                                 <th>No</th>
-                                <th>Nama Obat</th>
+                                <th>Nama Barang</th>
                                 <th>Satuan</th>
                                 <th>Jumlah</th>
                                 <th>Harga</th>
@@ -350,7 +350,7 @@ $title = 'Penjualan';
         $(document).ready(() => {
             $("#buat_data").click(() => {
                 if (parseInt(dataObat.obat_stok) < parseInt($('#jumlah').val())) {
-                    alert("Jumlah tidak boleh melebihi dari stok obat! \n" + "Stok Obat : " + dataObat.obat_stok)
+                    alert("Jumlah tidak boleh melebihi dari stok obat! \n" + "Stok Barang : " + dataObat.obat_stok)
                     return;
                 }
                 dataObat["jumlah_data"] = parseInt($("#jumlah").val());
@@ -389,7 +389,7 @@ $title = 'Penjualan';
                     dataObat['convertSatuan'] = false;
                 }
                 arrData.push(dataObat);
-                $("#obat-selected").html("Pilih Obat");
+                $("#obat-selected").html("Pilih Barang");
                 $("#jumlah").val("");
                 $("#m_total_obat").val("0")
                 $("#m_jumlah_convert").val("0")
