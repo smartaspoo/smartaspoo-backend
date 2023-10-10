@@ -11,6 +11,7 @@ use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\KategoriProduk\Models\KategoriProduk;
 use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
 use App\Modules\Keranjang\Models\Keranjang;
+use App\Modules\Penjualan\Models\Pengikut;
 use App\Modules\Portal\Model\Rekening;
 use App\Modules\Portal\Model\TransaksiMaster;
 use App\Modules\Portal\Model\UserDetail;
@@ -194,10 +195,59 @@ class PortalController extends Controller
 
         return view('Portal::statuspengiriman', ['data' => $status_pengiriman]);
     }
-    public function toko(Request $request)
-    {
-        return view('Portal::toko');
-    }
+        public function toko(Request $request, $id)
+        {
+            // Ambil data toko dari database berdasarkan ID
+            $toko =TokoUser::find($id);
+    
+            if (!$toko) {
+                return abort(404);
+            }
+            $barang = DataBarang::with('user')->where('created_by_user_id', $toko->user_id)->get();
+            return view('Portal::toko', [
+                'toko' => $toko,
+                'barang' => $barang,
+            ]);
+        }
+        
+        public function followToko($id) {
+            $user = Auth::user();
+            $toko = TokoUser::find($id); // Mengganti 'TokoUser' menjadi 'UserToko'
+        
+            // Pastikan 'users_toko' dan user ada
+            if (!$toko || !$user) {
+                return response()->json(['message' => 'Toko atau user tidak ditemukan'], 404);
+            }
+        
+            // Cek apakah user sudah mengikuti 'users_toko'
+            $existingFollow = Pengikut::where('user_id', $user->id)
+                ->where('toko_id', $toko->id) // Mengganti 'toko_id' menjadi 'user_toko_id'
+                ->first();
+        
+            if (!$existingFollow) {
+                // Jika belum mengikuti, buat record pengikut baru
+                Pengikut::create([
+                    'user_id' => $user->id,
+                    'toko_id' => $toko->id // Mengganti 'toko_id' menjadi 'user_toko_id'
+                ]);
+        
+                // Tambah 1 pada jumlah pengikut 'users_toko'
+                $toko->pengikut = $toko->pengikut + 1;
+                $toko->save();
+        
+                return redirect()->back();
+            } else {
+                // Jika sudah mengikuti, berhenti mengikuti
+                $existingFollow->delete();
+        
+                // Kurangi 1 dari jumlah pengikut 'users_toko'
+                $toko->pengikut = $toko->pengikut - 1;
+                $toko->save();
+        
+                return redirect()->back();
+            }
+        }
+        
     public function daftartransaksi(Request $request)
     {
         $user = Auth::user()->id;
@@ -227,6 +277,7 @@ class PortalController extends Controller
                 $tokoId = $transaksi->toko_id;
                 $namaBarang = $barang->nama_barang;
                 $thumbnail = $barang->thumbnail;
+                $status = $transaksi->status;
 
 
                 $data_transaksi[] = [
@@ -246,12 +297,14 @@ class PortalController extends Controller
                     'totalHarga' => $totalHarga,
                     'totalHargaFormatted' => 'Rp. ' . $totalHargaFormatted,
                     'statusReadable' => $transaksi->status_readable,
+                    'status' => $status,
                 ];
             }
         }
         return view('Portal::transaksi.daftartransaksi', ['data' => $data_transaksi]);
 
     }
+
     public function profile(Request $request)
     {
 
