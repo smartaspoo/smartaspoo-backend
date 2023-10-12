@@ -81,12 +81,11 @@
                                                         style="border-radius: 15px; font-size: 1px;">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <select v-model="role_id" id="role_id"
-                                                        class="form-select form-control-lg"
-                                                        style="border-radius: 15px; font-size: 16px; width: 100%;">
-                                                        <option value="4">Mitra</option>
-                                                        <option value="3">Umkm</option>
-                                                        <option value="2" selected>Konsumen</option>
+                                                    <select class="form-select form-control-lg" aria-label="Default select example" 
+                                                    style="border-radius: 15px; font-size: 16px; width: 100%;">
+                                                        <option selected>Konsumen</option>
+                                                        <option value="2">Umkm</option>
+                                                        <option value="3">Mitra</option>
                                                     </select>
                                                 </div>
                                                 <div class="mb-3" v-if="role_id !== '2'">

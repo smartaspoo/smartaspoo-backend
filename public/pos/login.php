@@ -51,9 +51,7 @@ if (isset($_POST['username'])) {
 <body>
     <div class="wrapper fadeIn animated">
         <nav class="navbar navbar-expand-lg navbar-transparent">
-            <span class="navbar-brand"><img src="IMG/logo login.png" width="30"> <span class="login-text">&nbsp Apotek Banyu Aji</span> </span>
         </nav>
-
         <div class="container login-form mt-md-5">
             <div class="row login">
                 <div class="col-md-6 mt-md-5">
