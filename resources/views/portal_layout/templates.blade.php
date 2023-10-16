@@ -19,7 +19,7 @@
     <script src="{!! asset('js/ckeditor_initial.js') !!}"></script>
 
     <body>
-        <div id="root-content" style="min-height: 100vh; padding-top:50px; margin-bottom:100px">
+        {{-- <div id="root-content" style="min-height: 100vh; padding-top:50px; margin-bottom:100px"> --}}
             @yield('content')
         </div>
         @if (!isset($hideHeaderFooter))
