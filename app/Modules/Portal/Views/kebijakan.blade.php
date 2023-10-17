@@ -1,13 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SmartASPOO</title>
-    <link rel="icon" href="{{URL::asset('/img/portal/android-chrome-512x512.png')}}" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family:Poppins:wght@100&display=swap');
+        .container {
+            text-align: center;
+        }
+
+        .position-card {
+            width: 335px;
+            height: 323px;
+            display: inline-block;
+            margin: 10px;
+            background: var(--Color-Pallete-Primer, #606C5D);
+        }
+
+   
+        .position-card .card-body {
+            background: #D9D9D9; 
+            padding: 10px; 
+            border-radius: 5px;
+        }
+
+        .card-title, .card-text {
+            background: #D9D9D9; 
+            padding: 5px;
+            margin: 5px; 
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+        }
+
+        .card-text {
+            font-size: 18px;
+        }
+    </style>
 </head>
+</br>
 <body>
-    <h1>Ini Adalah Halaman kebijakan</h1>
+    <div class="container">
+        <h1 style="border-bottom: 2px solid; width: 155px; margin: 0 auto; text-align: center;">PENELITI</h1>
+    </br>
+    
+    <div class="position-card">
+        <img src="../img/portal/bapakfarrikh.png" class="card-img-top" alt="Farrikh">
+        <div class="card-body">
+            <h3 class="card-title">Dr. Farrikh Alzami, M.Kom</h3>
+            <p class="card-text">Ketua Peneliti</p>
+        </div>
+    </div>
+
+    <div class="position-card">
+        <img src="../img/portal/bapakfarrikh.png" class="card-img-top" alt="Farrikh">
+        <div class="card-body">
+            <h3 class="card-title">ASPOO</h3>
+            <p class="card-text">Mitra</p>
+        </div>
+    </div>
+</div>
+</br>
+<div class="container">
+    <div class="position-card">
+        <img src="../img/portal/ibudiana.png" class="card-img-top" alt="Diana">
+        <div class="card-body">
+            <h3 class="card-title">Dr. E. Diana Aqmala M.M</h3>
+            <p class="card-text">Anggota 1</p>
+        </div>
+    </div>
+
+    <div class="position-card">
+        <img src="../img/portal/bapakabu.png" class="card-img-top" alt="Abu">
+        <div class="card-body">
+            <h3 class="card-title">Abu Salam, M.Kom</h3>
+            <p class="card-text">Anggota 2</p>
+        </div>
+    </div>
+
+    <div class="position-card">
+        <img src="../img/portal/bapakivan.png" class="card-img-top" alt="Ivan">
+        <div class="card-body">
+            <h3 class="card-title">Ifan Rizqa, M.Kom</h3>
+            <p class="card-text">Anggota 3</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
