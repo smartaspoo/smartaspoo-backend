@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="{!! asset('img/apple-icon.png') !!}">
   <link rel="icon" type="image/png" href="{!! asset('img/favicon.png') !!}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
 
   <title>
     {{$_ENV['APP_NAME']}}
@@ -61,6 +63,18 @@
   <link href="{!! asset('css/libraries/multiselect/multiselect.css') !!}" rel="stylesheet" />
   <link id="pagestyle" href="{!! asset('css/app.css') !!}" rel="stylesheet" />
 
+  <!---- bootsrap ---->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+  <!---- dropdown js ---->
+  <script>
+    const userDropdown = document.getElementById('userDropdown');
+    
+    userDropdown.addEventListener('mouseenter', function () {
+        if (!this.classList.contains('show')) {
+            this.click();
+        }
+    });
+  </script>
 </head>
   
