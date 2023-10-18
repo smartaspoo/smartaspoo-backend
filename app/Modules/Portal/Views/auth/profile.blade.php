@@ -110,36 +110,36 @@
                     <label for="alamat" class="form-label">Provinsi</label>
                     <select class="form-select custom-select" id="provinsi" name="provinsi">
                         <option value="{{@$data->provinsi}}" selected>{{ @$data->provinsi}}</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                        @foreach ($asal['provinsi'] as $provinsi)
+                        <option value="{{ $provinsi->name }}">{{ $provinsi->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="alamat" class="form-label">Kota</label>
                     <select class="form-select custom-select" id="kota" name="kota">
                     <option value="{{@$data->kota}}" selected>{{@$data->kota}}</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                        @foreach ($asal['kota'] as $kota)
+                        <option value="{{ $kota->name }}">{{ $kota->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="alamat" class="form-label">Kecamatan</label>
                     <select class="form-select custom-select" id="kecamatan" name="kecamatan">
-                    <option value="{{@$data->kota}}" selected>{{@$data->kecamatan}}</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <option value="{{@$data->kecamatan}}" selected>{{@$data->kecamatan}}</option>
+                    {{-- @foreach ($asal['kecamatan'] as $kecamatan)
+                    <option value="{{ $kecamatan->id }}">{{ $kecamatan->name}}</option>
+                    @endforeach --}}
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="alamat" class="form-label">Kelurahan</label>
                     <select class="form-select custom-select" id="kelurahan" name="kelurahan">
                     <option value="{{@$data->kelurahan}}" selected>{{@$data->kelurahan}}</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    {{-- @foreach ($asal['kelurahan'] as $kelurahan)
+                    <option value="{{ $kelurahan->id }}">{{ $kelurahan->name}}</option>
+                    @endforeach --}}
                     </select>
                 </div>
                 <div class="mb-3">
