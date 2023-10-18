@@ -555,6 +555,10 @@ class PortalController extends Controller
     {
         return view('Portal::kebijakan');
     }
+    public function tentangaspoomarket(Request $request)
+    {
+        return view('Portal::tentangaspoomarket');
+    }
 
     public function cekongkir(Request $request)
     {
