@@ -17,9 +17,17 @@
     <script src="{!! asset('js/navigator.js') !!}"></script>
     <script src="{!! asset('js/vue_initial.js') !!}"></script>
     <script src="{!! asset('js/ckeditor_initial.js') !!}"></script>
+    <?php 
+    if(!isset($hideHeaderFooter)){
+        $style = "min-height: 100vh; padding-top:50px; margin-bottom:100px";
+    }else{
+        $style = "";
+    }
+    ?>
+
 
     <body>
-        <div id="root-content" style="min-height: 100vh; padding-top:50px; margin-bottom:100px">
+        <div id="root-content" style="{{$style}}">
             @yield('content')
         </div>
         @if (!isset($hideHeaderFooter))
