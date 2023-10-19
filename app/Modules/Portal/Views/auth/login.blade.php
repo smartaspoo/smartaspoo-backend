@@ -10,6 +10,14 @@
     body {
         font-family: 'Poppins';
     }
+    main#login-page {
+        background: #FBD9C0;
+        height: 100vh;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     /* Responsive adjustments */
     @media (max-width: 768px) {

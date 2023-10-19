@@ -176,7 +176,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="navbar-menu nav-link" style="font-size: 16px; align:center; font-weight: bold;"
-                        href="{{ url('/p/pencarianbarangumkm') }}">Produk</a>
+                        href="{{ url('/p/listbarang') }}">Produk</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="navbar-menu nav-link dropdown-toggle"
@@ -259,7 +259,7 @@
                         <div class="dropdown-user">
                             <div class="user-name">@{{ this.userData.email }}</div>
                         </div>
-                        <a class="dropdown-item" href="{{ url('/p/daftartransaksi') }}">Daftar Tra nsaksi</a>
+                        <a class="dropdown-item" href="{{ url('/p/daftartransaksi') }}">Daftar Transaksi</a>
                         <a class="dropdown-item" href="{{ url('/p/status') }}">Status Pembelian</a>
                         <div class="bottom-dropdown">
                             <a class="dropdown-item" href="{{ url('/p/profile') }}">Pengaturan</a>

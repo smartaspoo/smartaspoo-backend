@@ -402,7 +402,7 @@ class PortalController extends Controller
     }
     public function updateProfile(Request $request)
     {
-        
+        dd($request->all());
         $userDetail = [
             'user_id' => $request->input('user_id'),
             'alamat' => $request->input('alamat'),
@@ -527,13 +527,18 @@ class PortalController extends Controller
             return JsonResponseHandler::setResult($e->getMessage())->send();
         }
     }
-    public function pencarianbarangtoko(Request $request)
+    public function listToko(Request $request)
     {
-        return view('Portal::pencarianbarangtoko');
+        $results = TokoUser::paginate(25);
+    
+        return view('Portal::listtoko', compact('results'));
     }
-    public function pencarianbarangumkm(Request $request)
+    public function listBarang(Request $request)
     {
-        return view('Portal::pencarianbarangumkm');
+        // Mengambil semua data barang dari database
+        $produk = DataBarang::all();
+    
+        return view('Portal::listbarang', compact('produk'));
     }
     public function setelahcheckout(Request $request)
     {
