@@ -1,3 +1,4 @@
+<?php $hideHeaderFooter = true; ?>
 @extends('portal_layout.templates')
 @section('content')
 @php
@@ -51,37 +52,36 @@ $hideHeaderFooter = true; // Atur nilai $hideHeaderFooter menjadi true
                                         <div style="padding: 20px;">
                                             <h1 style="text-align: center; font-weight: bold; color: rgba(0, 0, 0, 0.90); ">
                                                 Register</h1>
-                                            <form role_id="form"
-                                                style="border-radius: 10px; padding: 20px; background-color: #fff;">
-                                                <div class="mb-3">
-                                                    <input v-model="email" type="email"
-                                                        class="form-control form-control-lg" id="email"
-                                                        placeholder="Email" aria-label="Email"
-                                                        style="border-radius: 15px;  font-size: 1px;">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Nama</label>
+                                                        <input type="text" class="form-control" v-model="user.nama">
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <input v-model="password" type="password"
-                                                        class="form-control form-control-lg" id="password"
-                                                        placeholder="Password" aria-label="Password"
-                                                        style="border-radius: 15px; font-size: 1px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Email</label>
+                                                        <input type="text" class="form-control" v-model="user.email">
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <input v-model="nama" type="text"
-                                                        class="form-control form-control-lg" id="nama"
-                                                        placeholder="Nama" aria-label="Nama"
-                                                        style="border-radius: 15px; font-size: 16px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Password</label>
+                                                        <input type="password" class="form-control" v-model="user.password">
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <input v-model="tanggal_lahir" type="date"
-                                                        class="form-control form-control-lg" id="tanggal_lahir"
-                                                        placeholder="Tanggal Lahir" aria-label="Tanggal Lahir"
-                                                        style="border-radius: 15px; font-size: 1px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Tanggal Lahir</label>
+                                                        <input type="text" class="form-control" v-model="user.tanggal_lahir">
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <input v-model="alamat" type="text"
-                                                        class="form-control form-control-lg" id="alamat"
-                                                        placeholder="Alamat" aria-label="Alamat"
-                                                        style="border-radius: 15px; font-size: 1px;">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Alamat</label>
+                                                        <input type="text" class="form-control" v-model="user.alamat">
+                                                    </div>
                                                 </div>
                                                 <div class="mb-3">
                                                     <select v-model="role_id" id="role_id" class="form-select form-control-lg" aria-label="Default select example"
@@ -135,16 +135,10 @@ $hideHeaderFooter = true; // Atur nilai $hideHeaderFooter menjadi true
         createApp({
             data() {
                 return {
-                    email: '',
-                    password: '',
-                    nama: '',
-                    tanggal_lahir: '',
-                    alamat: '',
-                    role_id: '2',
-                    provinsi_id: '',
-                    kota_id: '',
-                    kelurahan_id: '',
-                    kecamatan_id: '',
+                    showDetails : true,
+                    user : {
+
+                    }
                 };
             },
             methods: {

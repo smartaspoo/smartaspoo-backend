@@ -51,7 +51,7 @@
             <div class="box">
                 <div class="caption">
                     <h4>
-                        <a href="https://www.aspoojateng.com/" target="_blank" class="detail">Tentang AspooMarket</a>
+                        <a href="{{ url('/p/tentangaspoomarket') }}" class="detail">Tentang Aspoo Market</a>
                     </h4>
                     <h4>
                         <a href="{{ url('/p/kebijakan') }}" class="detail">Kebijakan</a>

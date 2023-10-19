@@ -230,9 +230,9 @@
                                                             <p class="lokasi">Seller ID: @{{ rekomendasi.created_by_user_id }}</p>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <a :href="`{{ url('/p/') }}/barang/${rekomendasi.id}`">
+                                                            <button  @click="navigasi(`{{ url('/p/') }}/barang/${rekomendasi.id}`)">
                                                                 <i class="fas fa-shopping-cart cart-icon"></i>
-                                                            </a>
+                                                            </button>
                                                         </div>
                                                     </div>
 
@@ -242,14 +242,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="product-card">
-                                    <img :src="rekomendasi.thumbnail_readable" alt="Produk 1" height="250">
-                                    <h4>@{{ rekomendasi.nama_barang }}</h4>
-                                    <p class="harga">Harga: @{{ rekomendasi.harga_umum }}</p>
-                                    <p><span class="badge bg-danger">-10%</span><s class="diskon">Harga:
-                                            @{{ rekomendasi.harga_umum }}</s></p>
-                                    <p class="lokasi">Seller ID: @{{ rekomendasi.created_by_user_id }}</p>
-                                </div> --}}
+                          
                         </div>
                     </div>
                 </div>
@@ -298,6 +291,9 @@
                 }
             },
             methods: {
+                navigasi(url){
+                    navigate(url)
+                },
                 async fetchData() {
                     const response = await httpClient.get("{!! url('p/index-data') !!}/")
                     console.log(response)

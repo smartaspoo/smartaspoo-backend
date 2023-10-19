@@ -12,18 +12,18 @@
             height: 323px;
             display: inline-block;
             margin: 10px;
-            background: var(--Color-Pallete-Primer, #606C5D);
+            background: #f9fbfd;
         }
 
    
         .position-card .card-body {
-            background: #D9D9D9; 
+            background: #FBF7EB; 
             padding: 10px; 
             border-radius: 5px;
         }
 
         .card-title, .card-text {
-            background: #D9D9D9; 
+            background: #FBF7EB; 
             padding: 5px;
             margin: 5px; 
         }
@@ -31,18 +31,29 @@
         .card-title {
             font-size: 24px;
             font-family: 'Poppins', sans-serif;
+            color: #757272;
             margin: 0;
         }
 
         .card-text {
             font-size: 18px;
+            color: #757272;
         }
     </style>
 </head>
 </br>
 <body>
     <div class="container">
-        <h1 style="border-bottom: 2px solid; width: 155px; margin: 0 auto; text-align: center;">PENELITI</h1>
+    <style>
+        h1 {
+            color: #757272;
+            border-bottom: 2px solid;
+            width: 155px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        </style>
+        <h1>PENELITI</h1>
     </br>
     
     <div class="position-card">

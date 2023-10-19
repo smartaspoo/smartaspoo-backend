@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Modules\ApproveTransaksi\Models\Pengiriman;
 use App\Modules\DataBarang\Models\DataBarang;
+use App\Modules\InputSCM\Models\Alamat\Kecamatan;
+use App\Modules\InputSCM\Models\Alamat\Kelurahan;
+use App\Modules\InputSCM\Models\Alamat\Kota;
+use App\Modules\InputSCM\Models\Alamat\Provinsi;
 use App\Modules\KategoriProduk\Models\KategoriProduk;
 use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
 use App\Modules\Keranjang\Models\Keranjang;
@@ -382,10 +386,23 @@ class PortalController extends Controller
 
         $data = UserDetail::where('user_id', Auth::id())->with('userMaster')->first();
         $userMaster = UserModel::where('id', Auth::id())->first();
-        return view('Portal::auth.profile', ['data' => $data, 'user' => $userMaster]);
+        $provinsi = Provinsi::all();
+        $kota = Kota::all();
+        // $kota = Kota::where('provinsi_id', $provinsiId)->get();
+        // $kecamatan = Kecamatan::all();
+        // $kelurahan = Kelurahan::all();
+        $asal_daerah = [
+            'provinsi' => $provinsi,
+            'kota' => $kota,
+            // 'kecamatan' => $kecamatan,
+            // 'kelurahan' => $kelurahan
+        ];
+
+        return view('Portal::auth.profile', ['data' => $data, 'user' => $userMaster, 'asal' => $asal_daerah]);
     }
     public function updateProfile(Request $request)
     {
+        dd($request->all());
         $userDetail = [
             'user_id' => $request->input('user_id'),
             'alamat' => $request->input('alamat'),
@@ -542,6 +559,10 @@ class PortalController extends Controller
     public function kebijakan(Request $request)
     {
         return view('Portal::kebijakan');
+    }
+    public function tentangaspoomarket(Request $request)
+    {
+        return view('Portal::tentangaspoomarket');
     }
 
     public function cekongkir(Request $request)
