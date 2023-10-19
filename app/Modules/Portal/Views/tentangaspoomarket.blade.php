@@ -39,6 +39,10 @@
             font-size: 18px;
             color: #757272;
         }
+        .detail a {
+            color: #757272;
+            text-decoration: none;
+        }
     </style>
 </head>
 </br>
@@ -97,6 +101,12 @@
             <p class="card-text">Anggota 3</p>
         </div>
     </div>
-</div>
+    <div class="box">
+            <div class="caption">
+                <h3>
+                    <a href="{{ url('/p/tentangaspoomarket') }}" class="detail">MENUJU KE HALAMAN PORTAL ASPOO JATENG</a>
+                </h3>
+            </div>
+    </div>
 </body>
 </html>
