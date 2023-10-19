@@ -108,11 +108,11 @@
             text-decoration: none;
         }
 
-        .section-divider {
-            border-top: 2px solid #000000;
-            margin-top: 50px;
-            margin-bottom: 60px;
-        }
+            .section-divider {
+                border-top: 2px solid #000000;
+                margin-top: 50px;
+                margin-bottom: 60px;
+            }
 
         .timeline {
             position: relative;
