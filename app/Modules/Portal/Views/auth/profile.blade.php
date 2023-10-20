@@ -86,7 +86,7 @@
     <div class="page-title">Profile Pengguna</div>
     <form method="POST" action="{{ url('/p/profile') }}" enctype="multipart/form-data">
 
-        <div class="content-box">
+            <div class="content-box" style="margin-bottom: 70px;">
             <div class="form-container">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
