@@ -138,7 +138,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mb-4">
                         <button class="btn btn-danger btn-block" @click='saveCheckout()'>Buat Pesanan</button>
                     </div>
                 </div>

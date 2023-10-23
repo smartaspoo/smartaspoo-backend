@@ -1,5 +1,12 @@
 @extends('portal_layout.templates')
 @section('content')
+<head>
+<style>
+  .content {
+    margin-bottom: 14rem;
+  }
+</style>
+</head>
     <div class="container mt-5" id="container">
         <div class="frame">
             <div class="title">
@@ -36,18 +43,16 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="payment-box float-right">
-                    <div class="payment-info">
+                <div class="payment-box float-right" >
+                    <div class="payment-info" >
                         <div class="payment-section total-section">
                             <b>Total Sementara: <span class="payment-amount"
                                     id="total">@{{ totalKeranjang() }}</span></b><br>
                             <small class="text-secondary">*Total belum termasuk biaya ongkir</small>
                         </div>
                     </div><br>
-                    <button class="btn btn-primary btn-block" @click="checkout()">Checkout</button>
+                    <button class="btn btn-primary btn-block" @click="checkout() " >Checkout</button>
                 </div>
-                <br><br><br>
-                <br>
             </div>
         </div>
     </div>
