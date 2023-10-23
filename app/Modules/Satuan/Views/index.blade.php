@@ -10,10 +10,6 @@
             return {
                 headers: [
                         {
-                            text: 'Id',
-                            value: 'id',
-                        },    
-                        {
                             text: 'Satuan Nama',
                             value: 'satuan_nama',
                         },    

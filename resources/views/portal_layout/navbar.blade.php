@@ -191,7 +191,7 @@
                 <img src="{{ URL::asset('/img/portal/keranjang.png') }}" alt="Keranjang" width="30">
             </a>
             <a class="navbar-menu jadi-mitra-button" v-if="this.isLoggedin == false" style="font-size: 16px"
-                href="{{ url('/p/login') }}">Jadi Mitra</a>
+                href="{{ url('/p/login') }}" >Jadi Mitra</a>
             <div class="user-profile" v-if="this.isLoggedin == false">
                 <div class="dropdown">
                     <a href="#" role="button" id="userNavbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -235,3 +235,4 @@
             </div>
         </div>
     </nav>
+

@@ -402,7 +402,6 @@ class PortalController extends Controller
     }
     public function updateProfile(Request $request)
     {
-        dd($request->all());
         $userDetail = [
             'user_id' => $request->input('user_id'),
             'alamat' => $request->input('alamat'),

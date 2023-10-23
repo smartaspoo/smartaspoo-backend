@@ -35,5 +35,7 @@
         @endif
 
     </body>
+
+    
     @include('layout.foot')
 @endif

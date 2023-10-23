@@ -11,6 +11,7 @@ Route::prefix('/komposisi')->group(function() {
     // SUB MENU MARKER (DONT DELETE THIS LINE)
 
     Route::get('/', [KomposisiController::class, 'index'])->middleware('authorize:read-komposisi');
+    Route::get('/all', [KomposisiController::class, 'all'])->middleware('authorize:read-komposisi');
     Route::get('/datatable', [KomposisiController::class, 'datatable'])->middleware('authorize:read-komposisi');
     Route::get('/create', [KomposisiController::class, 'create'])->middleware('authorize:create-komposisi');
     Route::post('/', [KomposisiController::class, 'store'])->middleware('authorize:create-komposisi');

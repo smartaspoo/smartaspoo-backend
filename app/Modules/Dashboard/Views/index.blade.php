@@ -100,9 +100,15 @@
         <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
+                <select name="periodeSelect" id="periodeSelect" class="form-control">
+                    <option value="7Hari">7 hari</option>
+                </select>
                 <canvas id="barChart1" width="400" height="300"></canvas>
             </div>
             <div class="col-md-6">
+                <select name="periodeSelect" id="periodeSelect" class="form-control">
+                    <option value="Gula">Gula</option>
+                </select>
                 <canvas id="barChart2" width="400" height="300"></canvas>
             </div>
         </div>
@@ -168,11 +174,11 @@
     document.addEventListener("DOMContentLoaded", function () {
     var ctx1 = document.getElementById('barChart1').getContext('2d');
             var data1 = {
-                labels: ['gula', 'susu', 'perasa', 'telur'],
+                labels: ['Gula', 'Susu', 'Perasa', 'Telur'],
                 datasets: [
                     {
                         label: 'Grafik Komposisi',
-                        data: [30, 20, 15, 50],
+                        data: [40, 20, 15, 50],
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',
                         borderWidth: 1
@@ -203,11 +209,11 @@
             // Bar Chart 2
             var ctx2 = document.getElementById('barChart2').getContext('2d');
             var data2 = {
-                labels: ['Supplier A', 'Supplier B', 'Supplier C', 'Supplier Offline'],
+                labels: ['Bantir', 'Karangjati', 'Kembangarum', 'Ngalian'],
                 datasets: [
                     {
-                        label: 'Grafik Supplier',
-                        data: [25, 15, 35, 10],
+                        label: 'Grafik Supplier Gula',
+                        data: [20, 5, 5, 10],
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1

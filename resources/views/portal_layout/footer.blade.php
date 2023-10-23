@@ -56,9 +56,6 @@
                     <h4>
                         <a href="{{ url('/p/kebijakan') }}" class="detail">Kebijakan</a>
                     </h4>
-                    <h4>
-                        <a href="{{ url('/p/pusatbantuan') }}" class="detail">Pusat Bantuan</a>
-                    </h4>
                 </div>
                 <div>
                     <img src="{{ URL::asset('/img/portal/logo.png') }}" />
@@ -66,3 +63,5 @@
             </div>
         </div>
     </footer>
+
+    

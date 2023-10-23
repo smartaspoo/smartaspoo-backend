@@ -101,10 +101,10 @@
             <p class="card-text">Anggota 3</p>
         </div>
     </div>
-    <div class="box">
+    <div class="box mt-5">
             <div class="caption">
                 <h3>
-                    <a href="{{ url('/p/tentangaspoomarket') }}" class="detail">MENUJU KE HALAMAN PORTAL ASPOO JATENG</a>
+                    <a href="https://aspoojateng.com" class="detail">MENUJU KE HALAMAN PORTAL ASPOO JATENG</a>
                 </h3>
             </div>
     </div>

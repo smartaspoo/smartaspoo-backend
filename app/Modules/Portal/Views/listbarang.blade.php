@@ -142,19 +142,19 @@
                 @foreach($produk as $barang)
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ URL::asset($barang->thumbnail) }}" alt="{{ $barang->nama_barang }}"
-                            class="img-fluid">
+                        <img src="{{ URL::asset($barang->thumbnail_readable) }}" alt="{{ $barang->nama_barang }}"
+                            class="img-fluid"  >
                         <div class="card-body">
                             <h5 class="card-title"><a
                                     href="{{ url('/p/barang/' . $barang->id) }}">{{ $barang->nama_barang }}</a></h5>
                             <a href="{{ url('/p/barang/' . $barang->id) }}" class="btn-lihat-detail">Lihat Detail</a>
                             <p class="card-text harga">Rp.
-                                {{ number_format($barang->harga_umum - ($barang->harga_umum * ($barang->diskon / 100)), 2) }}
+                            {{ number_format($barang->harga_user, 2) }}
                             </p>
                             @if($barang->diskon > 0)
                             <p><span class="badge bg-danger">-{{ $barang->diskon }}%</span></p>
                             <p class="card-text diskon text-muted"><del>Harga: Rp.
-                                    {{ number_format($barang->harga_umum, 2) }}</del></p>
+                                    {{ number_format($barang->harga_user_asli, 2) }}</del></p>
                             @endif
                             <p class="card-text stock">Stock: {{ $barang->stock_global }}</p>
                             @if($barang->toko)

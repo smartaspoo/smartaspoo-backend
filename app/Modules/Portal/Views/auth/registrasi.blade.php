@@ -177,6 +177,8 @@
                     handler: function(value){
                         if(value != 2){
                             this.showDetails = true
+                        }else{
+                            this.showDetails = false
                         }
                     }
                 },

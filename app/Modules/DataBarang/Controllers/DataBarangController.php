@@ -7,6 +7,7 @@ use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Modules\DataBarang\Models\DataBarang;
+use App\Modules\DataBarang\Models\DataBarangKomposisi;
 use App\Modules\DataBarang\Repositories\DataBarangRepository;
 use App\Modules\DataBarang\Requests\DataBarangCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
@@ -24,6 +25,45 @@ class DataBarangController extends Controller
     public function findKodeBarang(Request $request){
         $page = (isset($request->page) ? $request->page :15);
         $data = DataBarang::where('kode_barang','LIKE',"%".$request->kode_barang."%")->paginate($page);
+        return JsonResponseHandler::setResult($data)->send();
+    }
+
+    public function komposisi_index(Request $request,$id){
+
+        return view('DataBarang::komposisi.index',['id' => $id]);
+
+    }
+    public function komposisi_datatable(Request $request,$id)
+    {
+        $per_page = $request->input('per_page') != null ? $request->input('per_page') : 15;
+
+        $data = DataBarangKomposisi::where("id_barang",$id)->with('komposisi','komposisi.satuan')->paginate($per_page);
+        return JsonResponseHandler::setResult($data)->send();
+    }
+
+    public function komposisi_destroy(Request $request, $id, $id2){
+        $data = DataBarangKomposisi::destroy($id2);
+        return JsonResponseHandler::setResult($data)->send();
+
+    }
+
+    public function komposisi_create(Request $request,$id){
+
+        return view('DataBarang::komposisi.create');
+
+    }
+
+    public function komposisi_store(Request $request, $id){
+        $payload = $request->all();
+
+        $data = DataBarangKomposisi::create([
+            'id_komposisi' => $payload['id_komposisi'],
+            'jumlah' => $payload['jumlah'],
+            'id_barang' => $id,
+        ]);
+
+
+
         return JsonResponseHandler::setResult($data)->send();
     }
 

@@ -4,6 +4,7 @@ namespace App\Modules\Komposisi\Controllers;
 
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
+use App\Modules\Komposisi\Models\Komposisi;
 use App\Modules\Komposisi\Repositories\KomposisiRepository;
 use App\Modules\Komposisi\Requests\KomposisiCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
@@ -33,6 +34,11 @@ class KomposisiController extends Controller
     {
         $payload = $request->all();
         $komposisi = KomposisiRepository::create($payload);
+        return JsonResponseHandler::setResult($komposisi)->send();
+    }
+
+    public function all(){
+        $komposisi = Komposisi::with("satuan")->get();
         return JsonResponseHandler::setResult($komposisi)->send();
     }
 

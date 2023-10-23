@@ -40,7 +40,7 @@ class DataBarangRepository
 
     public static function delete($data_barang_id)
     {
-        $delete = DataBarang::where('kode_barang', $data_barang_id)->delete();
+        $delete = DataBarang::where('id', $data_barang_id)->delete();
         return $delete;
     }
 }

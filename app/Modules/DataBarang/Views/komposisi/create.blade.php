@@ -1,28 +1,27 @@
 @extends('dashboard_layout.index')
 @section('content')
     <div class="page-inner">
-        <div id="add-komposisi" class="card">
+        <div id="add-data-komposisi" class="card">
             <div class="card-header pb-0">
                 <div class="d-flex align-items-center">
-                    <h4 class="card-title">Tambah Komposisi</h4>
+                    <h4 class="card-title">Tambah Data Komposisi</h4>
                 </div>
             </div>
             <div class="card-body">
-                <form ref="komposisi_form">
+                <form ref="data_komposisi_form" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="form-label">Nama Komposisi</label>
-                                <input type="text" v-model="komposisi.nama" class="form-control">
+                                <label class="form-control-label">Komposisi Barang</label>
+                                <vue-multiselect v-model="komposisi.id_komposisi" :searchable="true" :options="komposisi_list" />
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="form-control-label">Satuan</label>
-                                <vue-multiselect v-model="komposisi.satuan_id" :searchable="true" :options="satuan_list" />
+                                <label class="form-label">Jumlah</label>
+                                <input type="number" class="form-control" v-model="komposisi.jumlah">
                             </div>
                         </div>
-
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="button" @click="back" class="btn btn-sm bg-warning mr-2 text-white">
@@ -41,56 +40,47 @@
             data() {
                 return {
                     komposisi: {
-                        satuan_id: null,
-
+                        id_komposisi: null,
                     },
-                    satuan_list: [],
+                    komposisi_list: [],
+                    path: null,
+                    name: null,
+
 
                 }
             },
             created() {
-                this.fetchSatuanList()
-            },
-            watch: {
-                "komposisi.satuan_id": {
-                    handler: function(value) {
-                        let satuan_data = this.satuan_list.find(satuan_item => satuan_item.value == value)
-                        this.path = `${satuan_data.label.toLowerCase().split(" ").join("-")}`
-                        if (this.name != null && this.name != "") {
-                            this.path += `/${this.name.toLowerCase().split(" ").join("-")}`
-                        }
-                        this.komposisi.satuan_id = value
-                        console.log(this.komposisi)
-                    },
-                    deep: true,
-                },
-
-
+                this.fetchKomposisiList()
             },
             methods: {
-                back() {
-                    history.back()
-                },
-                async fetchSatuanList() {
-                    const response = await httpClient.get("{!! url('satuan/all') !!}")
-                    this.satuan_list = [
-                        ...this.satuan_list,
+                async fetchKomposisiList() {
+                    const response = await httpClient.get("{!! url('komposisi/all') !!}")
+                    this.komposisi_list = [
+                        ...this.komposisi_list,
                         ...response.data.result.map(el => {
                             return {
                                 value: el.id,
-                                label: el.satuan_nama
+                                label: el.nama + "-"+el.satuan.satuan_simbol
                             }
                         })
                     ]
                 },
+                back() {
+                    history.back()
+                },
                 resetForm() {
                     this.komposisi = {}
-                    this.$refs.komposisi_form.reset()
+                    this.$refs.data_komposisi_form.reset()
                 },
                 async store() {
+                    const komposisiFormData = new FormData()
+                    Object.keys(this.komposisi).forEach(key => {
+                        komposisiFormData.append(key, this.komposisi[key])
+                    });
+
                     try {
                         showLoading()
-                        const response = await httpClient.post("{!! url('komposisi') !!}", this.komposisi)
+                        const response = await httpClient.post("{!! url()->current() !!}", komposisiFormData)
                         hideLoading()
                         showToast({
                             message: "Data berhasil ditambahkan"
@@ -108,6 +98,6 @@
             components: {
                 'vue-multiselect': VueformMultiselect
             },
-        }).mount("#add-komposisi")
+        }).mount("#add-data-komposisi")
     </script>
 @endsection

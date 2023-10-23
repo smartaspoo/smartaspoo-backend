@@ -10,8 +10,8 @@
             return {
                 headers: [
                     {
-                        text: 'Id',
-                        value: 'id',
+                        text: 'Nama',
+                        value: 'nama',
                     },    
 					],
             }
