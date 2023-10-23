@@ -45,7 +45,7 @@
 
                 <h1>Silahkan Transfer Uang ke Bank Berikut</h1>
                 <h3>{{ $rekening->tipe_rekening }} : {{ $rekening->kode_rekening }} : {{ $rekening->pemilik_rekening }}</h3>
-                <h3>Total Biaya : {{ rupiah(intval($data->total_biaya) + intval($data->kode_unik)) }}</h3>
+                <h3>Total Biaya : {{ rupiah(intval($data->total_biaya) + intval($data->kode_unik) + intval($data->biaya_pengiriman))  }}</h3>
                 <p>Pastikan 2 angka dibelakang benar, karena terdapat kode untuk mempercepat proses validasi</p>
                 <a class="btn btn-danger" href="{{ url('') }}/p/">Kembali ke Portal</a>
             </div>

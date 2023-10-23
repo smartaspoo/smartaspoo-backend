@@ -509,6 +509,7 @@ class PortalController extends Controller
                 $transaksi->toko_id = $toko_id;
                 $transaksi->save();
                 $i++;
+                $total_biaya += $transaksi->biaya_pengiriman;
             }
 
             $return = TransaksiMaster::create([

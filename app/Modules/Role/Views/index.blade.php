@@ -3,14 +3,12 @@
     <div class="page-inner" id="role-page">
         <default-datatable title="Roles" url="{!! url('role') !!}" :headers="headers">
             <template #left-action="{ content }">
-                <button @click="handlePermissionButtonClick(content.id)" type="button" class="btn btn-xs btn-info mr-1"
+                <button @click="handlePermissionButtonClick(content.id)" type="button" class="btn btn-xs btn-primary mr-1"
                     data-toggle="modal">
                     Permission
                 </button>
             </template>
         </default-datatable>
-        <div ref="modal" class="modal fade" id="addPermissionModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Tambah Permission</h5>
@@ -49,8 +47,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
     <script>
         createApp({

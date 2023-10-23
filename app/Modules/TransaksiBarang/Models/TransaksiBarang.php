@@ -13,7 +13,6 @@ class TransaksiBarang extends Model
     protected $guarded = [];
     
     protected $appends = ['status_readable','total_biaya_readable'];
-
     public function getTotalBiayaReadableAttribute(){
         $rupiah = "Rp. " . number_format(($this->total_biaya + $this->biaya_pengiriman), 0, ',', '.');
         return $rupiah;

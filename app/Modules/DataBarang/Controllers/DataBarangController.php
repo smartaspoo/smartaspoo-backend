@@ -49,12 +49,10 @@ class DataBarangController extends Controller
     {
         $payload = $request->all();
         unset($payload['foto']);
-        $payload['created_by_user_id'] = Auth::user()->id;
         $foto = FileHandler::store(file : $request->file('foto'), targetDir: "uploads/".Auth::user()->id."/barang");
+        $payload['created_by_user_id'] = Auth::user()->id;
+        $payload['thumbnail'] = $foto;
         $data_barang = DataBarangRepository::create($payload);
-        $save_foto = DataBarangRepository::createFoto($foto,$data_barang->id);
-
-        dd($data_barang,$save_foto);    
         return JsonResponseHandler::setResult($data_barang)->send();
     }
 

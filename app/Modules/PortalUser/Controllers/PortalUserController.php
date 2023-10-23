@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Modules\PortalUser\Repositories\PortalUserRepository;
 use App\Modules\PortalUser\Requests\PortalUserCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
+use App\Modules\Portal\Model\UserDetail;
+use App\Modules\Portal\Model\UserPortal;
 use App\Modules\PortalUser\Models\TokoUser;
 use App\Modules\User\Controller\UserController;
 use App\Modules\User\Model\UserModel;
@@ -59,9 +61,24 @@ class PortalUserController extends Controller
             $userController->addRole($roleRequest,$dataUser->id);
 
             if($role == "3" || $role == "4"){
-                $tokouser = TokoUser::create([
+                TokoUser::create([
                     'user_id' => $dataUser['id'],
                     'nama' => $payload['nama'],
+                ]);
+                UserDetail::create([
+                    'user_id' => $dataUser->id,
+                    'alamat' => $payload['alamat'],
+                    'tanggal_lahir' => $payload['tanggal_lahir'],
+                    'provinsi' => $payload['provinsi_id'],
+                    'kota' => $payload['kota_id'],
+                    'kecamatan' => $payload['kecamatan_id'],
+                    'kelurahan' => $payload['kelurahan_id'],
+                ]);
+            }else{
+                UserDetail::create([
+                    'user_id' => $dataUser->id,
+                    'alamat' => $payload['alamat'],
+                    'tanggal_lahir' => $payload['tanggal_lahir']
                 ]);
             }
             DB::commit();

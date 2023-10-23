@@ -31,7 +31,7 @@ $title = "Edit Obat";
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <span class="navbar-brand title-layout">Obat</span>
+                <span class="navbar-brand title-layout">Barang</span>
             </div>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,26 +57,26 @@ $title = "Edit Obat";
         <div class="container">
             <div class="card">
                 <div class="card-header card-header-primary card-header-bg">
-                    <h4 class="card-title">Input Stok Obat</h4>
+                    <h4 class="card-title">Input Stok Barang</h4>
                 </div>
                 <div class="card-body">
                     <form action="" method="POST">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Nama Obat</label>
+                                    <label class="bmd-label-floating">Nama Barang</label>
                                     <input type="text" class="form-control" name="nama" value="<?= $data['obat_nama'] ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Kode Obat</label>
+                                    <label class="bmd-label-floating">Kode Barang</label>
                                     <input type="text" class="form-control" name="kode" value="<?= $data['obat_kode'] ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Harga Jual Obat</label>
+                                    <label class="bmd-label-floating">Harga Jual Barang</label>
                                     <input type="text" class="form-control" name="harga_jual" value="<?= $data['obat_harga_jual'] ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Harga Beli Obat</label>
+                                    <label class="bmd-label-floating">Harga Beli Barang</label>
                                     <input type="text" class="form-control" name="harga_beli" value="<?= $data['obat_harga_beli'] ?>">
                                 </div>
                             </div>
@@ -91,7 +91,7 @@ $title = "Edit Obat";
 
                                 </div>
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Stok Obat</label>
+                                    <label class="bmd-label-floating">Stok Barang</label>
                                     <input type="text" class="form-control" name="stok" value="<?= $data['obat_stok'] ?>">
                                 </div>
                             </div>

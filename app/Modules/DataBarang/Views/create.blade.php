@@ -116,7 +116,6 @@
                 },
                 resetForm() {
                     this.barang = {}
-                    this.satuan_list = []
                     this.$refs.data_barang_form.reset()
                 },
                 async store() {

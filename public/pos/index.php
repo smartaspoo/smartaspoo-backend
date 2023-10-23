@@ -67,11 +67,8 @@ $title = "Dashboard " ?>
             <!-- your content here -->
 
             <div class="banner">
-                <div class="row">
-                    <div class="col-md-4 d-md-none d-none d-sm-block d-lg-block">
-                        <img src="IMG/apotek.png" class="gambar">
-                    </div>
-                    <div class="col-md-8 pt-2 pl-md-3 isi-banner">
+                    <div class="row h-100">
+                    <div class="col-md-12 text pt-4 pb-5 px-5 text-center align-self-center isi-banner">
                         <h2 class="title-banner">Selamat Datang <?= ucfirst($_SESSION['data']['user_name']) ?></h2>
                         <div class="text-banner">
                             <p><i class="material-icons fa-2x">today</i> &nbsp<span id="days"></span></span></p>

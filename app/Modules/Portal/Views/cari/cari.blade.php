@@ -141,7 +141,7 @@
                 @foreach($results as $barang)
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ URL::asset($barang->thumbnail) }}" alt="{{ $barang->nama_barang }}">
+                        <img src="{{ URL::asset($barang->thumbnail_readable) }}" alt="{{ $barang->nama_barang }}">
                         <div class="card-body">
                             <h5 class="card-title"><a
                                     href="{{ url('/p/barang/' . $barang->id) }}">{{ $barang->nama_barang }}</a></h5>

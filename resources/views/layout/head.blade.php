@@ -67,7 +67,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <!---- dropdown js ---->
-  <script>
+  {{-- <script>
     const userDropdown = document.getElementById('userDropdown');
     
     userDropdown.addEventListener('mouseenter', function () {
@@ -75,6 +75,6 @@
             this.click();
         }
     });
-  </script>
+  </script> --}}
 </head>
   
