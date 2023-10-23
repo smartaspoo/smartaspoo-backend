@@ -12,7 +12,6 @@
         border-radius: 8px;
         height: 130px;
     }
-    
 </style>
 
 <div class="panel-header bg-primary-gradient">
@@ -97,6 +96,17 @@
         <div class="col-md-6 mt-4">
             <canvas id="myPieChart" style="background-color: #E1EFFA;"></canvas>
         </div>
+
+        <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="barChart1" width="400" height="300"></canvas>
+            </div>
+            <div class="col-md-6">
+                <canvas id="barChart2" width="400" height="300"></canvas>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 
@@ -154,6 +164,72 @@
     const myPieChart = new Chart(ctx, config);
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    var ctx1 = document.getElementById('barChart1').getContext('2d');
+            var data1 = {
+                labels: ['gula', 'susu', 'perasa', 'telur'],
+                datasets: [
+                    {
+                        label: 'Grafik Komposisi',
+                        data: [30, 20, 15, 50],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            };
+            var config1 = {
+                type: 'bar',
+                data: data1,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 10,
+                                max: 50
+                            }
+                        }]
+                    }
+                }
+            };
+            new Chart(ctx1, config1);
+    });
+</script>
 
-
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Bar Chart 2
+            var ctx2 = document.getElementById('barChart2').getContext('2d');
+            var data2 = {
+                labels: ['Supplier A', 'Supplier B', 'Supplier C', 'Supplier Offline'],
+                datasets: [
+                    {
+                        label: 'Grafik Supplier',
+                        data: [25, 15, 35, 10],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            };
+            var config2 = {
+                type: 'bar',
+                data: data2,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 10, 
+                                max: 50
+                            }
+                        }]
+                    }
+                }
+            };
+            new Chart(ctx2, config2);
+        });
+</script>
 @endsection

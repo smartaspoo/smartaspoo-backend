@@ -83,14 +83,14 @@
         }
     </style>
 
-    <div class="search-container">
+    {{-- <div class="search-container">
         <form class="search-bar" role="search">
             <input class="form-control search-input" name="cari" type="search" placeholder="Cari Kode Transaksi" aria-label="Search">
             <button type="submit" class="btn btn-primary search-icon" style="background-color: #FBD9C0;">
                 <i class="fas fa-search"></i>
             </button>
         </form>
-    </div>
+    </div> --}}
     @if($data == null)
     <div class="content-container">
         <h1>Anda belum memiliki transaksi</h1>
