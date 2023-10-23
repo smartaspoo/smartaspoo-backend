@@ -1,13 +1,6 @@
 @extends('portal_layout.templates')
 @section('content')
-@php
-function rupiah($angka)
-{
-$rupiah = 'Rp ' . number_format($angka, 0, ',', '.');
-return $rupiah;
-}
-$totalHarga = 0;
-@endphp
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
@@ -126,31 +119,31 @@ $totalHarga = 0;
         flex-shrink: 0;
     }
 </style>
+
 <div class="container custom-margin">
-        <ul class="nav">
-            <li class="nav-item">
-                <a href="{{ url()->current() }}?q={{$q}}&tipe=barang" class="nav-link active" aria-disabled="true"
-                    style="font-size: 28px; color:#000"><i class="bi bi-archive"></i><span
-                        style="margin-left: 8px;"></i>PRODUK</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url()->current() }}?q={{$q}}&tipe=toko" class="nav-link active" aria-current="page"
-                    style="font-size: 28px; color:#000; text-decoration: underline;"><i
-                        class="bi bi-shop-window"></i><span style="margin-left: 8px;">TOKO</span></a>
-            </li>
-        </ul>
-    </div>
+    <ul class="nav">
+        <li class="nav-item">
+            <a href="{{ url('/p/listbarang') }}" class="nav-link active" aria-disabled="true"
+                style="font-size: 28px; color:#000; text-decoration: underline;"><i class="bi bi-archive"></i><span
+                    style="margin-left: 8px;"></i>PRODUK</a>
+        </li>
+        <li class="nav-item">
+                    <a href="{{ url('/p/listtoko') }}" class="nav-link active" aria-current="page"
+                        style="font-size: 28px; color:#000; text-decoration:"><i class="bi bi-shop-window"></i><span
+                            style="margin-left: 8px;">TOKO</span></a>
+        </li>
+    </ul>
+</div>
 <br>
 <div class="container">
-
     <div class="carousel-inner">
         <div class="carousel-item active">
             <div class="row">
-                @if($tipe == 'barang')
-                @foreach($results as $barang)
+                @foreach($produk as $barang)
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="{{ URL::asset($barang->thumbnail_readable) }}" alt="{{ $barang->nama_barang }}">
+                        <img src="{{ URL::asset($barang->thumbnail) }}" alt="{{ $barang->nama_barang }}"
+                            class="img-fluid">
                         <div class="card-body">
                             <h5 class="card-title"><a
                                     href="{{ url('/p/barang/' . $barang->id) }}">{{ $barang->nama_barang }}</a></h5>
@@ -172,32 +165,17 @@ $totalHarga = 0;
                     </div>
                 </div>
                 @endforeach
-                @elseif($tipe == 'toko')
-                @foreach($results as $users_toko)
-                <div class="col-md-3">
-                    <div class="product-card">
-                        <img src="{{URL::asset($users_toko->foto)}}" alt="{{ $users_toko->nama }}" class="img-fluid">
-                        <h4>{{ $users_toko->nama }}</h4>
-                        <!-- Tampilkan informasi toko lainnya -->
-                    </div>
-                </div>
-                @endforeach
-                @endif
             </div>
         </div>
     </div>
+</div>
 
-
-
-    <script>
-        Vue.createApp({
-            data() {
-                return {
-                    barang: {}
-                }
-
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                barang: {}
             },
-
             methods: {
                 async tambahKeranjang() {
                     const response = await httpClient.post("{!! url('p/barang/keranjang') !!}/", {
@@ -206,8 +184,8 @@ $totalHarga = 0;
                     console.log(response)
                 }
             },
+        }
+    }).mount("#container")
+</script>
 
-        }).mount("#container")
-    </script>
-
-    @endsection
+@endsection

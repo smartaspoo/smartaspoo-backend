@@ -23,9 +23,10 @@ Route::prefix('/p')->group(function () {
     Route::get("/detailproduk",[PortalController::class,"detailproduk"]);
     Route::get("/toko", [PortalController::class, "toko"]);
     Route::get("/ratingdanulasan",[PortalController::class,"ratingdanulasan"]);
-    Route::get("/pencarianbarangumkm",[PortalController::class,"pencarianbarangumkm"]);
-    Route::get("/pencarianbarangtoko",[PortalController::class,"pencarianbarangtoko"]);
+    Route::get("/listbarang",[PortalController::class,"listbarang"]);
+    Route::get("/listtoko",[PortalController::class,"listtoko"]);
     Route::get("/kebijakan",[PortalController::class,"kebijakan"]);
+    Route::get("/tentangaspoomarket",[PortalController::class,"tentangaspoomarket"]);
     Route::get("/pusatbantuan",[PortalController::class,"pusatbantuan"]);
     Route::get("/cekongkir",[PortalController::class,"cekongkir"]);
     Route::post("/cekongkir",[PortalController::class,"cekHasil"]);
