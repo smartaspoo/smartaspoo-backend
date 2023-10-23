@@ -1,5 +1,6 @@
 @extends('portal_layout.templates')
 @section('content')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
@@ -123,12 +124,12 @@
     <ul class="nav">
         <li class="nav-item">
             <a href="{{ url('/p/listbarang') }}" class="nav-link active" aria-disabled="true"
-                style="font-size: 28px; color:#000"><i class="bi bi-archive"></i><span
+                style="font-size: 28px; color:#000; text-decoration: underline;"><i class="bi bi-archive"></i><span
                     style="margin-left: 8px;"></i>PRODUK</a>
         </li>
         <li class="nav-item">
                     <a href="{{ url('/p/listtoko') }}" class="nav-link active" aria-current="page"
-                        style="font-size: 28px; color:#000; text-decoration: underline;"><i class="bi bi-shop-window"></i><span
+                        style="font-size: 28px; color:#000; text-decoration:"><i class="bi bi-shop-window"></i><span
                             style="margin-left: 8px;">TOKO</span></a>
         </li>
     </ul>
