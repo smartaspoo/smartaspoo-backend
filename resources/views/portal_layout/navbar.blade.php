@@ -178,40 +178,6 @@
                     <a class="navbar-menu nav-link" style="font-size: 16px; align:center; font-weight: bold;"
                         href="{{ url('/p/listbarang') }}">Produk</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="navbar-menu nav-link dropdown-toggle"
-                        style="font-size: 16px; align:center; font-weight: bold;" href="#" id="kategoriDropdown"
-                        role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Kategori</a>
-                    <div class="dropdown-menu" aria-labelledby="kategoriDropdown">
-                        <div>
-                            <h5 class="dropdown-title dropdown-judul">Kategori Produk</h5>
-                        </div>
-                        <div class="submenu">
-                            <div class="col-md-6">
-                                <h6 class="dropdown-header dropdown-header-text">UMKM</h6>
-                                <a class="dropdown-item dropdown-item-text" href="#">Roti</a>
-                                <a class="dropdown-item dropdown-item-text" href="#">Jenang</a>
-                                <a class="dropdown-item dropdown-item-text" href="#">Wingko</a>
-                                <a class="dropdown-item dropdown-item-text" href="#">Kue Kering</a>
-                                <a class="dropdown-item dropdown-item-text" href="#">Lainnya</a>
-                            </div>
-                            <div class="dropdown-divider divider"></div>
-                            <div class="col-md-6">
-                                <h6 class="dropdown-header dropdown-header-text">Mitra</h6>
-                                <a class="dropdown-item dropdown-item-text" href="#">Beras</a>
-                                <a class="dropdown-item dropdown-item-text" href="#">Gula</a>
-                                <a class="dropdown-item dropdown-item-text" href="#">Garam</a>
-                                <a class="dropdown-item dropdown-item-text" href="#">Minyak</a>
-                                <a class="dropdown-item dropdown-item-text" href="#">Mentega</a>
-                                <a class="dropdown-item dropdown-item-text" href="#">Lainnya</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-menu nav-link" style="font-size: 16px; align:center; font-weight: bold;"
-                        href="https://www.aspoojateng.com/" target="_blank">Tentang</a>
-                </li>
             </ul>
             <form class="search-form" action="{{ url('/p/cari') }}" role="search" method="GET">
                 <input class="form-control search-input" type="search" placeholder="Search" name="q"
@@ -260,7 +226,6 @@
                             <div class="user-name">@{{ this.userData.email }}</div>
                         </div>
                         <a class="dropdown-item" href="{{ url('/p/daftartransaksi') }}">Daftar Transaksi</a>
-                        <a class="dropdown-item" href="{{ url('/p/status') }}">Status Pembelian</a>
                         <div class="bottom-dropdown">
                             <a class="dropdown-item" href="{{ url('/p/profile') }}">Pengaturan</a>
                             <a style="margin-left: 80px;" class="dropdown-item" href="{{ url('/p/logout') }}">Logout</a>

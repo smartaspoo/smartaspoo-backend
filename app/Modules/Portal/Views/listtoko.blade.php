@@ -26,6 +26,12 @@
         background-color: #fff;
     }
 
+    .card-img {
+    width: 200px; 
+    height: 200px; 
+    object-fit: cover; 
+}
+
     .card-title {
         font-size: 24px;
         font-weight: bold;
@@ -77,7 +83,7 @@
         @foreach($results as $users_toko)
         <div class="col col-md-4">
             <div class="card mx-auto">
-                <img src="{{ URL::asset($users_toko->foto_toko) }}" alt="{{ $users_toko->nama_toko }}">
+                <img src="{{ URL::asset($users_toko->foto) }}" alt="{{ $users_toko->nama}}" class="card-img">
                 <div class="card-body">
                     <h5 class="card-title">Nama Toko: {{ $users_toko->nama }}</h5>
                     <p class="card-text">Tautan: {{ $users_toko->tautan }}</p>

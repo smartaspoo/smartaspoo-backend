@@ -257,6 +257,7 @@
             </div>
         </div>
     <div class="container">
+    <div class="row">
         <!-- Produk yang dijual oleh toko -->
         @foreach ($barang as $item)
 <div class="col-md-3">

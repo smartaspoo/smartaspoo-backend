@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <label>Ongkir</label>
                             <input type="number" v-model="transaksi.ongkir[{{ $iteration }}]"
-                                @input="countTotalPembayaran()" value="0" name="ongkir[]" min="0"
+                                @input="countTotalPembayaran()" value="20000" name="ongkir[]" min="0"
                                 class="form-control">
                         </div>
                         <div class="form-group">
@@ -153,7 +153,7 @@
                 return {
                     checkout: {
                         pesan: null,
-                        ongkir: 0,
+                        ongkir: 20000,
                         alamat: "{{ $userdetail->alamat }}",
                     },
                     transaksi: {
