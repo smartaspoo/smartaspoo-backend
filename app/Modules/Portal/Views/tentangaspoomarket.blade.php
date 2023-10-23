@@ -69,7 +69,7 @@
     </div>
 
     <div class="position-card">
-        <img src="../img/portal/bapakfarrikh.png" class="card-img-top" alt="Farrikh">
+        <img src="../img/portal/Aspoo.png" class="card-img-top" alt="Farrikh">
         <div class="card-body">
             <h3 class="card-title">ASPOO</h3>
             <p class="card-text">Mitra</p>
