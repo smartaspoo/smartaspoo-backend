@@ -30,7 +30,7 @@ if (isset($_POST['username'])) {
 <html lang="en">
 
 <head>
-    <title>Login - Apotek Banyu Aji</title>
+    <title>Login - ASPOO</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <base href="<?= $url ?>">
@@ -60,7 +60,6 @@ if (isset($_POST['username'])) {
                 <div class="col-md-6 mt-3">
                     <h1 class="title-login">Selamat Datang :)</h1>
                     <p class="small-text"><small>Untuk masuk ke website silahkan isi form terlebih dahulu!</small></p class="small-text">
-
 
                     <form class="pt-3" action="" method="POST">
                         <div class="form-group">
