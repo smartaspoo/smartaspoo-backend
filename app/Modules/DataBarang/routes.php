@@ -26,7 +26,7 @@ Route::prefix('/data-barang')->group(function() {
     Route::post('/', [DataBarangController::class, 'store'])->middleware('authorize:create-data_barang');
     Route::get('/{data_barang_id}', [DataBarangController::class, 'show'])->middleware('authorize:read-data_barang');
     Route::get('/{data_barang_id}/edit', [DataBarangController::class, 'edit'])->middleware('authorize:update-data_barang');
-    Route::put('/{data_barang_id}', [DataBarangController::class, 'update'])->middleware('authorize:update-data_barang');
+    Route::post('/{data_barang_id}', [DataBarangController::class, 'update'])->middleware('authorize:update-data_barang');
     Route::delete('/{data_barang_id}', [DataBarangController::class, 'destroy'])->middleware('authorize:delete-data_barang');
 
     

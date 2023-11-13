@@ -185,7 +185,7 @@ class PortalController extends Controller
 
         $keterangan_pengiriman = $pengiriman->first()->keterangan;
         $kurir = $transaksi_barang->kurir_pengiriman;
-        $image_product = $barang->thumbnail;
+        $image_product = $barang->thumbnail_readable;
 
         $status_pengiriman = [
             'transaksi' => $transaksi_barang,
@@ -281,7 +281,7 @@ class PortalController extends Controller
                 $userId = $transaksi->user_id;
                 $tokoId = $transaksi->toko_id;
                 $namaBarang = $barang->nama_barang;
-                $thumbnail = $barang->thumbnail;
+                $thumbnail = $barang->thumbnail_readable;
                 $status = $transaksi->status;
 
 
@@ -447,6 +447,9 @@ class PortalController extends Controller
     {
         return view('Portal::infotoko');
     }
+    private function countRajaOngkir(){
+        
+    }
     public function checkout(Request $request)
     {
         $user = User::find(Auth::id())->with('detail')->first();
@@ -460,7 +463,8 @@ class PortalController extends Controller
         },'barang.user'])->get()->groupBy('barang.created_by_user_id');
         $userdata = UserDetail::where('user_id',$user->id)->first();
         $kodeUnik = rand(10,99);
-        $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user,'kodeUnik' => $kodeUnik];
+        $rajaongkir = $this->countRajaOngkir();
+        $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user,'kodeUnik' => $kodeUnik,'rajaongkir' => $rajaongkir];
 
         return view('Portal::transaksi.checkout', $ret);
     }

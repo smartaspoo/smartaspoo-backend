@@ -90,7 +90,7 @@
     @endif
     @foreach($data as $transaksi)
     <div class="content-container mt-3">
-        <img src="{{URL::asset('/img/portal/produk.png')}}" alt="Product Image" class="product-image">
+        <img src="{{url($transaksi['thumbnail'])}}" alt="Product Image" class="product-image">
         <div class="product-details">
             <div class="product-name">Nama Produk: {{ $transaksi['namaBarang'] }}</div>
             <p>Kode Transaksi : {{ $transaksi['kodeTransaksi'] }}</p>

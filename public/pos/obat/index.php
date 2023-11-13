@@ -19,7 +19,7 @@ if (isset($_POST['nama'])) {
     refresh();
 }
 $i = 1;
-$s = $conn->query("SELECT * FROM obat ORDER BY obat_nama ASC");
+$s = $conn->query("SELECT * FROM obat  ORDER BY obat_nama ASC");
 $satuan2 = $conn->query("SELECT * FROM satuan");
 $title = "Barang";
 ?>

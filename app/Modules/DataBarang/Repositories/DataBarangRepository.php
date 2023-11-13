@@ -14,7 +14,7 @@ class DataBarangRepository
     }
     public static function get($data_barang_id)
     {
-        $data_barang = DataBarang::where('kode_barang', $data_barang_id)->first();
+        $data_barang = DataBarang::where('id', $data_barang_id)->first();
         return $data_barang;
     }
     public static function create($data_barang)
@@ -33,8 +33,11 @@ class DataBarangRepository
 
     public static function update($data_barang_id, $data_barang)
     {
-        DataBarang::where('kode_barang', $data_barang_id)->update($data_barang);
-        $data_barang = DataBarang::where('kode_barang', $data_barang_id)->first();
+        unset($data_barang['thumbnail_readable']);
+        unset($data_barang['harga_user']);
+        unset($data_barang['harga_user_asli']);
+        DataBarang::where('id', $data_barang_id)->update($data_barang);
+        $data_barang = DataBarang::where('id', $data_barang_id)->first();
         return $data_barang;
     }
 

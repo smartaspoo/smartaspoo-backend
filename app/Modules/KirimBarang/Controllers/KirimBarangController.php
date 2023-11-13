@@ -46,7 +46,7 @@ class KirimBarangController extends Controller
             $approve_transaksi = Pengiriman::create([
                 'transaksi_id' => $data->id,
                 'status' => 3,
-                'keterangan' => 'Telah di Approve Oleh Seller'
+                'keterangan' => 'Seller telah mengirim barang'
             ]);
 
             $transaksi_childrens = TransaksiBarangChildren::where('transaksi_id',$data->id)->get();

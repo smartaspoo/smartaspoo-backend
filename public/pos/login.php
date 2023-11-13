@@ -30,7 +30,7 @@ if (isset($_POST['username'])) {
 <html lang="en">
 
 <head>
-    <title>Login - Apotek Banyu Aji</title>
+    <title>Login - ASPOO POS</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <base href="<?= $url ?>">

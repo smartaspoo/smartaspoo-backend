@@ -114,9 +114,17 @@ class DataBarangController extends Controller
     public function update(Request $request, $id)
     {
         $payload = $request->all();
+
         unset($payload['created_at']);
         unset($payload['updated_at']);
-        $data_barang = DataBarangRepository::update($id, $payload);
+        unset($payload['deleted_at']);
+        if($request->has('foto')){
+            unset($payload['foto']);
+            $foto = FileHandler::store(file : $request->file('foto'), targetDir: "uploads/".Auth::user()->id."/barang");
+            $payload['thumbnail'] = $foto;
+        }
+
+        $data_barang = DataBarangRepository::update($payload['id'], $payload);
         return JsonResponseHandler::setResult($data_barang)->send();
     }
 

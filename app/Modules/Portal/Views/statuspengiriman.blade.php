@@ -108,11 +108,11 @@
             text-decoration: none;
         }
 
-            .section-divider {
-                border-top: 2px solid #000000;
-                margin-top: 50px;
-                margin-bottom: 60px;
-            }
+        .section-divider {
+            border-top: 2px solid #000000;
+            margin-top: 50px;
+            margin-bottom: 60px;
+        }
 
         .timeline {
             position: relative;
@@ -168,18 +168,7 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="/p/" class="btn ">
-                <i class="fas fa-arrow-left arrow-icon"></i>
-            </a>
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Status Pengiriman</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+
 
     <div class="container">
         <div class="product-detail">
@@ -200,38 +189,41 @@
             </div>
         </div>
         <div class="section-divider"></div>
-        @foreach ($data['pengiriman'] as $timeline)
-            <?php
-            if (intval($timeline['status']) > 10) {
-                $teks = 'color:red;';
-            } else {
-                $teks = 'color: black;';
-            }
-            $mysqlTimestamp = $timeline['created_at'];
-            $date = new DateTime($mysqlTimestamp, new DateTimeZone('UTC'));
-            
-            // Set the timezone to Indonesia
-            $date->setTimezone(new DateTimeZone('Asia/Jakarta'));
-            
-            // Format the date as per your requirements
-            $dateInIndonesia = $date->format('d M Y ');
-            ?>
-            <div class="shipment-details">
+        @if (isset($data['pengiriman']))
+            @foreach ($data['pengiriman'] as $timeline)
+                <?php
+                if (intval($timeline['status']) > 10) {
+                    $teks = 'color:red;';
+                } else {
+                    $teks = 'color: black;';
+                }
+                $mysqlTimestamp = $timeline['created_at'];
+                $date = new DateTime($mysqlTimestamp, new DateTimeZone('UTC'));
+                
+                // Set the timezone to Indonesia
+                $date->setTimezone(new DateTimeZone('Asia/Jakarta'));
+                
+                // Format the date as per your requirements
+                $dateInIndonesia = $date->format('d M Y ');
+                ?>
                 <div class="shipment-details">
-                    <div class="timeline">
-                        <div class="timeline-divider"></div>
-                        <div class="timeline-item">
-                            <div class="timeline-time" style="{{ $teks }}">{{ $dateInIndonesia }}</div>
-                            <div class="timeline-content">
-                                <div class="timeline-number" style="{{ $teks }}">{{ $timeline['status'] }}</div>
-                                <div class="timeline-description" style="{{ $teks }}">
-                                    {{ $timeline['keterangan'] }}</div>
+                    <div class="shipment-details">
+                        <div class="timeline">
+                            <div class="timeline-divider"></div>
+                            <div class="timeline-item">
+                                <div class="timeline-time" style="{{ @$teks }}">{{ @$dateInIndonesia }}</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-number" style="{{ @$teks }}">
+                                        {{ @$timeline['status_readable'] }}</div>
+                                    <div class="timeline-description" style="{{ @$teks }}">
+                                        {{ @$timeline['keterangan'] }}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        @endif
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
         <script>

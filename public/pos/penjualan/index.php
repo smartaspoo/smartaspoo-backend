@@ -149,46 +149,7 @@ $title = 'Penjualan';
 
                                     <input type="hidden" name="request" value="kirimData">
                                 </div>
-                                <div class="modal-convert">
-                                    <div class="pull-right">
-                                        <a class="btn btn-primary ml-4" id="m_convert_satuan">Convert satuan</a>
-                                        <div class="modal fade" id="convert" tabindex="-1" role="dialog">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5>Convert satuan obat</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-convert">
-                                                            <div class="form-group">
-                                                                <p class=" text-left" id="penjelasan">Penjelasan disini</p>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="bmd-label-floating">Input total obat</label>
-                                                                <input type="number" class="form-control" id="m_total_obat" value="0">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="bmd-label-floating">Satuan Dirubah</label>
-                                                                <select class="form-control selectpicker" data-style="btn btn-link" id="m_satuan_dirubah"></select>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="bmd-label-floating">Jumlah Convert</label>
-                                                                <input type="number" class="form-control" id="m_jumlah_convert" value="0">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <button class="btn btn-primary" class="close" id="m_simpan" data-dismiss="modal" aria-label="Close">Simpan</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                             
                             </div>
                         </div>
                     </form>
