@@ -91,6 +91,13 @@
             line-height: 22.715px;
             /* 125% */
         }
+        .onhover{
+            transition: outline 0.6s linear;
+        }
+        .onhover:hover{
+            cursor: pointer;
+            box-shadow: 10px 12px 15px #45414e1a;
+        }
 
         .diskon {
             color: var(--type-high-emphasis, #171520);
@@ -209,12 +216,12 @@
                     :class="{ active: index === 0 }">
                     <div class="row">
                         <div class="col-md-3" v-for="rekomendasi in chunk" :key="rekomendasi.id">
-                            <div class="card">
+                            <div class="card onhover"  @click="navigasi(`{{ url('/p/') }}/barang/${rekomendasi.id}`)">
                                 <div class="card-img-top">
                                     <img :src="rekomendasi.thumbnail_readable" class="card-img-top" alt="Produk 1"
                                         height="250">
                                     <div class="card-body">
-                                        <div class="card-title">@{{ rekomendasi.nama_barang }}
+                                        <div class="card-title" >@{{ rekomendasi.nama_barang }}
                                             <br></div>
                                         <div class="card-text">
                                             <div class="row">
@@ -227,12 +234,7 @@
                                                 <div class="col-md-12">
                                                     <div class="row justify-content-between">
                                                         <div class="col-md-9">
-                                                            <p class="lokasi">Seller ID: @{{ rekomendasi.created_by_user_id }}</p>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <button  @click="navigasi(`{{ url('/p/') }}/barang/${rekomendasi.id}`)">
-                                                                <i class="fas fa-shopping-cart cart-icon"></i>
-                                                            </button>
+                                                            <p class="lokasi">Stock : @{{ rekomendasi.stock_global }}</p>
                                                         </div>
                                                     </div>
 

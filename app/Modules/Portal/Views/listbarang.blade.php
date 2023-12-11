@@ -140,10 +140,10 @@
         <div class="carousel-item active">
             <div class="row">
                 @foreach($produk as $barang)
-                <div class="col-md-3">
-                    <div class="card">
+                <div class="col-lg-3 d-flex align-items-stretch">
+                    <div class="card" >
                         <img src="{{ URL::asset($barang->thumbnail_readable) }}" alt="{{ $barang->nama_barang }}"
-                            class="img-fluid"  >
+                            class="img-fluid" style="height: 250px" >
                         <div class="card-body">
                             <h5 class="card-title"><a
                                     href="{{ url('/p/barang/' . $barang->id) }}">{{ $barang->nama_barang }}</a></h5>

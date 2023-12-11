@@ -70,8 +70,12 @@ class DataBarangController extends Controller
     public function datatable(Request $request)
     {
         $per_page = $request->input('per_page') != null ? $request->input('per_page') : 15;
-
-        $data = DataBarang::with(['user','satuan'])->where('created_by_user_id',Auth::id())->paginate($per_page);
+        $role = Auth::user()->role_ids[0];
+        if($role == 1 || $role == 5){
+            $data = DataBarang::with(['user','satuan'])->paginate($per_page);
+        }else{
+            $data = DataBarang::with(['user','satuan'])->where('created_by_user_id',Auth::id())->paginate($per_page);
+        }
 
         return JsonResponseHandler::setResult($data)->send();
     }

@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     require app_path('Modules/ValidasiTransaksi/routes.php');
     require app_path('Modules/KirimBarang/routes.php');
     require app_path('Modules/Komposisi/routes.php');
+    require app_path('Modules/MasterUMKM/routes.php');
     
     // ROUTE_MARKER
     // Add routes in the line below (DONT REMOVE THIS SECTION !!!!!!, because this line is LINE_MARKER used by Module Generator)
