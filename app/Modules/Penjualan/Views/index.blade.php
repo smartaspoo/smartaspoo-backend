@@ -1,30 +1,23 @@
 @extends('dashboard_layout.index')
 @section('content')
-<div class="page-inner" id="penjualan">
-    <default-datatable title="Penjualan" url="{!! url('penjualan') !!}" :headers="headers" :can-add="{{ $permissions['create-penjualan'] }}" :can-edit="{{ $permissions['update-penjualan'] }}" :can-delete="{{ $permissions['delete-penjualan'] }}" />
+
+<div id="pos">
+
 </div>
 
 <script>
     createApp({
-        data() {
-            return {
-                headers: [
-                    {
-                        text: 'Id',
-                        value: 'id',
-                    },    
-					],
+        created(){
+            this.redirectLogin();
+        },
+        methods : {
+            redirectLogin(){
+                window.open("{{url('pos')}}", '_blank', 'noreferrer');
             }
-        },
-        created() {},
-        methods: {},
-        components: {
-            ...commonComponentMap(
-                [
-                    'DefaultDatatable',
-                ]
-            )
-        },
-    }).mount('#penjualan');
+        }
+
+    }).mount("#pos")
 </script>
+
+
 @endsection

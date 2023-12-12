@@ -375,7 +375,7 @@
 
                                     <div class="form-control">
                                         <div class="form-label">Quantity : </div>
-                                        <input type="number" min="1" v-model="barang.jumlah" class="form-control">
+                                        <input type="number" min="1" max="{{$data->stock_global}}" v-model="barang.jumlah" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-12">

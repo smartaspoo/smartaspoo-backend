@@ -9,6 +9,7 @@ use App\Modules\Penjualan\Repositories\PenjualanRepository;
 use App\Modules\Penjualan\Requests\PenjualanCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class PenjualanController extends Controller
 {
@@ -31,7 +32,7 @@ class PenjualanController extends Controller
         return JsonResponseHandler::setResult($data)->send();
     }
     public function redirectPos(){
-        
+        return view('Penjualan::index');
     }
 
     public function create()
