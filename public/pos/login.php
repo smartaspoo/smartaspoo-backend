@@ -2,13 +2,13 @@
 require 'config.php';
 if (isset($_POST['username'])) {
     extract($_POST);
-    $query = $conn->query("SELECT * FROM user WHERE user_username = '$username'")->fetch_assoc();
+    $query = $conn->query("SELECT * FROM pos_user WHERE user_username = '$username'")->fetch_assoc();
     if ($query) {
         if (password_verify($password, $query['user_password'])) {
 
             $_SESSION['role'] = $query['user_role'];
             $id = $query['user_id'];
-            $conn->query("UPDATE user SET user_status=1 WHERE user_id='$id'");
+            $conn->query("UPDATE pos_user SET user_status=1 WHERE user_id='$id'");
             unset($query['user_password']);
             unset($query['user_role']);
             unset($query['user_status']);

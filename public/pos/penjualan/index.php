@@ -98,18 +98,18 @@ $title = 'Penjualan';
                                                             </thead>
                                                             <tbody>
                                                                 <?php $i = 1;
-                                                                $s = $conn->query("SELECT * FROM obat");
+                                                                $s = $conn->query("SELECT * FROM barang");
                                                                 while ($row = $s->fetch_assoc()) : ?>
                                                                     <tr>
                                                                         <td><?= $i++ ?></td>
-                                                                        <td><?= $row['obat_kode'] ?></td>
-                                                                        <td><?= $row['obat_nama'] ?></td>
-                                                                        <td><?= $conn->query("SELECT * FROM satuan WHERE satuan_id='" . $row['obat_satuan_id'] . "'")->fetch_assoc()['satuan_nama'] ?>
+                                                                        <td><?= $row['id'] ?></td>
+                                                                        <td><?= $row['nama_barang'] ?></td>
+                                                                        <td><?= $conn->query("SELECT * FROM barang WHERE satuan_id ='" . $row['satuan_id'] . "'")->fetch_assoc()['satuan_id'] ?>
                                                                         </td>
-                                                                        <td><?= $row['obat_harga_jual'] ?></td>
-                                                                        <td><?= $row['obat_stok'] ?></td>
+                                                                        <td><?= $row['harga_umum'] ?></td>
+                                                                        <td><?= $row['stock_global'] ?></td>
                                                                         <td>
-                                                                            <button data-dismiss="modal" <?= (intval($row['obat_stok']) <= 0 ? "disabled" : "") ?> aria-label="Close" onclick="editObatPenjualan('<?= $row['obat_id'] ?>')" class="btn btn-primary" type="button">Pilih</button>
+                                                                            <button data-dismiss="modal" <?= (intval($row['stock_global']) <= 0 ? "disabled" : "") ?> aria-label="Close" onclick="editObatPenjualan('<?= $row['id'] ?>')" class="btn btn-primary" type="button">Pilih</button>
                                                                         </td>
                                                                     </tr>
                                                                 <?php endwhile; ?>
@@ -216,7 +216,7 @@ $title = 'Penjualan';
                                 <div class="form-group">
                                     <select class="form-control selectpicker" data-style="btn btn-link" name="pelanggan" id="pelanggan">
                                         <option selected value="0">Pelanggan Biasa</option>
-                                        <?php $sl = $conn->query("SELECT * FROM pelanggan");
+                                        <?php $sl = $conn->query("SELECT * FROM pos_pelanggan");
                                         while ($row = $sl->fetch_assoc()) : ?>
                                             <option value="<?= $row['pelanggan_id'] ?>"><?= $row['pelanggan_nama'] ?></option>
                                         <?php endwhile; ?>
