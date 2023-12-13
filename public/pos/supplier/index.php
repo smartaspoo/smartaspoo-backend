@@ -5,13 +5,13 @@ middleware();
 if (isset($_POST['nama'])) {
     extract($_POST);
     $id = $_SESSION['data']['user_id'];
-    $query = $conn->query("INSERT INTO supplier(supplier_nama,supplier_alamat,supplier_user_id) VALUES('$nama','$alamat','$id')");
+    $query = $conn->query("INSERT INTO pos_supplier(supplier_nama,supplier_alamat,supplier_user_id) VALUES('$nama','$alamat','$id')");
     handleError($query);
 
     header("Refresh: 0");
 }
 
-$query = "SELECT * FROM supplier ORDER BY supplier_nama ASC";
+$query = "SELECT * FROM pos_supplier ORDER BY supplier_nama ASC";
 $rt = $conn->query($query);
 $i = 1;
 $title = "Supplier";

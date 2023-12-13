@@ -6,23 +6,23 @@ if (isset($_POST['obat'])) {
     extract($_POST);
     $id = $_SESSION['data']['user_id'];
 
-    $obatku = $conn->query("SELECT * FROM obat WHERE obat_id='$obat'")->fetch_assoc();
+    $obatku = $conn->query("SELECT * FROM barang WHERE id='$obat'")->fetch_assoc();
     $stok = intval($obatku['obat_stok']) + intval($jumlah);
-    $stmt = $conn->prepare("UPDATE obat SET obat_stok=?,obat_harga_beli=?,obat_harga_jual=? WHERE obat_id = ?");
+    $stmt = $conn->prepare("UPDATE barang SET stock_global=?,obat_harga_beli=?,obat_harga_jual=? WHERE obat_id = ?");
     $stmt->bind_param("sssi", $stok, $harga_beli, $harga_jual, $obat);
     handleError($stmt->execute());
 
     // Logic Nomor Faktur
-    $check = getData("SELECT * FROM pembelian_faktur WHERE pembelian_faktur_nomor = '$no_faktur'");
+    $check = getData("SELECT * FROM pos_pembelian_faktur WHERE pembelian_faktur_nomor = '$no_faktur'");
     if (!isset($check[0])) {
-        $insert = $conn->query("INSERT INTO pembelian_faktur(pembelian_faktur_nomor,nama_supplier,tanggal_faktur) VALUES('$no_faktur','$supplier','$tanggal_faktur')");
+        $insert = $conn->query("INSERT INTO pos_pembelian_faktur(pembelian_faktur_nomor,nama_supplier,tanggal_faktur) VALUES('$no_faktur','$supplier','$tanggal_faktur')");
         $no_faktur = $conn->insert_id;
     } else {
         $no_faktur = $check[0]['pembelian_faktur_id'];
-        $conn->query("UPDATE pembelian_faktur SET nama_supplier = '$supplier', tanggal_faktur = '$tanggal_faktur' WHERE pembelian_faktur_id = '$no_faktur'");
+        $conn->query("UPDATE pos_pembelian_faktur SET nama_supplier = '$supplier', tanggal_faktur = '$tanggal_faktur' WHERE pembelian_faktur_id = '$no_faktur'");
     }
 
-    $stmt = $conn->prepare("INSERT INTO pembelian(pembelian_obat_id,pembelian_supplier_id,pembelian_nomor_faktur,pembelian_tanggal_faktur,pembelian_jenis,pembelian_jumlah,pembelian_harga_beli,pembelian_harga_jual,pembelian_ppn,pembelian_diskon,pembelian_keuntungan,pembelian_user_id) VALUES(?,?,?,CAST(? AS DATE),?,?,?,?,?,?,?,?) ");
+    $stmt = $conn->prepare("INSERT INTO pos_pembelian(pembelian_obat_id,pembelian_supplier_id,pembelian_nomor_faktur,pembelian_tanggal_faktur,pembelian_jenis,pembelian_jumlah,pembelian_harga_beli,pembelian_harga_jual,pembelian_ppn,pembelian_diskon,pembelian_keuntungan,pembelian_user_id) VALUES(?,?,?,CAST(? AS DATE),?,?,?,?,?,?,?,?) ");
     $stmt->bind_param("ssssssssssss", $obat, $supplier, $no_faktur, $tanggal_faktur, $jenis_pembayaran, $jumlah, $harga_beli, $harga_jual, $ppn, $diskon, $keuntungan, $_SESSION['data']['user_id']);
     handleError($stmt->execute());
     refresh();
@@ -77,7 +77,6 @@ $title = 'Pembelian';
                     <!-- your navbar here -->
                     <li class="ml-auto nav-item">
                         <div class="profil">
-
                         </div>
                     </li>
                 </ul>
@@ -104,7 +103,7 @@ $title = 'Pembelian';
                                     </div>
                                     <div class="col-md-10">
                                         <select name="supplier" class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1" required>
-                                            <?php $s = $conn->query("SELECT * FROM supplier");
+                                            <?php $s = $conn->query("SELECT * FROM pos_supplier");
                                             $i = 1;
                                             while ($row = $s->fetch_assoc()) : ?>
                                                 <option value="<?= $row['supplier_id'] ?>"><?= $row['supplier_nama'] ?></option>
@@ -180,13 +179,13 @@ $title = 'Pembelian';
                                                         </thead>
                                                         <tbody>
                                                             <?php $i = 1;
-                                                            $s = $conn->query("SELECT obat_kode,obat_nama,obat_satuan_id,obat_id FROM obat");
+                                                            $s = $conn->query("SELECT obat_kode,obat_nama,obat_satuan_id,obat_id FROM barang");
                                                             while ($row = $s->fetch_assoc()) : ?>
                                                                 <tr>
                                                                     <td><?= $i++ ?></td>
                                                                     <td><?= $row['obat_kode'] ?></td>
                                                                     <td><?= $row['obat_nama'] ?></td>
-                                                                    <td><?= $conn->query("SELECT * FROM satuan WHERE satuan_id='" . $row['obat_satuan_id'] . "'")->fetch_assoc()['satuan_nama'] ?>
+                                                                    <td><?= $conn->query("SELECT * FROM barang WHERE satuan_id ='" . $row['satuan_id'] . "'")->fetch_assoc()['satuan_id'] ?>
                                                                     </td>
                                                                     <td>
                                                                         <button data-dismiss="modal" aria-label="Close" onclick="editObat('<?= $row['obat_id'] ?>','<?= $row['obat_nama'] ?>')" class="btn btn-primary" type="button">Pilih</button>
@@ -297,10 +296,10 @@ $title = 'Pembelian';
                                     <th>Option</th>
                                 </thead>
                                 <tbody>
-                                    <?php $query = $conn->query("SELECT * FROM pembelian_faktur ORDER BY dibuat DESC");
+                                    <?php $query = $conn->query("SELECT * FROM pos_pembelian_faktur ORDER BY dibuat DESC");
                                     $i = 1;
                                     while ($row = $query->fetch_assoc()) :
-                                        $jumlahDat = getData("SELECT pembelian_jumlah,pembelian_harga_beli FROM pembelian WHERE pembelian_nomor_faktur = '" . $row['pembelian_faktur_id'] . "'");
+                                        $jumlahDat = getData("SELECT pembelian_jumlah,pembelian_harga_beli FROM pos_pembelian WHERE pembelian_nomor_faktur = '" . $row['pembelian_faktur_id'] . "'");
                                         $jumlahData = 0;
                                         foreach ($jumlahDat as $j) {
                                             $jumlahData += intval($j['pembelian_jumlah']) * intval($j['pembelian_harga_beli']);
@@ -309,7 +308,7 @@ $title = 'Pembelian';
                                     ?>
                                         <tr>
                                             <td><?= $i++ ?></td>
-                                            <td><?= queryString("supplier", ['supplier_id', 'supplier_nama'], $row['nama_supplier']) ?></td>
+                                            <td><?= queryString("pos_supplier", ['supplier_id', 'supplier_nama'], $row['nama_supplier']) ?></td>
                                             <td><?= $row['pembelian_faktur_nomor'] ?></td>
                                             <td><?= tgl_indo($row['tanggal_faktur']) ?></td>
                                             <td><?= $jumlahData ?></td>
