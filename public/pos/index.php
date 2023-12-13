@@ -1,9 +1,9 @@
 <?php
 require 'config.php';
 middleware();
-$obat = getData("SELECT COUNT(obat_id) AS obat FROM obat")[0]["obat"];
-$penjualan = getData("SELECT COUNT(penjualan_id) AS p_id FROM penjualan")[0]["p_id"];
-$pembelian = getData("SELECT COUNT(pembelian_id) AS obat FROM pembelian")[0]["obat"];
+$obat = getData("SELECT COUNT(id) AS barang FROM barang")[0]["barang"];
+$penjualan = getData("SELECT COUNT(penjualan_id) AS p_id FROM pos_penjualan")[0]["p_id"];
+$pembelian = getData("SELECT COUNT(pembelian_id) AS obat FROM pos_pembelian")[0]["obat"];
 ?>
 
 

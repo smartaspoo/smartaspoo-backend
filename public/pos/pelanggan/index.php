@@ -1,27 +1,27 @@
 <?php
 require '../config.php';
 middleware();
-$query = $conn->query("SELECT * FROM pelanggan ORDER BY pelanggan_nama ASC");
+$query = $conn->query("SELECT * FROM pos_pelanggan ORDER BY pelanggan_nama ASC");
 if (isset($_POST['nama'])) {
     extract($_POST);
     $id = $_SESSION['data']['user_id'];
     if (isset($_GET['edit'])) {
         $ed = $_GET['edit'];
-        handleError($conn->query("UPDATE pelanggan SET pelanggan_nama='$nama', pelanggan_no_telepon='$no_telepon', pelanggan_alamat='$alamat' , pelanggan_user_id='$id' WHERE pelanggan_id = '$ed'"));
+        handleError($conn->query("UPDATE pos_pelanggan SET pelanggan_nama='$nama', pelanggan_no_telepon='$no_telepon', pelanggan_alamat='$alamat' , pelanggan_user_id='$id' WHERE pelanggan_id = '$ed'"));
         refresh();
     } else {
-        handleError($conn->query("INSERT INTO pelanggan(pelanggan_nama,pelanggan_user_id,pelanggan_no_telepon,pelanggan_alamat) VALUES('$nama','$id','$no_telepon','$alamat')"));
+        handleError($conn->query("INSERT INTO pos_pelanggan(pelanggan_nama,pelanggan_user_id,pelanggan_no_telepon,pelanggan_alamat) VALUES('$nama','$id','$no_telepon','$alamat')"));
         refresh();
     }
 }
 if (isset($_GET['edit'])) {
     $ed = $_GET['edit'];
-    $show = $conn->query("SELECT * FROM pelanggan WHERE pelanggan_id = '$ed'")->fetch_assoc();
+    $show = $conn->query("SELECT * FROM pos_pelanggan WHERE pelanggan_id = '$ed'")->fetch_assoc();
     handleError($show);
 }
 if (isset($_GET['delete'])) {
     $del = $_GET['delete'];
-    handleError($conn->query("DELETE FROM pelanggan WHERE pelanggan_id='$del'"));
+    handleError($conn->query("DELETE FROM pos_pelanggan WHERE pelanggan_id='$del'"));
     refresh();
 }
 $title = (isset($_GET['edit'])) ? "Edit" : "Data";

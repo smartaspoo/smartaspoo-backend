@@ -77,7 +77,7 @@ if (isset($_POST['id_pembelian'])) {
                                 <!-- <th>Option</th> -->
                             </thead>
                             <tbody>
-                                <?php $query = $conn->query("SELECT * FROM pembelian INNER JOIN pembelian_faktur ON pembelian.pembelian_nomor_faktur = pembelian_faktur.pembelian_faktur_id  WHERE pembelian.pembelian_nomor_faktur = '$_GET[id]' ORDER BY pembelian_dibuat DESC");
+                                <?php $query = $conn->query("SELECT * FROM pos_pembelian INNER JOIN pos_pembelian_faktur ON pos_pembelian.pembelian_nomor_faktur = pos_pembelian_faktur.pembelian_faktur_id  WHERE pos_pembelian.pembelian_nomor_faktur = '$_GET[id]' ORDER BY pembelian_dibuat DESC");
                                 $i = 1;
                                 while ($row = $query->fetch_assoc()) :
 
@@ -85,13 +85,13 @@ if (isset($_POST['id_pembelian'])) {
                                     <tr>
                                         <td><?= $i++ ?></td>
                                         <?php if ($i == 2) : ?>
-                                            <td><?= queryString("supplier", ['supplier_id', 'supplier_nama'], $row['pembelian_supplier_id']) ?></td>
+                                            <td><?= queryString("pos_supplier", ['supplier_id', 'supplier_nama'], $row['pembelian_supplier_id']) ?></td>
                                             <td><?= $row['pembelian_jenis'] ?></td>
                                         <?php else : ?>
                                             <td></td>
                                             <td></td>
                                         <?php endif; ?>
-                                        <td><?= queryString("obat", ['obat_id', 'obat_nama'], $row['pembelian_obat_id']) ?></td>
+                                        <td><?= queryString("barang", ['id', 'nama_barang'], $row['pembelian_obat_id']) ?></td>
                                         <td><?= $row['pembelian_jumlah'] ?></td>
                                         <td>Rp. <?= $row['pembelian_harga_beli'] ?></td>
 
