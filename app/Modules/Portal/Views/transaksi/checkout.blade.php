@@ -40,47 +40,51 @@
                 $totalHargaPerSeller = 0;
                 ?>
                 @foreach ($data_group_seller_id as $keranjang)
-                        <?php $barang = $keranjang->barang?>
-                        <div class="col-md-12">
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <img src="{{ $barang->thumbnail_readable }}" alt="Product Image"
-                                                class="product-image" height="100">
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="row justify-content-between">
-                                                <div class="col-md-6">
-                                                    <p style="font-size: 18px"><b>{{ $barang->nama_barang }}</b></p>
-                                                    {{-- <p>{{ rupiah($barang->harga_user) }}</p> --}}
-                                                </div>
-                                                <div class="col-md-6">
-                                                    @php
-                                                        $satuanTotalHarga = $barang->harga_user * $keranjang->jumlah;
-                                                        $totalHarga += $satuanTotalHarga;
-                                                        $totalHargaPerSeller += $satuanTotalHarga;
-                                                    @endphp
-                                                    <br>
-                                                    <p style="text-align: right">X {{ $keranjang->jumlah }}</p>
-                                                    <p style="text-align: right">Total Harga : <b>
-                                                            {{ rupiah($satuanTotalHarga) }}</b></p>
-                                                </div>
+                    <?php $barang = $keranjang->barang; ?>
+                    <div class="col-md-12">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="{{ $barang->thumbnail_readable }}" alt="Product Image"
+                                            class="product-image" height="100">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="row justify-content-between">
+                                            <div class="col-md-6">
+                                                <p style="font-size: 18px"><b>{{ $barang->nama_barang }}</b></p>
+                                                {{-- <p>{{ rupiah($barang->harga_user) }}</p> --}}
                                             </div>
-
+                                            <div class="col-md-6">
+                                                @php
+                                                    $satuanTotalHarga = $barang->harga_user * $keranjang->jumlah;
+                                                    $totalHarga += $satuanTotalHarga;
+                                                    $totalHargaPerSeller += $satuanTotalHarga;
+                                                @endphp
+                                                <br>
+                                                <p style="text-align: right">X {{ $keranjang->jumlah }}</p>
+                                                <p style="text-align: right">Total Harga : <b>
+                                                        {{ rupiah($satuanTotalHarga) }}</b></p>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 @endforeach
                 @if ($data_group_seller_id[0]->barang->harga_user != null)
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Ongkir</label>
-                            <input type="number" v-model="transaksi.ongkir[{{ $iteration }}]"
-                                @input="countTotalPembayaran()" value="20000" name="ongkir[]" min="0"
-                                class="form-control">
+                            <label>Pilih Pengiriman</label>
+                            <select v-model="transaksi.rajaongkir[{{ $iteration }}]" @change="fetchRajaOngkir('transaksi.rajaongkir[{{ $iteration }}]')" name="courier" id="courier"
+                                class="form-control" required>
+                                <option value="-">Pilih Kurir</option>
+                                <option value="jne">JNE</option>
+                                <option value="pos">POS</option>
+                                <option value="tiki">TIKI</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Pesan</label>
@@ -117,14 +121,14 @@
                             </div>
                         </div>
                     </div>
-               
+
                     <div class="col-md-12">
                         <div class="row justify-content-between">
                             <div class="col-md-3">
                                 <p>Kode Unik</p>
                             </div>
                             <div class="col-md-9">
-                                {{ rupiah($kodeUnik)}}
+                                {{ rupiah($kodeUnik) }}
                             </div>
                         </div>
                     </div>
@@ -160,16 +164,26 @@
                         ongkir: [],
                         pesan: [],
                     },
+                    rajaongkirData: 0,
                     totalPengiriman: 0,
                     totalPembayaran: "{{ $totalHarga }}",
-                    kodeUnik : "{{$kodeUnik}}"
+                    kodeUnik: "{{ $kodeUnik }}"
                 }
             },
             methods: {
+                async fetchRajaOngkir(aa) {
+                    console.log(aa)
+                    showLoading();
+                    // const response = await httpClient.post("{{ url('p/checkout/rajaongkir') }}", {courier:this.rajaongkirData})
+                    // this.totalPengiriman = response.data.result.results[0].costs[0].cost[0].value
+                    
+                    // console.log(response)
+                    hideLoading();
+                },
                 countTotalPembayaran() {
                     this.totalPengiriman = 0;
                     console.log(this.transaksi)
-                    this.transaksi.ongkir.forEach(e => {
+                    this.transaksi.courier.forEach(e => {
                         this.totalPengiriman += parseInt(e)
                     })
                 },
@@ -185,19 +199,20 @@
                             "transaksi": this.transaksi,
                             "totalPengiriman": this.totalPengiriman,
                             "totalPembayaran": this.totalPembayaran,
-                            'kodeUnik' : this.kodeUnik
+                            'kodeUnik': this.kodeUnik
                         }
 
                         const response = await httpClient.post("{{ url()->current() }}", data)
                         console.log(response)
-                        
+
                         hideLoading()
                         showToast({
                             message: "Data berhasil ditambahkan"
                         })
 
-                        var data =  response.data.result
-                        window.location.href = `{{url("/")}}/p/checkout/success?kode=${data.kode_transaksi}`
+                        var data = response.data.result
+                        window.location.href =
+                            `{{ url('/') }}/p/checkout/success?kode=${data.kode_transaksi}`
 
                     } catch (err) {
                         hideLoading()

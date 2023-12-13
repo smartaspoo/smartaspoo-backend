@@ -44,6 +44,7 @@ Route::prefix('/p')->group(function () {
     Route::prefix("checkout")->group(function(){
         Route::get("/",[PortalController::class,"checkout"]);
         Route::post("/",[PortalController::class,"postCheckout"]);
+        Route::post("/rajaongkir",[PortalController::class,"cekHasil"]);
         Route::get('/success',[PortalController::class,'setelahcheckout']);
 
     });
