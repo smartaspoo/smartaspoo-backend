@@ -11,7 +11,10 @@ class BarangSCM extends Model
     protected $table = 'scm_barang';
     protected $primaryKey = "id_barang";
     protected $guarded = [];
-    protected $appends = ['id'];
+    protected $appends = ['id','harga_user'];
+    public function getHargaUserAttribute(){
+        return 10000;
+    }
     public function getIdAttribute(){
         return $this->id_barang;
     }

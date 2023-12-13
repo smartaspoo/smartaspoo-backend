@@ -460,7 +460,7 @@ class PortalController extends Controller
         // },"user"])->get()->groupBy("created_by_user_id");
         
         $data = Keranjang::with(['barang' => function($query){
-        },'barang.user'])->get()->groupBy('barang.created_by_user_id');
+        },'barang.user'])->has('barang')->get()->groupBy('barang.created_by_user_id');
         $userdata = UserDetail::where('user_id',$user->id)->first();
         $kodeUnik = rand(10,99);
         $rajaongkir = $this->countRajaOngkir();

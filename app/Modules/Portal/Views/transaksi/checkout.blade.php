@@ -53,7 +53,7 @@
                                             <div class="row justify-content-between">
                                                 <div class="col-md-6">
                                                     <p style="font-size: 18px"><b>{{ $barang->nama_barang }}</b></p>
-                                                    <p>{{ rupiah($barang->harga_user) }}</p>
+                                                    {{-- <p>{{ rupiah($barang->harga_user) }}</p> --}}
                                                 </div>
                                                 <div class="col-md-6">
                                                     @php
