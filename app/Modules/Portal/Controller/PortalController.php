@@ -447,8 +447,17 @@ class PortalController extends Controller
     {
         return view('Portal::infotoko');
     }
-    private function countRajaOngkir(){
-        
+    private function countRajaOngkir($origin, $destination, $weight, $courier){
+        $responseCost = Http::withHeaders([
+            'key' => 'f4f21baace88e503f1f1602d7c07a23a'
+        ])->post('https://api.rajaongkir.com/starter/cost', [
+            'origin' => $origin,
+            'destination' => $destination,
+            'weight' => $weight,
+            'courier' => $courier,
+        ]);
+    
+        return $responseCost['rajaongkir'];
     }
     public function checkout(Request $request)
     {
@@ -463,7 +472,13 @@ class PortalController extends Controller
         },'barang.user'])->get()->groupBy('barang.created_by_user_id');
         $userdata = UserDetail::where('user_id',$user->id)->first();
         $kodeUnik = rand(10,99);
-        $rajaongkir = $this->countRajaOngkir();
+
+        $origin = $data;
+        $destination = $userdata->kota;
+        $weight = 
+        $courier = 
+
+        $rajaongkir = $this->countRajaOngkir($origin, $destination, $weight, $courier);
         $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user,'kodeUnik' => $kodeUnik,'rajaongkir' => $rajaongkir];
 
         return view('Portal::transaksi.checkout', $ret);
@@ -576,6 +591,7 @@ class PortalController extends Controller
         ])->get('https://api.rajaongkir.com/starter/city');
 
         $cities = $response['rajaongkir']['results'];
+        
 
         return view('Portal::cekongkir', ['cities' => $cities, 'ongkir' => '']);
     }
