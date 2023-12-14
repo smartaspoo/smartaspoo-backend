@@ -98,7 +98,6 @@
                         </div>
                         <hr>
                         <div class="margin-40">
-
                             <div class="p-3">
                                 @foreach ($barang->bahan as $bahan)
                                     <h2 class="card-header" style="color: black; background-color:#00FF00"><strong>Bahan : {{ $bahan['nama'] }}</strong>

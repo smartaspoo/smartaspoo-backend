@@ -19,6 +19,7 @@ Route::prefix('/data-barang')->group(function() {
     });
     
     Route::get('/', [DataBarangController::class, 'index'])->middleware('authorize:read-data_barang');
+    Route::get('/view', [DataBarangController::class, 'view'])->middleware('authorize:read-data_barang');
     Route::get('/all', [DataBarangController::class, 'all'])->middleware('authorize:read-data_barang');
     Route::post('/find-kode-barang', [DataBarangController::class, 'findKodeBarang'])->middleware('authorize:read-data_barang');
     Route::get('/datatable', [DataBarangController::class, 'datatable'])->middleware('authorize:read-data_barang');

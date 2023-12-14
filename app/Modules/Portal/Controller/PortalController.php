@@ -478,8 +478,8 @@ class PortalController extends Controller
 
         // $origin = $data;
         // $destination = $userdata->kota;
-        // $weight = 1
-        // $courier = 
+        // $weight = 1;
+        // $courier =
 
         // $rajaongkir = $this->countRajaOngkir($origin, $destination, $weight, $courier);
         $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user,'kodeUnik' => $kodeUnik];
@@ -607,8 +607,8 @@ class PortalController extends Controller
         $responseCost = Http::withHeaders([
             'key' => 'f4f21baace88e503f1f1602d7c07a23a'
         ])->post('https://api.rajaongkir.com/starter/cost', [
-            'origin' => 151,
-            'destination' =>  399,
+            'origin' => 2,
+            'destination' => 3,
             'weight' => 1,
             'courier' => $request->courier,
         ]);

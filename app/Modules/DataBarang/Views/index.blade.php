@@ -4,7 +4,7 @@
     <default-datatable title="DataBarang" url="{!! url('data-barang') !!}" :headers="headers" :can-add="{{ $permissions['create-data_barang'] }}" :can-edit="{{ $permissions['update-data_barang'] }}" :can-delete="{{ $permissions['delete-data_barang'] }}" >
         <template #left-action="{ content }">
             <a :href="`{!! url('data-barang') !!}/komposisi/${content.id}`" class="btn btn-xs btn-info mr-1">Komposisi</a>
-     
+
         </template>
     </default-datatable>
 </div>
