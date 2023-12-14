@@ -89,6 +89,11 @@ class DataBarangController extends Controller
         return view('DataBarang::create');
     }
 
+    public function view()
+    {
+        return view('DataBarang::view');
+    }
+
     public function store(DataBarangCreateRequest $request)
     {
         $payload = $request->all();

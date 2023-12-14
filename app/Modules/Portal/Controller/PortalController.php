@@ -473,13 +473,13 @@ class PortalController extends Controller
         $userdata = UserDetail::where('user_id',$user->id)->first();
         $kodeUnik = rand(10,99);
 
-        $origin = $data;
-        $destination = $userdata->kota;
-        $weight = 
-        $courier = 
+        // $origin = $data;
+        // $destination = $userdata->kota;
+        // $weight = 1;
+        // $courier =
 
-        $rajaongkir = $this->countRajaOngkir($origin, $destination, $weight, $courier);
-        $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user,'kodeUnik' => $kodeUnik,'rajaongkir' => $rajaongkir];
+        // $rajaongkir = $this->countRajaOngkir($origin, $destination, $weight, $courier);
+        $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user,'kodeUnik' => $kodeUnik];
 
         return view('Portal::transaksi.checkout', $ret);
     }
@@ -604,9 +604,9 @@ class PortalController extends Controller
         $responseCost = Http::withHeaders([
             'key' => 'f4f21baace88e503f1f1602d7c07a23a'
         ])->post('https://api.rajaongkir.com/starter/cost', [
-            'origin' => $request->origin,
-            'destination' => $request->destination,
-            'weight' => $request->weight,
+            'origin' => 2,
+            'destination' => 3,
+            'weight' => 1,
             'courier' => $request->courier,
         ]);
 

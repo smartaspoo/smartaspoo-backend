@@ -221,7 +221,7 @@
                                     <img :src="rekomendasi.thumbnail_readable" class="card-img-top" alt="Produk 1"
                                         height="250">
                                     <div class="card-body">
-                                        <div class="card-title" >@{{ rekomendasi.nama_barang }}
+                                        <div class="card-title" style="font-style: uppercase;" >@{{ rekomendasi.nama_barang }}
                                             <br></div>
                                         <div class="card-text">
                                             <div class="row">
