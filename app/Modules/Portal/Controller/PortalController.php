@@ -266,6 +266,9 @@ class PortalController extends Controller
             $transaksiChildren = TransaksiBarangChildren::where('transaksi_id', $transaksi->id)->first();
             if ($transaksiChildren) {
                 $barang = DataBarang::find($transaksiChildren->barang_id);
+                if(!$barang){
+                    continue;
+                }
                 $jumlah = $transaksiChildren->jumlah;
                 $totalHarga = $transaksi->biaya_pengiriman + $transaksi->total_biaya;
                 $totalHargaFormatted = number_format($totalHarga, 0, ',', '.');
@@ -473,13 +476,13 @@ class PortalController extends Controller
         $userdata = UserDetail::where('user_id',$user->id)->first();
         $kodeUnik = rand(10,99);
 
-        $origin = $data;
-        $destination = $userdata->kota;
-        $weight = 
-        $courier = 
+        // $origin = $data;
+        // $destination = $userdata->kota;
+        // $weight = 1
+        // $courier = 
 
-        $rajaongkir = $this->countRajaOngkir($origin, $destination, $weight, $courier);
-        $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user,'kodeUnik' => $kodeUnik,'rajaongkir' => $rajaongkir];
+        // $rajaongkir = $this->countRajaOngkir($origin, $destination, $weight, $courier);
+        $ret = ['data'=>$data,'userdetail'=>$userdata, 'user'=>$user,'kodeUnik' => $kodeUnik];
 
         return view('Portal::transaksi.checkout', $ret);
     }
@@ -487,8 +490,7 @@ class PortalController extends Controller
     {
         $user = User::find(Auth::id())->with('detail')->first();
         $userid = $user->id;
-        $datas = Keranjang::with(['barang' => function($query){
-        },'barang.user'])->get()->groupBy('barang.created_by_user_id');
+        $datas = Keranjang::with(['barang' ,'barang.user'])->where('user_id',Auth::user()->id)->get()->groupBy('barang.created_by_user_id');
         $input = $request->all();
         $kode_master = "TR-". Str::random(8);
         $total_biaya = $request->totalPembayaran;
@@ -503,14 +505,15 @@ class PortalController extends Controller
                     'kode_transaksi' => "TR-" . Str::random(8),
                     'alamat' => $request->checkout['alamat'],
                     'biaya_pengiriman' => intval($request->transaksi['ongkir'][$i]),
-                    'kurir_pengiriman' => "-",
+                    'kurir_pengiriman' =>$request->transaksi['ongkirData'][$i],
                     'total_biaya' => 0, //temp
                     'user_id' => Auth::id(),
                     'toko_id' => 0, // temp
                     'kode_transaksi_master' =>$kode_master,
                     'pesan' => $request->transaksi['pesan'][$i],
-            ]);
+                ]);
                 $toko_id = 0;
+
                 foreach($barangs as $keranjang){
                     $barang = $keranjang->barang;
                         $tr_child = TransaksiBarangChildren::create([
@@ -604,15 +607,15 @@ class PortalController extends Controller
         $responseCost = Http::withHeaders([
             'key' => 'f4f21baace88e503f1f1602d7c07a23a'
         ])->post('https://api.rajaongkir.com/starter/cost', [
-            'origin' => $request->origin,
-            'destination' => $request->destination,
-            'weight' => $request->weight,
+            'origin' => 151,
+            'destination' =>  399,
+            'weight' => 1,
             'courier' => $request->courier,
         ]);
 
         $cities = $response['rajaongkir']['results'];
         $ongkir = $responseCost['rajaongkir'];
 
-        return view('Portal::cekongkir', ['cities' => $cities, 'ongkir' => $ongkir]);
+        return JsonResponseHandler::setResult($ongkir)->send();
     }
 }

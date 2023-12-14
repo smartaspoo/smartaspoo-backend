@@ -78,9 +78,8 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Pilih Pengiriman</label>
-                            <select v-model="transaksi.rajaongkir[{{ $iteration }}]" @change="fetchRajaOngkir('transaksi.rajaongkir[{{ $iteration }}]')" name="courier" id="courier"
+                            <select v-model="transaksi.ongkirData[{{ $iteration }}]" @change="fetchRajaOngkir(transaksi.ongkirData[{{ $iteration }}],{{$iteration}})" name="courier" id="courier"
                                 class="form-control" required>
-                                <option value="-">Pilih Kurir</option>
                                 <option value="jne">JNE</option>
                                 <option value="pos">POS</option>
                                 <option value="tiki">TIKI</option>
@@ -163,6 +162,7 @@
                     transaksi: {
                         ongkir: [],
                         pesan: [],
+                        ongkirData : [],
                     },
                     rajaongkirData: 0,
                     totalPengiriman: 0,
@@ -171,19 +171,24 @@
                 }
             },
             methods: {
-                async fetchRajaOngkir(aa) {
-                    console.log(aa)
+                async fetchRajaOngkir(value,id) {
                     showLoading();
-                    // const response = await httpClient.post("{{ url('p/checkout/rajaongkir') }}", {courier:this.rajaongkirData})
-                    // this.totalPengiriman = response.data.result.results[0].costs[0].cost[0].value
-                    
-                    // console.log(response)
+                    var data = {
+                        courier : value
+                    }
+                    console.log("asodoaskd",value,id)
+                    const response = await httpClient.post("{{ url('p/checkout/rajaongkir') }}", data)
+                    console.log("rajaongkir",response);
+                    this.transaksi.ongkir[id] = response.data.result.results[0].costs[0].cost[0].value
+                    this.transaksi.ongkirData[id] = value
+                    console.log(this.transaksi.ongkir)
+                    this.countTotalPembayaran();
                     hideLoading();
                 },
                 countTotalPembayaran() {
                     this.totalPengiriman = 0;
                     console.log(this.transaksi)
-                    this.transaksi.courier.forEach(e => {
+                    this.transaksi.ongkir.forEach(e => {
                         this.totalPengiriman += parseInt(e)
                     })
                 },
