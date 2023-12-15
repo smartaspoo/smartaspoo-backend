@@ -45,7 +45,7 @@
 
         .section-divider {
             border-top: 2px solid #e0e0e0;
-            margin-top: 100px;
+            margin-top: 10px;
             margin-bottom: 30px;
         }
 
@@ -56,11 +56,12 @@
             font-style: normal;
             font-weight: 600;
             line-height: 24px;
+            margin-top: 20px;
             /* 48% */
         }
 
         .carouselslide {
-            margin-top: 148px;
+            margin-top: 30px;
         }
 
         .carousel-control-prev,
@@ -209,9 +210,9 @@
         <div class="section-divider"></div>
 
         <!-- Section Rekomendasi -->
-        <div class="section-heading mb-3">Produk </div>
+        <div class="section-heading mt-4">Produk </div>
         <div id="carouselRekomendasi" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
+            <div class="carousel-inner mt-4">
                 <div class="carousel-item " v-for="(chunk, index) in chunckRekomendasi" :key="index"
                     :class="{ active: index === 0 }">
                     <div class="row">

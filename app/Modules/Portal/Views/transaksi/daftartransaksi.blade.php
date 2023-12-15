@@ -28,59 +28,102 @@
         }
 
         .content-container {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex; 
-            align-items: center; 
-        }
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-        .product-image {
-            max-width: 150px;
-            height: auto;
-            display: block;
-            margin-right: 20px; 
-        }
+    .product-image {
+        max-width: 150px;
+        height: auto;
+        margin-right: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-        .product-details {
-            flex: 1; 
-        }
+    .product-details {
+        flex: 1;
+    }
 
-        .product-name {
-            font-weight: bold;
-            font-size: 18px;
-        }
+    .product-details .product-name {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 5px;
+        color: #333333;
+    }
 
-        .product-details p {
-            font-size: 16px;
-            margin: 5px 0;
-        }
+    .product-details p {
+        font-size: 16px;
+        margin: 5px 0;
+        line-height: 1.6;
+        color: #555555;
+    }
 
-        .ubah-status,
-        .ubah-status-gagal {
-            background-color: #FBD9C0;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            cursor: pointer;
-            font-size: 16px;
-            padding: 5px 10px;;
-            margin-top: 10px;
-        }
+    .product-quantity {
+        font-size: 16px;
+        margin-top: 8px;
+        color: #777777;
+    }
 
-        .vertical-line {
-            background-color: #FBD9C0;
-            width: 2px;
-            height: 100%;
-            margin: 0 20px;
-        }
+    .btn {
+        border-radius: 5px;
+        padding: 8px 15px;
+        margin-top: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s, color 0.3s;
+        border: none;
+        outline: none;
+    }
 
-        .caption-link {
-            color: #007BFF;
-            font-size: 16px;
-        }
+    .btn-primary {
+        background-color: #007bff;
+        color: #ffffff;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .vertical-line {
+        background-color: #fbd9c0;
+        width: 2px;
+        height: 80%;
+        margin: 0 20px;
+    }
+
+    .caption-link {
+        color: #007bff;
+        font-size: 16px;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .caption-link:hover {
+        color: #0056b3;
+    }
+
+    .caption-total {
+        font-size: 16px;
+        margin-top: 15px;
+        color: #777777;
+    }
+
+    .caption-total a {
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .caption-total a:hover {
+        color: #0056b3;
+    }
     </style>
 
     @if($data == null)
@@ -93,7 +136,7 @@
         <img src="{{url($transaksi['thumbnail'])}}" alt="Product Image" class="product-image">
         <div class="product-details">
             <div class="product-name">Nama Produk: {{ $transaksi['namaBarang'] }}</div>
-            <p>Kode Transaksi : {{ $transaksi['kodeTransaksi'] }}</p>
+            <p style="color: #987544;">Kode Transaksi : {{ $transaksi['kodeTransaksi'] }}</p>
             <p>Tanggal  : {{ $transaksi['createdDate'] }} <br>
                 Status  : {{$transaksi['statusReadable']}}
             </p>
@@ -101,16 +144,16 @@
             <button type="button" class="btn btn-primary ubah-status" data-transaksi-id="{{ $transaksi['transaksiId'] }}" style="background-color: #FBD9C0;">Barang Diterima</button>
             <button type="button" class="btn btn-warning ubah-status-gagal" data-transaksi-id="{{ $transaksi['transaksiId'] }}" style="background-color: #FBD9C0;">Barang Tidak Diterima</button>
             @endif
-            <div class="product-quantity">x {{ $transaksi['jumlah'] }}</div>
+            <div class="product-quantity"> {{ $transaksi['jumlah'] }} Barang</div>
         </div>
         <div class="caption-total">
+            <a>Total Harga</a><br>
+            <a><b>{{ $transaksi['totalHargaFormatted'] }}</b></a>
+            <br><br><br>
             <a href="{{url('p/status/').'/'.$transaksi['kodeTransaksi']}}" class="caption-link">Lihat Daftar Transaksi</a>
         </div>
         <div class="vertical-line" style="background-color: #FBD9C0;"></div>
-        <div class="caption-total">
-            <a>Total Harga</a><br>
-            <a>{{ $transaksi['totalHargaFormatted'] }}</a>
-        </div>
+
     </div>
     @endforeach
 </div>
@@ -186,7 +229,5 @@ $(document).ready(function() {
     });
 });
 </script>
-
-
 
 @endsection

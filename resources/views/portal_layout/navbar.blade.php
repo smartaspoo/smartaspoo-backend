@@ -32,6 +32,7 @@
         display: flex;
         justify-content: space-between;
         padding: 10px 20px;
+        border-radius: 25px;
     }
 
     .dropdown-title {
@@ -135,27 +136,39 @@
         font-weight: 400;
     }
 
-    .dropdown-menu-width {
-        width: 300px;
+    .dropdown-menu {
+        /* Your existing styles... */
+        /* Add or modify styles below */
+        padding: 10px;
+        width: 240px;
+        /* Adjust the width as needed */
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
     }
 
-    .dropdown-user {
-        display: flex;
-        justify-content: space-around;
+    .dropdown-divider {
+        border-bottom: 1px solid #ccc;
+        margin: 8px 0;
     }
 
-    .detailsaldo {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .bottom-dropdown {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .user-dropdown-link {
+    .dropdown-item {
+        padding: 8px 12px;
+        color: #333;
         text-decoration: none;
+        display: block;
+        transition: background-color 0.3s;
+    }
+
+    .dropdown-item:hover {
+        background-color: #f5f5f5;
+    }
+
+    /* Style for logout item */
+    .logout-item {
+        margin-top: 10px;
+        color: #ff0000;
+        /* Change the color as needed */
     }
 
 </style>
@@ -191,7 +204,7 @@
                 <img src="{{ URL::asset('/img/portal/keranjang.png') }}" alt="Keranjang" width="30">
             </a>
             <a class="navbar-menu jadi-mitra-button" v-if="this.isLoggedin == false" style="font-size: 16px"
-                href="{{ url('/p/login') }}" >Jadi Mitra</a>
+                href="{{ url('/p/login') }}">Jadi Mitra</a>
             <div class="user-profile" v-if="this.isLoggedin == false">
                 <div class="dropdown">
                     <a href="#" role="button" id="userNavbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true"
@@ -226,13 +239,11 @@
                             <div class="user-name">@{{ this.userData.email }}</div>
                         </div>
                         <a class="dropdown-item" href="{{ url('/p/daftartransaksi') }}">Daftar Transaksi</a>
-                        <div class="bottom-dropdown">
-                            <a class="dropdown-item" href="{{ url('/p/profile') }}">Pengaturan</a>
-                            <a style="margin-left: 80px;" class="dropdown-item" href="{{ url('/p/logout') }}">Logout</a>
-                        </div>
+                        <a class="dropdown-item" href="{{ url('/p/profile') }}">Pengaturan</a>
+                        <a class="dropdown-item logout-item" href="{{ url('/p/logout') }}">Logout</a>
                     </div>
+
                 </div>
             </div>
         </div>
-    </nav>
-
+</nav>

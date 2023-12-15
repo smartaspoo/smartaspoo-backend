@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -52,24 +51,24 @@
             font-weight: 500;
         }
 
-        .container {
-            margin-top: 20px;
-        }
+    .container {
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
 
-        .imageproduk {
-            max-width: 200px;
-        }
+    .product-detail {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        background-color: #F0F0F0;
+        padding: 20px;
+        border-radius: 10px;
+    }
 
-        .product-detail {
-            width: auto;
-            background: #F0F0F0;
-            padding-right: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin-top: 50px;
-        }
-
+    .imageproduk {
+        max-width: 200px;
+        margin-right: 20px;
+    }
         .shipment-details {
             margin-left: 60px;
         }
