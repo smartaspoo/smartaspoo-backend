@@ -4,7 +4,7 @@ session_start();
 $user = 'root';
 $pass = 'rootmysql';
 $host = '103.30.1.54';
-$db = 'smartaspoo';
+$db = 'pos';
 $cookie_name = 'APOTEK_COOKIES';
 $url = 'http://localhost:8000/pos/';
 $this_url = $_SERVER['REQUEST_URI'];

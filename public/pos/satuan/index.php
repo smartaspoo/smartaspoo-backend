@@ -61,7 +61,7 @@ $title = (isset($_GET['edit'])) ? "Edit Satuan" : "Data Satuan";
 
             <div class="card mt-5">
                 <div class="card-header card-header-primary card-header-bg">
-                    <h4 class="card-title">Data Supplier</h4>
+                    <h4 class="card-title">Data Satuan</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
