@@ -3,6 +3,7 @@
 namespace App\Modules\TransaksiBarang\Models;
 
 use App\Models\User;
+use App\Modules\Portal\Model\TransaksiMaster;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,6 +24,9 @@ class TransaksiBarang extends Model
     }
     public function pembeli(){
         return $this->hasOne(User::class,"id","user_id");
+    }
+    public function master(){
+        return $this->belongsTo(TransaksiMaster::class,'kode_transaksi_master');
     }
     public function penjual(){
         return $this->hasOne(User::class,"id","toko_id");

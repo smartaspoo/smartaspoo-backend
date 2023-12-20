@@ -8,6 +8,7 @@ use App\Modules\ApproveTransaksi\Models\Pengiriman;
 use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\KirimBarang\Repositories\KirimBarangRepository;
 use App\Modules\KirimBarang\Requests\KirimBarangCreateRequest;
+use App\Modules\Pembelian\Repositories\WatZapRepository;
 use App\Modules\Permission\Repositories\PermissionRepository;
 use App\Modules\TransaksiBarang\Models\TransaksiBarang;
 use App\Modules\TransaksiBarang\Models\TransaksiBarangChildren;
@@ -25,10 +26,15 @@ class KirimBarangController extends Controller
 
     public function datatable(Request $request)
     {
-        $auth = Auth::id();
+        $auth = Auth::user();
         $per_page = $request->input('per_page') != null ? $request->input('per_page') : 15;
-        $kirim = TransaksiBarang::with("pembeli")->where('toko_id',$auth)->where('status',2)->paginate($per_page);
-
+        $role = $auth->role_ids[0];
+        $kirim = TransaksiBarang::with("pembeli");
+        if($role != 1){
+            $kirim = $kirim->where('toko_id',$auth->id);
+        }
+        
+        $kirim = $kirim->where('status',2)->paginate($per_page);
         return JsonResponseHandler::setResult($kirim)->send();
     }
 
@@ -41,6 +47,9 @@ class KirimBarangController extends Controller
         try{
             $kode = $request->kode;
             $data = TransaksiBarang::where("kode_transaksi",$kode)->first();
+            $pesan = WatZapRepository::formatMessage($data);
+            $pesan .="Barang Telah di kirim oleh Seller";
+            WatZapRepository::sendTextMessage($data->pembeli->nomor_telepon,$pesan);
             $data->status = 3;
             $data->save();
             $approve_transaksi = Pengiriman::create([

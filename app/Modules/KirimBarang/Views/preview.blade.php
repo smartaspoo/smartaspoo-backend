@@ -51,9 +51,9 @@
                                 @foreach ($data->dataChildren as $child)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td> <img src="{{ url('') . $child->barang->thumbnail_readable }}" height="50">
+                                        <td> <img src="{{ url('') . @$child->barang->thumbnail_readable }}" height="50">
                                         </td>
-                                        <td>{{ $child->barang->nama_barang }}</td>
+                                        <td>{{ @$child->barang->nama_barang }}</td>
                                         <td>{{ rupiah($child->harga) }}</td>
                                         <td>{{ $child->jumlah }}</td>
                                         <td>{{ rupiah(intval($child->jumlah) * intval($child->harga)) }}</td>

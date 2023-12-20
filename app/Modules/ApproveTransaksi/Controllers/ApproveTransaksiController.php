@@ -8,6 +8,7 @@ use App\Modules\ApproveTransaksi\Models\Pengiriman;
 use App\Modules\ApproveTransaksi\Repositories\ApproveTransaksiRepository;
 use App\Modules\ApproveTransaksi\Requests\ApproveTransaksiCreateRequest;
 use App\Modules\DataBarang\Models\DataBarang;
+use App\Modules\Pembelian\Repositories\WatZapRepository;
 use App\Modules\Permission\Repositories\PermissionRepository;
 use App\Modules\TransaksiBarang\Models\TransaksiBarang;
 use App\Modules\TransaksiBarang\Models\TransaksiBarangChildren;
@@ -32,7 +33,11 @@ class ApproveTransaksiController extends Controller
         DB::beginTransaction();
         try{
             $kode = $request->kode;
-            $data = TransaksiBarang::where("kode_transaksi",$kode)->first();
+            $data = TransaksiBarang::with(['pembeli','dataChildren','dataChildren.barang'])->where("kode_transaksi",$kode)->first();
+            $telp = $data->pembeli->nomor_telepon;
+            $pesan = WatZapRepository::formatMessage($data);
+            $pesan .="Telah di Approve oleh Seller";
+            WatZapRepository::sendTextMessage($telp,$pesan);
             $data->status = 1;
             $data->save();
             $approve_transaksi = Pengiriman::create([

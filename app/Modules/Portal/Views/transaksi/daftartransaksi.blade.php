@@ -157,8 +157,8 @@
     </div>
     @endforeach
 </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <script>
 $(document).ready(function() {
     $(".ubah-status").click(function() {
@@ -182,8 +182,8 @@ $(document).ready(function() {
                     alert("gagal mengupdate status.");
                 }
             },
-            error: function() {
-                alert("mbuh ra ketemu error e");
+            error: function(err) {
+                alert(err);
             }
         });
     });

@@ -38,7 +38,7 @@ class KomposisiController extends Controller
     }
 
     public function all(){
-        $komposisi = Komposisi::with("satuan")->get();
+        $komposisi = Komposisi::with("satuan")->has('satuan')->get();
         return JsonResponseHandler::setResult($komposisi)->send();
     }
 

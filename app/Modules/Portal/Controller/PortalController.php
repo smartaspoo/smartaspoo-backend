@@ -15,6 +15,7 @@ use App\Modules\InputSCM\Models\Alamat\Provinsi;
 use App\Modules\KategoriProduk\Models\KategoriProduk;
 use App\Modules\KategoriProduk\Models\PivotKategoriProduk;
 use App\Modules\Keranjang\Models\Keranjang;
+use App\Modules\Pembelian\Repositories\WatZapRepository;
 use App\Modules\Penjualan\Models\Pengikut;
 use App\Modules\Portal\Model\Rekening;
 use App\Modules\Portal\Model\TransaksiMaster;
@@ -321,7 +322,9 @@ class PortalController extends Controller
             
             // Cari transaksi berdasarkan ID
             $transaksi = TransaksiBarang::find($transaksiId);
-            
+            $pesan = WatZapRepository::formatMessage($transaksi);
+            $pesan .="Barang Berhasil diterima\n\n Terima Kasih telah berbelanja di WarungAspoo";
+            WatZapRepository::sendTextMessage($transaksi->pembeli->nomor_telepon,$pesan);
             if (!$transaksi) {
                 // Transaksi tidak ditemukan, maka return response error
                 return response()->json(['success' => false, 'message' => 'Transaksi not found.']);

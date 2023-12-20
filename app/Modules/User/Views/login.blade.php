@@ -59,7 +59,7 @@
                                         <br>
                                         <form role="form">
                                             <div class="mb-3">
-                                                <input v-model="email" type="email" class="form-control form-control-lg" placeholder="email" aria-label="email">
+                                                <input v-model="username" type="email" class="form-control form-control-lg" placeholder="email" aria-label="email">
                                             </div>
                                             <div class="mb-3">
                                                 <input v-model="password" type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password">

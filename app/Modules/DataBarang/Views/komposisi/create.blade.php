@@ -55,6 +55,7 @@
             methods: {
                 async fetchKomposisiList() {
                     const response = await httpClient.get("{!! url('komposisi/all') !!}")
+                    console.log(response)
                     this.komposisi_list = [
                         ...this.komposisi_list,
                         ...response.data.result.map(el => {

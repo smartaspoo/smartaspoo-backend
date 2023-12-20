@@ -5,6 +5,7 @@ namespace App\Modules\ValidasiTransaksi\Controllers;
 use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
 use App\Modules\ApproveTransaksi\Models\Pengiriman;
+use App\Modules\Pembelian\Repositories\WatZapRepository;
 use App\Modules\ValidasiTransaksi\Repositories\ValidasiTransaksiRepository;
 use App\Modules\ValidasiTransaksi\Requests\ValidasiTransaksiCreateRequest;
 use App\Modules\Permission\Repositories\PermissionRepository;
@@ -72,7 +73,17 @@ class ValidasiTransaksiController extends Controller
         $datas = TransaksiBarang::where('kode_transaksi_master',$kode)->get();
         try{
             DB::beginTransaction();
+            $pesan = "Transaksi Anda ".$kode."\n";
+            $i = 1;
             foreach($datas as $data){
+                $telp = $data->pembeli->nomor_telepon;
+                foreach($data->dataChildren as $child){
+                    $barang = $child->barang;
+
+                    $pesan .= $i++.". ".$barang->nama_barang." x".$child->jumlah."\n";
+                }
+             
+
                 $data->status = 2;
                 $data->save();
                 Pengiriman::create([
@@ -81,6 +92,9 @@ class ValidasiTransaksiController extends Controller
                     'keterangan' => 'Transaksi telah di validasi oleh ASPOO',
                 ]);
             }
+            $pesan .="Transaksi telah di validasi oleh ASPOO";
+            WatZapRepository::sendTextMessage($telp,$pesan);
+
             DB::commit();
             
             $result = [
