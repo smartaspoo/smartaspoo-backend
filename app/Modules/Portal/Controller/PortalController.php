@@ -38,7 +38,14 @@ use Illuminate\Support\Facades\Session;
 
 class PortalController extends Controller
 {
-
+    public function cetakPrinter(Request $request){
+        return view('Portal::transaksi.cetakprinter');
+    }
+    public function checkBarang(Request $request){
+        $barang = DataBarang::find($request->barcode);
+        return JsonResponseHandler::setResult($barang)->send();
+        
+    }
     public function deleteKeranjang(Request $request, $id)
     {
         $delete = Keranjang::where("id", $id)->where('user_id', Auth::user()->id);
@@ -89,7 +96,6 @@ class PortalController extends Controller
             return JsonResponseHandler::setMessage("ERROR")->send();
         }
 
-        dd($request->all());
     }
 
     public function searchBarang(Request $request)
@@ -334,6 +340,15 @@ class PortalController extends Controller
             $transaksi->status = $newStatus;
             $transaksi->save();
 
+            foreach($transaksi->dataChildren as $tr_child){
+                $b = DataBarang::find($tr_child->barang_id);    
+
+                $jumlah = $b->terjual;
+                $jumlah = intval($jumlah) + intval($tr_child->jumlah);
+                $b->terjual = $jumlah;
+                $b->save();
+            }
+
             $pengiriman = Pengiriman::create([
                 'transaksi_id' => $transaksiId,
                 'status' => 4,
@@ -346,7 +361,7 @@ class PortalController extends Controller
         } catch (\Exception $e) {
             // Log the error for debugging
             Log::error('Error updating status: ' . $e->getMessage());
-            return response()->json(['success' => false, 'message' => 'Failed to update status.']);
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
     public function updateStatusgagal(Request $request)

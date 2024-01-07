@@ -172,18 +172,29 @@
             },
             methods: {
                 async fetchRajaOngkir(value,id) {
-                    showLoading();
-                    var data = {
-                        courier : value
+                    try{
+                        showLoading();
+                        var data = {
+                            courier : value
+                        }
+                        console.log("asodoaskd",value,id)
+                        const response = await httpClient.post("{{ url('p/checkout/rajaongkir') }}", data)
+                        console.log("rajaongkir",response);
+                        this.transaksi.ongkir[id] = response.data.result.results[0].costs[0].cost[0].value
+                        this.transaksi.ongkirData[id] = value
+                        console.log(this.transaksi.ongkir)
+                        this.countTotalPembayaran();
+                        hideLoading();
+
+                    }catch(e){
+                        hideLoading();
+                        console.log(e)
+                        Swal.fire({
+                                title: `Gagal`,
+                                message: e
+                            })
                     }
-                    console.log("asodoaskd",value,id)
-                    const response = await httpClient.post("{{ url('p/checkout/rajaongkir') }}", data)
-                    console.log("rajaongkir",response);
-                    this.transaksi.ongkir[id] = response.data.result.results[0].costs[0].cost[0].value
-                    this.transaksi.ongkirData[id] = value
-                    console.log(this.transaksi.ongkir)
-                    this.countTotalPembayaran();
-                    hideLoading();
+
                 },
                 countTotalPembayaran() {
                     this.totalPengiriman = 0;

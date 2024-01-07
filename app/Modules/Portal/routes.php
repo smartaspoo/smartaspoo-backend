@@ -38,8 +38,11 @@ Route::prefix('/p')->group(function () {
 
     Route::get("/cari",[PortalController::class,'getCari']);
     Route::prefix("barang")->group(function(){
-        Route::get('/{id}',[PortalController::class,'getBarang']);
+        Route::get('/check',[PortalController::class,'checkBarang']);
         Route::post('/keranjang',[PortalController::class,'postKeranjang']);
+        Route::get('/cetak-printer',[PortalController::class,'cetakPrinter']);
+        Route::get('/{id}',[PortalController::class,'getBarang']);
+
     });
     Route::prefix("checkout")->group(function(){
         Route::get("/",[PortalController::class,"checkout"]);

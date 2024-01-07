@@ -61,7 +61,7 @@
                         ...response.data.result.map(el => {
                             return {
                                 value: el.id,
-                                label: el.nama + "-"+el.satuan.satuan_simbol
+                                label: el.nama + "-"+el?.satuan?.satuan_simbol
                             }
                         })
                     ]

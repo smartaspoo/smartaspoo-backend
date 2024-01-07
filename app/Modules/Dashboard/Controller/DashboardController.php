@@ -2,14 +2,18 @@
 
 namespace App\Modules\Dashboard\Controller;
 
+use App\Handler\JsonResponseHandler;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Modules\Dashboard\Repository\DashboardRepository;
 use App\Modules\DataBarang\Models\DataBarang;
 use App\Modules\InputSCM\Models\BarangSCM;
 use App\Modules\InputSCM\Models\UMKM;
+use App\Modules\Komposisi\Models\Komposisi;
 use App\Modules\Portal\Model\UserDetail;
 use App\Modules\PortalUser\Models\TokoUser;
 use App\Modules\TransaksiBarang\Models\TransaksiBarang;
+use App\Modules\TransaksiBarang\Models\TransaksiBarangChildren;
 use App\Modules\User\Model\UserRoleModel;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -134,6 +138,7 @@ class DashboardController extends Controller
         $transaksi_dibuat = TransaksiBarang::where('toko_id', $userid)
         ->where('status','')->get();
         $get_data = DataBarang::select('*')->where('created_by_user_id', $userid)->limit(5)->get();
+        $komposisi_list = Komposisi::all();
 
 
         $total_transaksi = TransaksiBarang::where('toko_id', $userid)->get();
@@ -146,6 +151,7 @@ class DashboardController extends Controller
             'transaksi_gagal' => count($transaksi_gagal),
             'total_transaksi' => count($total_transaksi),
             'uang_diterima' => count($uang_diterima),
+            'komposisi_list' => $komposisi_list,
             'uang_ditolak' => count($uang_ditolak),
             'barang_dikirim' => count($barang_dikirim),
             'barang_tidak_dikirim' => count($barang_tidak_dikirim),
@@ -158,4 +164,32 @@ class DashboardController extends Controller
 
         return view('Dashboard::index', ['data' => $card]);
     }
+
+    public function cekKomposisi(Request $request) {
+        $periode = $request->periode;
+        $tanggal = DashboardRepository::getTanggal($periode);
+    
+        $transaksi_list = TransaksiBarangChildren::with('barang.komposisi')
+            ->when($tanggal, function ($query) use ($tanggal) {
+                $query->where('created_at', '>', $tanggal);
+            })
+            ->get()
+            ->groupBy('barang_id');
+    
+        $listData = [];
+    
+        $transaksi_list->each(function ($transaksiList, $head) use (&$listData) {
+            $barang = DataBarang::find($head);
+    
+            if ($barang) {
+                $transaksiList->each(function ($transaksi) use ($barang, &$listData) {
+                    $barang->komposisi->each(function ($komposisi) use ($transaksi, &$listData) {
+                        $listData[$komposisi->nama] = ($listData[$komposisi->nama] ?? 0) + $transaksi->barang->komposisi->sum('pivot.jumlah');
+                    });
+                });
+            }
+        });
+        return JsonResponseHandler::setResult($listData)->send();
+    }
+    
 }

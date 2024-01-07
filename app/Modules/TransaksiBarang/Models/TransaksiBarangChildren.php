@@ -12,6 +12,6 @@ class TransaksiBarangChildren extends Model
     protected $table = 'transaksi_children';
     protected $guarded = [];
     public function barang(){
-        return $this->belongsTo(DataBarang::class,"barang_id","id");
+        return $this->belongsTo(DataBarang::class,"barang_id");
     }
 }

@@ -4,12 +4,14 @@ namespace App\Modules\DataBarang\Models;
 
 use App\Models\User;
 use App\Modules\Keranjang\Models\Keranjang;
+use App\Modules\Komposisi\Models\Komposisi;
 use App\Modules\PortalUser\Models\TokoUser;
 use App\Modules\Satuan\Models\Satuan;
 use App\Modules\User\Model\UserRoleModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use function PHPUnit\Framework\isNull;
 
@@ -22,11 +24,17 @@ class DataBarang extends Model
     protected $appends = ['harga_user','harga_user_asli','thumbnail_readable'];
 
     public function getThumbnailReadableAttribute(){
-        if($this->thumbnail == null){
-            return url("/img/portal/produk.png");
-        }else{
+        if(Storage::exists($this->thumbnail)){
             return url("storage/".$this->thumbnail);
+        }else{
+            return url("/img/portal/produk.png");
+
         }
+        // if($this->thumbnail == null){
+        //     return url("/img/portal/produk.png");
+        // }else{
+        //     return url("storage/".$this->thumbnail);
+        // }
     }
     public function getHargaUserAsliAttribute(){
         $user = Auth::user();
@@ -57,6 +65,9 @@ class DataBarang extends Model
     }
     public function foto(){
         return $this->hasMany(DataBarangFoto::class,"barang_id",'id');
+    }
+    public function komposisi(){
+        return $this->belongsToMany(Komposisi::class,'barang_komposisi','id_barang','id_komposisi')->withPivot('jumlah');
     }
     public static function getHargaBarang($user, $barang){
         $role = UserRoleModel::where('user_id',$user->id)->first();

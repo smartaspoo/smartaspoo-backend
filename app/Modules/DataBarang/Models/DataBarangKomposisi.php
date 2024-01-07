@@ -17,6 +17,9 @@ class DataBarangKomposisi extends Model
     public function komposisi(){
         return $this->belongsTo(Komposisi::class,"id_komposisi");
     }
+    public function barang(){
+        return $this->belongsTo(DataBarang::class,'id_barang');
+    }
  
     
 

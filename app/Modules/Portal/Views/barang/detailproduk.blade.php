@@ -352,6 +352,7 @@
                                             <div class="description-section">Info Penting</div>
                                         </div>
                                         <div class="description-content" id="detailContent">
+                                            <img src="https://chart.googleapis.com/chart?cht=qr&chl={{$data->id}}&chs=180x180&choe=UTF-8&chld=L|2" ><br>
                                                 {!! $data->keterangan !!}
                                         </div>
                                         <div class="description-content" id="infoPentingContent">

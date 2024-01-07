@@ -1,6 +1,6 @@
 const initializeHttpClient = (csrf_token) => {
     httpClient = axios.create({
-        timeout: 10000,
+        timeout: 500000,
         headers: {
             'X-CSRF-TOKEN': csrf_token
         }
