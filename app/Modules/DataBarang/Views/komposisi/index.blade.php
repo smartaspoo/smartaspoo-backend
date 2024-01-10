@@ -3,6 +3,7 @@
     <div class="page-inner" id="data-barang">
         <default-datatable title="Komposisi Barang" url="{!! url('data-barang/komposisi') . '/' . $id !!}" :headers="headers"
             :can-add="true" :can-edit="false" :can-delete="true">
+          
         </default-datatable>
     </div>
     <script>

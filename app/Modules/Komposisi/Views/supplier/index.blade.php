@@ -1,14 +1,9 @@
 @extends('dashboard_layout.index')
 @section('content')
     <div class="page-inner" id="komposisi">
-        <default-datatable title="Komposisi" url="{!! url('komposisi') !!}" :headers="headers"
-            :can-add="{{ $permissions['create-komposisi'] }}" :can-edit="{{ $permissions['update-komposisi'] }}"
-            :can-delete="{{ $permissions['delete-komposisi'] }}">
-            <template #left-action="{ content }">
-                <a :href="`{!! url('komposisi') !!}/supplier/${content.id}`" class="btn btn-xs btn-info mr-1">Data
-                    Supplier</a>
-
-            </template>
+        <default-datatable title="Data Supplier " url="{!! url()->current() !!}" :headers="headers"
+            :can-add="{{true }}" :can-edit="{{true }}"
+            :can-delete="{{true }}">
         </default-datatable>
     </div>
 

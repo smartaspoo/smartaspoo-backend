@@ -15,12 +15,11 @@ Route::prefix('/data-barang')->group(function() {
         Route::get('/create', [DataBarangController::class, 'komposisi_create']);
         Route::post('/create', [DataBarangController::class, 'komposisi_store']);
         Route::delete('/{data_barang_id}', [DataBarangController::class, 'komposisi_destroy']);
-
     });
-    
+  
     Route::get('/', [DataBarangController::class, 'index'])->middleware('authorize:read-data_barang');
     Route::get('/view', [DataBarangController::class, 'view'])->middleware('authorize:read-data_barang');
-    Route::get('/all', [DataBarangController::class, 'all'])->middleware('authorize:read-data_barang');
+    Route::get('/all', [DataBarangController::class, 'all']);
     Route::post('/find-kode-barang', [DataBarangController::class, 'findKodeBarang'])->middleware('authorize:read-data_barang');
     Route::get('/datatable', [DataBarangController::class, 'datatable'])->middleware('authorize:read-data_barang');
     Route::get('/create', [DataBarangController::class, 'create'])->middleware('authorize:create-data_barang');
