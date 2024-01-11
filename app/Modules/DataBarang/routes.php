@@ -2,6 +2,7 @@
 namespace App\Modules\DataBarang;
 
 use App\Modules\DataBarang\Controllers\DataBarangController;
+use App\Modules\Komposisi\Controllers\KomposisiSupplierController;
 use Illuminate\Support\Facades\Route;
 
 // USE MARKER (DONT DELETE THIS LINE)
@@ -10,6 +11,13 @@ Route::prefix('/data-barang')->group(function() {
 
     // SUB MENU MARKER (DONT DELETE THIS LINE)
     Route::prefix("/komposisi/{kode_barang}")->group(function(){
+        Route::prefix("/supplier/{kode_komposisi}")->group(function(){
+            Route::get('/',[KomposisiSupplierController::class,'index']);    
+            Route::get('/datatable', [KomposisiSupplierController::class, 'datatable_komposisi']);
+            Route::get('/create', [KomposisiSupplierController::class, 'create']);
+            Route::post('/create', [KomposisiSupplierController::class, 'store']);
+            Route::delete('/{data_barang_id}', [KomposisiSupplierController::class, 'destroy']);
+        });
         Route::get('/',[DataBarangController::class,'komposisi_index']);    
         Route::get('/datatable', [DataBarangController::class, 'komposisi_datatable']);
         Route::get('/create', [DataBarangController::class, 'komposisi_create']);

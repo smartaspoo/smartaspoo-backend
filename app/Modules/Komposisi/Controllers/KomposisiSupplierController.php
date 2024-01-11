@@ -32,11 +32,12 @@ class KomposisiSupplierController extends Controller
         $data = KomposisiSupplier::with(['provinsi','kecamatan','kota','kelurahan'])->paginate($per_page);
         return JsonResponseHandler::setResult($data)->send();
     }
-    public function datatable_komposisi(Request $request,$id)
+    public function datatable_komposisi(Request $request,$idbarang,$id)
     {
         $per_page = $request->input('per_page') != null ? $request->input('per_page') : 15;
-        $data = KomposisiSupplier::with(['provinsi','kecamatan','kota','kelurahan','komposisi'])->whereHas('komposisi',function($query) use ($id){
+        $data = KomposisiSupplier::with(['provinsi','kecamatan','kota','kelurahan','komposisi'])->whereHas('komposisi',function($query) use ($id,$idbarang){
             $query->where('id_komposisi',$id);
+            $query->where('id_barang',$idbarang);
         })->paginate(25);
         return JsonResponseHandler::setResult($data)->send();
     }
@@ -46,7 +47,7 @@ class KomposisiSupplierController extends Controller
         return view('Komposisi::supplier.create');
     }
 
-    public function store(Request $request,$id)
+    public function store(Request $request,$idbarang,$id)
     {
         DB::beginTransaction();
         try{
@@ -54,6 +55,7 @@ class KomposisiSupplierController extends Controller
             if(isset($payload['is_from_id'])){
                 $pivot = PivotKomposisiSupplier::create([
                     'id_komposisi' => $id,
+                    'id_barang' => $idbarang,
                     'id_supplier' => $payload['id_supplier']
                 ]);
             }else{

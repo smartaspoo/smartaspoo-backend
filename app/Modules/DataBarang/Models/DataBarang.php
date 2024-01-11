@@ -24,12 +24,12 @@ class DataBarang extends Model
     protected $appends = ['harga_user','harga_user_asli','thumbnail_readable'];
 
     public function getThumbnailReadableAttribute(){
-        if(Storage::exists($this->thumbnail)){
+        // if(Storage::exists($this->thumbnail)){
             return url("storage/".$this->thumbnail);
-        }else{
-            return url("/img/portal/produk.png");
+        // }else{
+        //     return url("/img/portal/produk.png");
 
-        }
+        // }
         // if($this->thumbnail == null){
         //     return url("/img/portal/produk.png");
         // }else{

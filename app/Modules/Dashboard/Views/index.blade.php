@@ -102,7 +102,7 @@
 
             <div class="container mt-5">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <select name="periodeSelect" id="periodeSelect" onchange="runChart()" class="form-control">
                             <option value="7" selected>7 hari</option>
                             <option value="14">14 hari</option>
@@ -111,14 +111,7 @@
                         </select>
                         <canvas id="barChart1" width="400" height="300"></canvas>
                     </div>
-                    <div class="col-md-6">
-                        <select name="komposisiSelect" id="komposisiSelect" class="form-control">
-                            @foreach ($data['komposisi_list'] as $komposisi)
-                                <option value="{{ $komposisi->id }}">{{ $komposisi->nama }}</option>
-                            @endforeach
-                        </select>
-                        <canvas id="barChart2" width="400" height="300"></canvas>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -181,10 +174,15 @@
         };
 
         const myPieChart = new Chart(ctx, config);
+        var myChart;
 
         document.addEventListener("DOMContentLoaded", function() {
+
             runChart()
-            // Bar Chart 2
+            // runChart2()
+        });
+
+        function runChart2() {
             var ctx2 = document.getElementById('barChart2').getContext('2d');
             var data2 = {
                 labels: ['Bantir', 'Karangjati', 'Kembangarum', 'Ngalian'],
@@ -212,7 +210,7 @@
                 }
             };
             new Chart(ctx2, config2);
-        });
+        }
 
         function runChart() {
             var periode = document.getElementById("periodeSelect").value
@@ -223,9 +221,13 @@
             }).then(x => x.json()).then(function(result) {
                 var key = Object.keys(result.result)
                 var value = Object.values(result.result)
-                var max =  Math.ceil((Math.max(...value)) / 10) * 10;
-                console.log(value,max)
-                var ctx1 = document.getElementById('barChart1').getContext('2d');
+                var max = Math.ceil((Math.max(...value)) / 10) * 10;
+                console.log(value, max)
+                var barchart = document.getElementById('barChart1')
+                var ctx1 = barchart.getContext('2d');
+                if (myChart) {
+                    myChart.destroy();
+                }
                 var data1 = {
                     labels: key,
                     datasets: [{
@@ -251,7 +253,7 @@
                         }
                     }
                 };
-                new Chart(ctx1, config1);
+                myChart = new Chart(ctx1, config1);
             })
 
 

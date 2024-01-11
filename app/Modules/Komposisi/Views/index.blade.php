@@ -5,9 +5,6 @@
             :can-add="{{ $permissions['create-komposisi'] }}" :can-edit="{{ $permissions['update-komposisi'] }}"
             :can-delete="{{ $permissions['delete-komposisi'] }}">
             <template #left-action="{ content }">
-                <a :href="`{!! url('komposisi') !!}/supplier/${content.id}`" class="btn btn-xs btn-info mr-1">Data
-                    Supplier</a>
-
             </template>
         </default-datatable>
     </div>
