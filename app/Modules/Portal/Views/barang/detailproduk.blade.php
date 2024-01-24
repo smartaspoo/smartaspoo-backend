@@ -322,7 +322,10 @@
                                                     <div class="store-details">
                                                         <div class="store-name">{{@$data->user->nama}}</div>
                                                         <div class="store-location">{{@$data->user->detail->alamat}}</div>
+                                                        <div style="font-size: 8px;">{{@$data->user->user->username}}</div>
+
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>

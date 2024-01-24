@@ -2,6 +2,7 @@
 
 namespace App\Modules\PortalUser\Models;
 
+use App\Models\User;
 use App\Modules\Portal\Model\UserDetail;
 use App\Modules\User\Model\UserModel;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +27,7 @@ class TokoUser extends Model
         }
     }
     public function user(){
-        return $this->hasOne(UserDetail::class, 'user_id','user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
+    
 }
