@@ -9,6 +9,7 @@ use App\Modules\User\Controller\UserController;
 
 Route::prefix('/p')->group(function () {
     Route::post("/fetch-login",[PortalController::class,"fetchLogin"]);
+    Route::get("/fetch-login",[PortalController::class,"fetchLogin"]);
     Route::get("/",[PortalController::class,"index"]);
     Route::get('/index-data',[PortalController::class,'dashboard']);
     Route::get("/login",[PortalController::class,"login"]);
